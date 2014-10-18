@@ -7,17 +7,17 @@
     "npm": "1.2.x"
   },
   "scripts": {
-    "start": "NODE_ENV=development ./node_modules/.bin/nodemon server.coffee",
-    "debug": "NODE_ENV=development ./node_modules/.bin/nodemon --debug-brk server.coffee"
+    "start": "NODE_ENV=development ./node_modules/.bin/nodemon -e coffee,jade,sass server.coffee"
   },
   "dependencies": {
     "async": "latest",
     "coffee-script": "latest",
+    "connect-assets": "latest",
     "connect-flash": "latest",
     "express": "latest",
     "jade": "latest",
-    "underscore": "latest",
-    "connect-assets": "latest",
-    "nodemon": "latest"
+    "nodemon": "latest",
+    "node-sass": "latest",
+    "underscore": "latest"
   }
 }

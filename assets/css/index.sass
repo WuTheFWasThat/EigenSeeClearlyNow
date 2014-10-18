@@ -1,0 +1,30 @@
+$sidebar-width: 250px
+$header-color: #ddd
+$sidebar-color: #c9c
+$content-color: #cc9
+$footer-color: #9c9
+
+body, html
+    margin: 0
+    padding: 0
+    color: #000
+    background: $sidebar-color
+
+    #header
+        background: $header-color
+
+    #wrap
+        padding-right: $sidebar-width
+        #sidebar
+            background: $sidebar-color
+            float: left
+            width: $sidebar-width
+        #content
+            margin: 0 (-$sidebar-width) 0 auto
+            width: 100%
+            background: $content-color
+            float: right
+    #footer
+        background: $footer-color
+        clear: both
+

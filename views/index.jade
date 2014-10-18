@@ -1,8 +1,21 @@
 
 html
   head
+    !=css('app.css')
   body
-    p
-      | I can see clearly now.
-    canvas
+    #header
+        h1 I can see clearly now.
+    #wrap
+      #sidebar
+        h2 Table of Contents
+        ul
+          li
+            a(href='#') Link 1
+          li
+            a(href='#') Link 2
+          | ...
+      #content
+        canvas#mainCanvas
+    #footer
+      p Footer
     != js('app.js')
