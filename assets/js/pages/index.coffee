@@ -7,17 +7,11 @@ hasWebGL = ->
   try
     gl = canvas.getContext('webgl')
   catch x
-    gl = null
   if gl is null
     try
       gl = canvas.getContext('experimental-webgl')
-      glExperimental = true
     catch x
-      gl = null
-  if gl
-    return true
-  else
-    return false
+  return !!gl
 
 if do hasWebGL
   THREE.Renderer = THREE.WebGLRenderer
