@@ -4,11 +4,17 @@
 
 This is a project to help anyone learning linear algebra visualize its concepts.
 
-It is still in progress.
+It is still a very, very early-stage work in progress.
+
+A demo should be available at https://jeffwu-eigen.terminal.com/
 
 ## SETUP ##
 
-### Option 1 - Set up yourself ###
+### Option 1 - On Terminal.com ###
+
+Make an account on Terminal.com if you don't have one.  Log in, and start this snapshot: https://www.terminal.com/snapshot/c89d0aaa382a9242995afc053ac74ad3d787d0010511d8cad9aacd9426d3ed29
+
+### Option 2 - Set up yourself ###
 
 Install:
 
@@ -21,8 +27,6 @@ Start:
     npm start
 
 Then just hit port 8080 on localhost
-
-### Option 2 - Coming soon ###
 
 ## ROUGH ROAD MAP: ##
 
