@@ -1,6 +1,8 @@
 # From the three.js github example
 init = ->
 
+  pageSelector = '#vectors-intro'
+
   # Constants
   width = 500
   height = 500
@@ -63,6 +65,14 @@ init = ->
     mesh.rotation.x += 0.01
     mesh.rotation.y += 0.02
     renderer.render scene, camera
+
+    vectorXDir = $(pageSelector + ' .sliderX').val()
+    vectorYDir = $(pageSelector + ' .sliderY').val()
+    vectorZDir = $(pageSelector + ' .sliderZ').val()
+
+    vectorArrow.setDirection new THREE.Vector3(vectorXDir, vectorYDir, vectorZDir)
+
     return
+
 
   return do animate
