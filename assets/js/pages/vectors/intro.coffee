@@ -18,12 +18,21 @@ init = ->
   camera.lookAt origin
 
   # Axes
-  # TODO get different colors and other half of axes
+  # TODO get different colors and other half of axes,
+  # otherwise write a buildAxes() function in utils
   axisLen = 800
   axisHelper = new THREE.AxisHelper(axisLen)
   scene.add axisHelper
 
-  do buildAxes
+  # Vector with arrow
+  vectorColor = 0xCC0099
+  arrowLen = 400
+  arrowHead = 20
+  arrow = new THREE.Vector3(1, 0, 1)
+  vectorArrow = new THREE.ArrowHelper(arrow, origin, arrowLen, vectorColor, arrowHead, arrowHead)
+  scene.add vectorArrow
+
+  #do buildAxes
 
   # Cube
   boxLen = 100
@@ -38,7 +47,7 @@ init = ->
 
   # Renderer
   rendererColor = 0x000066
-  renderer = new THREE.CanvasRenderer(canvas: canvas[0])
+  renderer = new THREE.Renderer(canvas: canvas[0])
   renderer.setSize width, height
   renderer.setClearColorHex rendererColor
 
