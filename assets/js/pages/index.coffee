@@ -1,6 +1,24 @@
 
 console.log 'General javascript stuff'
-if window.WebGLRenderingContext
+
+hasWebGL = ->
+  gl = null
+  try
+    gl = canvas.getContext('webgl')
+  catch x
+    gl = null
+  if gl is null
+    try
+      gl = canvas.getContext('experimental-webgl')
+      glExperimental = true
+    catch x
+      gl = null
+  if gl
+    return true
+  else
+    return false
+
+if do hasWebGL
   THREE.Renderer = THREE.WebGLRenderer
 else
   THREE.Renderer = THREE.CanvasRenderer
