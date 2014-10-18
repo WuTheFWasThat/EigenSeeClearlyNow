@@ -2,6 +2,7 @@
 console.log 'General javascript stuff'
 
 hasWebGL = ->
+  canvas = document.createElement 'canvas'
   gl = null
   try
     gl = canvas.getContext('webgl')
