@@ -59,5 +59,3 @@ init = ->
     return
 
   return do animate
-
-init()
