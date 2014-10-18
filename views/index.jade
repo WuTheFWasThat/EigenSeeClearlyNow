@@ -1,21 +1,23 @@
 
 html
   head
+    title Eigen see clearly now
     !=css('app.css')
   body
     #header
-        h1 I can see clearly now.
+        h1 Eigen see clearly now
     #wrap
       #sidebar
-        h2 Table of Contents
+        h3 Table of Contents
         ul
           li
-            a(href='#') Link 1
+            a(href='#') Vectors
           li
-            a(href='#') Link 2
+            a(href='#') Matrices
           | ...
       #content
-        canvas#mainCanvas
+        .vectors-intro
+          include vectors/intro.jade
     //#footer
       p Footer
     != js('app.js')
