@@ -19,11 +19,9 @@ function init() {
     mesh = new THREE.Mesh( geometry, material );
     scene.add( mesh );
 
-    renderer = new THREE.CanvasRenderer();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-
-    document.body.appendChild( renderer.domElement );
-
+    var canvas = $('#mainCanvas')
+    renderer = new THREE.CanvasRenderer({canvas: canvas[0]});
+    renderer.setSize( 500, 500 );
 }
 
 function animate() {

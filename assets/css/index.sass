@@ -1,7 +1,11 @@
-$sidebar-width: 250px
 $header-color: #ddd
+
 $sidebar-color: #c9c
+$sidebar-width: 250px
+
 $content-color: #cc9
+$content-padding: 50px
+
 $footer-color: #9c9
 
 body, html
@@ -20,7 +24,8 @@ body, html
             float: left
             width: $sidebar-width
         #content
-            margin: 0 (-$sidebar-width) 0 auto
+            padding: 10px
+            margin: 0 (-$sidebar-width - 2*$content-padding) 0 auto
             width: 100%
             background: $content-color
             float: right
