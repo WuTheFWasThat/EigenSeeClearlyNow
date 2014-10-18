@@ -18,8 +18,8 @@ init = ->
   camera.lookAt origin
 
   # Axes
-  # TODO get different colors and other half of axes,
-  # otherwise write a buildAxes() function in utils
+  # TODO get other half of axes,
+  # otherwise write buildAxes() with an Object3D in utils
   axisLen = 800
   axisHelper = new THREE.AxisHelper(axisLen)
   scene.add axisHelper
@@ -28,9 +28,16 @@ init = ->
   vectorColor = 0xCC0099
   arrowLen = 400
   arrowHead = 20
-  arrow = new THREE.Vector3(1, 0, 1)
-  vectorArrow = new THREE.ArrowHelper(arrow, origin, arrowLen, vectorColor, arrowHead, arrowHead)
+  direction = new THREE.Vector3(1, 0, 1)
+  vectorArrow = new THREE.ArrowHelper(direction, origin, arrowLen, vectorColor, arrowHead, arrowHead)
   scene.add vectorArrow
+
+  # Grid
+  gridSize = 800
+  gridStep = 50
+  gridColor = 0x0033CC
+  buildGrids scene, gridSize, gridStep, gridColor
+
 
   #do buildAxes
 
