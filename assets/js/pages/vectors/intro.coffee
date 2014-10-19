@@ -3,26 +3,12 @@ init = ->
 
   pageSelector = '#vectors-intro'
 
-  # Constants
-  width = 500
-  height = 500
-  origin = new THREE.Vector3(0, 0, 0)
-
   # Scene
-  scene = new THREE.Scene()
+  scene = buildScene()
 
   # Camera
-  cameraAngle = 45
-  cameraNear = 1
-  cameraFar = 10000
-  cameraXPos = 500
-  cameraYPos = 500
-  cameraZPos = 500
-  camera = new THREE.PerspectiveCamera(cameraAngle, width / height, cameraNear, cameraFar)
-  camera.position.set cameraXPos, cameraYPos, cameraZPos
-  camera.lookAt origin
+  camera = buildCamera()
 
-  # Axes
   # TODO get other half of axes,
   # otherwise write buildAxes() with an Object3D in utils
   axisLen = 500
@@ -32,7 +18,7 @@ init = ->
   # Vector with arrow
   vectorColor = 0xCC0099
   arrowLen = 0
-  arrowHead = 20
+  arrowHead = 50
   direction = new THREE.Vector3(1, 0, 0)
   vectorArrow = new THREE.ArrowHelper(direction, origin, arrowLen, vectorColor, arrowHead, arrowHead)
   scene.add vectorArrow
@@ -45,13 +31,8 @@ init = ->
 
   #do buildAxes
 
-
   # Renderer
-  canvas = $("#mainCanvas")
-  rendererColor = 0x000066
-  renderer = new THREE.Renderer({canvas: canvas[0], antialias: true})
-  renderer.setSize width, height
-  renderer.setClearColor rendererColor
+  renderer = buildRenderer()
 
   # Changes vector based on user input
   animate = ->
