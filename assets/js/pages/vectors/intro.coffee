@@ -4,11 +4,18 @@ init_vector_intro = ->
   # Setup scene, camera, renderer
   [scene, camera, renderer] = setup()
 
+  # Axes
   # TODO get other half of axes,
   # otherwise write buildAxes() with an Object3D in utils
-  axisLen = 500
+  axisLen = 300
   axisHelper = new THREE.AxisHelper(axisLen)
   scene.add axisHelper
+
+  # Grid
+  gridSize = 250
+  gridStep = gridSize / 10
+  gridColor = 0x3D3D5C
+  buildGrids scene, gridSize, gridStep, gridColor
 
   # Vector with arrow
   vectorColor = 0xCC0099
@@ -17,12 +24,6 @@ init_vector_intro = ->
   direction = new THREE.Vector3(1, 0, 0)
   vectorArrow = new THREE.ArrowHelper(direction, origin, arrowLen, vectorColor, arrowHead, arrowHead)
   scene.add vectorArrow
-
-  # Grid
-  gridSize = 800
-  gridStep = gridSize / 10
-  gridColor = 0x666699
-  buildGrids scene, gridSize, gridStep, gridColor
 
   #do buildAxes
 

@@ -10,13 +10,17 @@ buildScene = ->
 
 buildCamera = ->
   angle = 45
-  aspect = width / height
+  #aspect = width / height
+  frustumScaleFactor = 3
+  frustumWidth = width / frustumScaleFactor
+  frustumHeight = height / frustumScaleFactor
   near = 1
   far = 10000
-  x = 500
-  y = 300
-  z = 500
-  camera = new THREE.PerspectiveCamera(angle, aspect, near, far)
+  x = 100
+  y = 70
+  z = 100
+  #camera = new THREE.PerspectiveCamera(angle, aspect, near, far)
+  camera = new THREE.OrthographicCamera(-frustumWidth, frustumWidth, frustumHeight,-frustumHeight, near, far)
   camera.position.set x, y, z
   camera.lookAt origin
   return camera
