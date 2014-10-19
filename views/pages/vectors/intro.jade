@@ -5,17 +5,20 @@ block content
   - var max = 100
   - var step = 10
 
-  .slider-input
+  .slider-input.slider-Xinput
     span.slider-name X
     input#sliderX(type='range', min=min, max=max, step=step, value=100)
+    span#sliderXVal 100
 
-  .slider-input
+  .slider-input.slider-Yinput
     span.slider-name Y
     input#sliderY(type='range', min=min, max=max, step=step)
+    span#sliderYVal 0
 
-  .slider-input
+  .slider-input.slider-Zinput
     span.slider-name Z
     input#sliderZ(type='range', min=min, max=max, step=step)
+    span#sliderZVal 0
 
   canvas#mainCanvas
 

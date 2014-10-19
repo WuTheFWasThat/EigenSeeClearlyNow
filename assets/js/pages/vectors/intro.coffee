@@ -31,14 +31,18 @@ init_vector_intro = ->
     requestAnimationFrame animate
     renderer.render scene, camera
 
-    vectorXDir = parseInt $('#sliderX').val()
-    vectorYDir = parseInt $('#sliderY').val()
-    vectorZDir = parseInt $('#sliderZ').val()
+    vectorXVal = parseInt $('#sliderX').val()
+    vectorYVal = parseInt $('#sliderY').val()
+    vectorZVal = parseInt $('#sliderZ').val()
 
-    length = Math.sqrt( Math.pow(vectorXDir, 2) + Math.pow(vectorYDir, 2) + Math.pow(vectorZDir, 2))
-    # console.log vectorXDir, vectorYDir, vectorZDir, length
+    $('#sliderXVal').text(vectorXVal)
+    $('#sliderYVal').text(vectorYVal)
+    $('#sliderZVal').text(vectorZVal)
+
+    length = Math.sqrt( Math.pow(vectorXVal, 2) + Math.pow(vectorYVal, 2) + Math.pow(vectorZVal, 2))
+    # console.log vectorXVal, vectorYVal, vectorZVal, length
     vectorArrow.setLength length
-    vectorArrow.setDirection new THREE.Vector3(vectorXDir, vectorYDir, vectorZDir)
+    vectorArrow.setDirection new THREE.Vector3(vectorXVal, vectorYVal, vectorZVal)
 
     return
 
