@@ -1,17 +1,27 @@
-- var min = -100
-- var max = 100
-- var step = 10
+extends ../../layout
 
-.slider-input
-  span.slider-name X
-  input.sliderX(type='range', min=min, max=max, step=step, value=100)
+block content
+  - var min = -100
+  - var max = 100
+  - var step = 10
 
-.slider-input
-  span.slider-name Y
-  input.sliderY(type='range', min=min, max=max, step=step)
+  .slider-input
+    span.slider-name X
+    input#sliderX(type='range', min=min, max=max, step=step, value=100)
 
-.slider-input
-  span.slider-name Z
-  input.sliderZ(type='range', min=min, max=max, step=step)
+  .slider-input
+    span.slider-name Y
+    input#sliderY(type='range', min=min, max=max, step=step)
 
-canvas#mainCanvas
+  .slider-input
+    span.slider-name Z
+    input#sliderZ(type='range', min=min, max=max, step=step)
+
+  canvas#mainCanvas
+
+block morefoot
+  script.
+    $(document).ready(function() {
+      console.log('intro');
+      init_vector_intro();
+    });

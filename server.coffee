@@ -4,6 +4,7 @@
 #require('coffee-script/register')
 
 express = require("express")
+_ = require("underscore")
 
 process.on "uncaughtException", (err) ->
   console.log "Uncaught exception", err.message
@@ -26,6 +27,20 @@ app.set 'view engine', 'jade'
 
 app.get '/', (req, res) ->
   res.render 'index'
+
+app.get '/:section/:subsection', (req, res) ->
+  section = req.param 'section'
+  subsection = req.param 'subsection'
+  #try
+  res.render 'pages/' + section + '/' + subsection
+  #catch e
+  #  res.render '404'
+
+app.use (req, res, next) ->
+  res.status 404
+  res.render 'errors/404',
+    url: _.escape req.url
+  return
 
 port = process.argv[2] or 8080
 app.listen port

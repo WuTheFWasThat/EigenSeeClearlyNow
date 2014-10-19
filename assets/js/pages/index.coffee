@@ -18,6 +18,3 @@ if do hasWebGL
 else
   THREE.Renderer = THREE.CanvasRenderer
 
-$('#vectors-intro').removeClass 'hidden'
-$(document).ready ->
-  init()

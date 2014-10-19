@@ -1,7 +1,5 @@
 # From the three.js github example
-init = ->
-
-  pageSelector = '#vectors-intro'
+init_vector_intro = ->
 
   # Scene
   scene = buildScene()
@@ -39,9 +37,9 @@ init = ->
     requestAnimationFrame animate
     renderer.render scene, camera
 
-    vectorXDir = parseInt $(pageSelector + ' .sliderX').val()
-    vectorYDir = parseInt $(pageSelector + ' .sliderY').val()
-    vectorZDir = parseInt $(pageSelector + ' .sliderZ').val()
+    vectorXDir = parseInt $('#sliderX').val()
+    vectorYDir = parseInt $('#sliderY').val()
+    vectorZDir = parseInt $('#sliderZ').val()
 
     length = Math.sqrt( Math.pow(vectorXDir, 2) + Math.pow(vectorYDir, 2) + Math.pow(vectorZDir, 2))
     # console.log vectorXDir, vectorYDir, vectorZDir, length
@@ -52,3 +50,4 @@ init = ->
 
 
   return do animate
+

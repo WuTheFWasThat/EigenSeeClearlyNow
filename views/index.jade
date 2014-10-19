@@ -1,18 +1,5 @@
 
-html
-  head
-    title Eigen see clearly now
-    !=css('app.css')
-  body
-    #header
-        h1 Eigen see clearly now
-    #wrap
-      #sidebar
-        h3 Table of Contents
-        ul#table_of_contents
-      #content
-        #vectors-intro.hidden
-          include pages/vectors/intro.jade
-    //#footer
-      p Footer
-    != js('app.js')
+extends layout
+
+block content
+  h1 Welcome!

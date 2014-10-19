@@ -1,0 +1,18 @@
+html
+  head
+    title Eigen see clearly now
+    !=css('app.css')
+  body
+    #header
+        h1 Eigen see clearly now
+    #wrap
+      #sidebar
+        h3 Table of Contents
+        ul#table_of_contents
+      #content
+        block content
+    //#footer
+      p Footer
+
+    != js('app.js')
+    block morefoot
