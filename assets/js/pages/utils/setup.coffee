@@ -29,5 +29,9 @@ buildRenderer = ->
   renderer.setClearColor color
   return renderer
 
-
+setup = ->
+  scene = buildScene()
+  camera = buildCamera()
+  renderer = buildRenderer()
+  return [scene, camera, renderer]
 

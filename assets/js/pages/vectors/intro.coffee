@@ -1,11 +1,8 @@
 # From the three.js github example
 init_vector_intro = ->
 
-  # Scene
-  scene = buildScene()
-
-  # Camera
-  camera = buildCamera()
+  # Setup scene, camera, renderer
+  [scene, camera, renderer] = setup()
 
   # TODO get other half of axes,
   # otherwise write buildAxes() with an Object3D in utils
@@ -29,9 +26,6 @@ init_vector_intro = ->
 
   #do buildAxes
 
-  # Renderer
-  renderer = buildRenderer()
-
   # Changes vector based on user input
   animate = ->
     requestAnimationFrame animate
@@ -50,4 +44,3 @@ init_vector_intro = ->
 
 
   return do animate
-
