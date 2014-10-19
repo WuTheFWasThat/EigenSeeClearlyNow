@@ -28,9 +28,9 @@ init = ->
 
   # Vector with arrow
   vectorColor = 0xCC0099
-  arrowLen = 400
+  arrowLen = 0
   arrowHead = 20
-  direction = new THREE.Vector3(1, 0, 1)
+  direction = new THREE.Vector3(0, 0, 0)
   vectorArrow = new THREE.ArrowHelper(direction, origin, arrowLen, vectorColor, arrowHead, arrowHead)
   scene.add vectorArrow
 
@@ -39,7 +39,6 @@ init = ->
   gridStep = 50
   gridColor = 0x0033CC
   buildGrids scene, gridSize, gridStep, gridColor
-
 
   #do buildAxes
 
@@ -66,10 +65,13 @@ init = ->
     mesh.rotation.y += 0.02
     renderer.render scene, camera
 
-    vectorXDir = $(pageSelector + ' .sliderX').val()
-    vectorYDir = $(pageSelector + ' .sliderY').val()
-    vectorZDir = $(pageSelector + ' .sliderZ').val()
+    vectorXDir = parseInt $(pageSelector + ' .sliderX').val()
+    vectorYDir = parseInt $(pageSelector + ' .sliderY').val()
+    vectorZDir = parseInt $(pageSelector + ' .sliderZ').val()
 
+    length = Math.sqrt( Math.pow(vectorXDir, 2) + Math.pow(vectorYDir, 2) + Math.pow(vectorZDir, 2))
+    # console.log vectorXDir, vectorYDir, vectorZDir, length
+    vectorArrow.setLength length
     vectorArrow.setDirection new THREE.Vector3(vectorXDir, vectorYDir, vectorZDir)
 
     return

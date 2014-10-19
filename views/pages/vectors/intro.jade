@@ -1,13 +1,17 @@
+- var min = -100
+- var max = 100
+- var step = 10
+
 .slider-input
   span.slider-name X
-  input.sliderX(type='range', min='-10' max='10' step='1')
+  input.sliderX(type='range', min=min, max=max, step=step)
 
 .slider-input
   span.slider-name Y
-  input.sliderY(type='range', min='-10' max='10' step='1')
+  input.sliderY(type='range', min=min, max=max, step=step)
 
 .slider-input
   span.slider-name Z
-  input.sliderZ(type='range', min='-10' max='10' step='1')
+  input.sliderZ(type='range', min=min, max=max, step=step)
 
 canvas#mainCanvas
