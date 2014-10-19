@@ -13,7 +13,7 @@ buildGrids = (scene, gridSize, gridStep, gridColor) ->
   scene.add grid1
 
   grid2 = grid1.clone()
-  grid2.rotation = new THREE.Euler(Math.PI / 2, 0, 0)
+  grid2.rotation = new THREE.Euler(0, 0, Math.PI / 2)
   scene.add grid2
 
   grid3 = grid1.clone()

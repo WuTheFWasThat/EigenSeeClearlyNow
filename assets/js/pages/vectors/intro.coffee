@@ -12,17 +12,20 @@ init = ->
   scene = new THREE.Scene()
 
   # Camera
-  cameraXPos = -1600
-  cameraYPos = 600
-  cameraZPos = 1200
-  camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000)
+  cameraAngle = 45
+  cameraNear = 1
+  cameraFar = 10000
+  cameraXPos = 500
+  cameraYPos = 500
+  cameraZPos = 500
+  camera = new THREE.PerspectiveCamera(cameraAngle, width / height, cameraNear, cameraFar)
   camera.position.set cameraXPos, cameraYPos, cameraZPos
   camera.lookAt origin
 
   # Axes
   # TODO get other half of axes,
   # otherwise write buildAxes() with an Object3D in utils
-  axisLen = 800
+  axisLen = 500
   axisHelper = new THREE.AxisHelper(axisLen)
   scene.add axisHelper
 
@@ -36,33 +39,23 @@ init = ->
 
   # Grid
   gridSize = 800
-  gridStep = 50
-  gridColor = 0x0033CC
+  gridStep = gridSize / 10
+  gridColor = 0x666699
   buildGrids scene, gridSize, gridStep, gridColor
 
   #do buildAxes
 
-  # Cube
-  boxLen = 100
-  geometry = new THREE.BoxGeometry(boxLen, boxLen, boxLen)
-  material = new THREE.MeshBasicMaterial(
-    color: 0x0000ff
-    wireframe: true
-  )
-  mesh = new THREE.Mesh(geometry, material)
-  scene.add mesh
-  canvas = $("#mainCanvas")
 
   # Renderer
+  canvas = $("#mainCanvas")
   rendererColor = 0x000066
-  renderer = new THREE.Renderer(canvas: canvas[0])
+  renderer = new THREE.Renderer({canvas: canvas[0], antialias: true})
   renderer.setSize width, height
-  renderer.setClearColorHex rendererColor
+  renderer.setClearColor rendererColor
 
+  # Changes vector based on user input
   animate = ->
     requestAnimationFrame animate
-    mesh.rotation.x += 0.01
-    mesh.rotation.y += 0.02
     renderer.render scene, camera
 
     vectorXDir = parseInt $(pageSelector + ' .sliderX').val()
