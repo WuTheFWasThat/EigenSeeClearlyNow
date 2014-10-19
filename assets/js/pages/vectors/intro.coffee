@@ -30,7 +30,7 @@ init = ->
   vectorColor = 0xCC0099
   arrowLen = 0
   arrowHead = 20
-  direction = new THREE.Vector3(0, 0, 0)
+  direction = new THREE.Vector3(1, 0, 0)
   vectorArrow = new THREE.ArrowHelper(direction, origin, arrowLen, vectorColor, arrowHead, arrowHead)
   scene.add vectorArrow
 
