@@ -1,3 +1,7 @@
+///////////////////////////////////////////////////////////////////////////////
+// page layout
+///////////////////////////////////////////////////////////////////////////////
+
 $header-color: #ddd
 $header-padding: 20px
 
@@ -35,10 +39,33 @@ body, html
             padding: $content-padding
             background: $content-color
 
+///////////////////////////////////////////////////////////////////////////////
+// generally useful classes
+///////////////////////////////////////////////////////////////////////////////
+
+.hidden
+    display: none
+    visibility: hidden
+
+$well-bg: #eec
+$well-border: #dd5
+
+.well
+    min-height: 20px
+    padding: 19px
+    margin-bottom: 20px
+    background-color: $well-bg
+    border: 1px solid $well-border
+    border-radius: 5px
+
+
+///////////////////////////////////////////////////////////////////////////////
+// inputs - sliders
+///////////////////////////////////////////////////////////////////////////////
+
 .slider-input
     .slider-name
         margin-right: 10px
-
 .slider-Xinput
     color: red
 .slider-Yinput
@@ -46,6 +73,3 @@ body, html
 .slider-Zinput
     color: blue
 
-.hidden
-    display: none
-    visibility: hidden
