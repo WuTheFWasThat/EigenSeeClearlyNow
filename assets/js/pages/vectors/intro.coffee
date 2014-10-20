@@ -12,9 +12,10 @@ init_vector_intro = ->
   vectorColor = 0xCC0099
   arrowLen = 0
   arrowHead = 50
-  direction = new THREE.Vector3(1, 0, 0)
-  vectorArrow = new THREE.ArrowHelper(direction, origin, arrowLen, vectorColor, arrowHead, arrowHead)
-  scene.add vectorArrow
+
+  vector = new Vector([100, 0, 0])
+
+  vector.draw_on scene
 
   # Changes vector based on user input
   animate = ->
@@ -29,10 +30,14 @@ init_vector_intro = ->
     $('#sliderYVal').text(vectorYVal)
     $('#sliderZVal').text(vectorZVal)
 
-    length = Math.sqrt( Math.pow(vectorXVal, 2) + Math.pow(vectorYVal, 2) + Math.pow(vectorZVal, 2))
-    # console.log vectorXVal, vectorYVal, vectorZVal, length
-    vectorArrow.setLength length
-    vectorArrow.setDirection new THREE.Vector3(vectorXVal, vectorYVal, vectorZVal)
+    timer = new Date().getTime() * 0.0005
+    camera.position.x = Math.floor(Math.cos( timer ) * 200)
+    camera.position.z = Math.floor(Math.sin( timer ) * 200)
+    #console.log scene.position
+    camera.lookAt(scene.position)
+    #console.log camera.position
+
+    vector.set_coordinates vectorXVal, vectorYVal, vectorZVal
 
     return
 
