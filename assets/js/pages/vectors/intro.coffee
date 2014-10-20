@@ -12,7 +12,7 @@ init_vector_intro = ->
   scene.add axisHelper
 
   # Grid
-  gridSize = 250
+  gridSize = axisLen
   gridStep = gridSize / 10
   gridColor = 0x3D3D5C
   buildGrids scene, gridSize, gridStep, gridColor
