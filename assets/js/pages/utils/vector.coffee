@@ -18,7 +18,7 @@ class Vector
 
       # three.js material
 
-      material_options = options.material or {color: 0x00f}
+      material_options = options.material or {color: 0xffaaaa}
       @material = new THREE.LineBasicMaterial(material_options)
 
       # three.js geometry
