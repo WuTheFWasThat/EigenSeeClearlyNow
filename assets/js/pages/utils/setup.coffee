@@ -1,8 +1,6 @@
 # Set up the basic necessities: scene, camera, renderer
 
 # General constants
-width = 500
-height = 500
 origin = new THREE.Vector3(0, 0, 0)
 
 # Default scene
@@ -12,6 +10,8 @@ buildScene = ->
 # Default orthographic camera
 # points at the origin from (100, 70, 100)
 buildCamera = ->
+  width = 500
+  height = 500
   angle = 45
   frustumScaleFactor = 2
   frustumWidth = width / frustumScaleFactor
@@ -28,19 +28,18 @@ buildCamera = ->
 
 # Default renderer uses antialiasing
 # and uses WebGL if possible (for faster rendering)
-buildRenderer = ->
-  canvas = $("#mainCanvas")
+buildRenderer = (canvas) ->
   color = 0x000066
   renderer = new THREE.Renderer({canvas: canvas[0], antialias: true})
-  renderer.setSize width, height
+  renderer.setSize canvas.width(), canvas.height()
   renderer.setClearColor color
   return renderer
 
 # Sets up default scene, camera, and renderer
-setupView = ->
+setupView = (canvas) ->
   scene = buildScene()
   camera = buildCamera()
-  renderer = buildRenderer()
+  renderer = buildRenderer(canvas)
   return [scene, camera, renderer]
 
 # Sets up default axes and grid

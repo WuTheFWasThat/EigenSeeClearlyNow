@@ -1,8 +1,9 @@
 # Intro: One Vector
 init_vector_intro = ->
 
+  canvas = $("#canvas")
   # Setup scene, camera, renderer
-  [scene, camera, renderer] = setupView()
+  [scene, camera, renderer] = setupView(canvas)
 
   # Setup axes, grid
   setupAxes scene
