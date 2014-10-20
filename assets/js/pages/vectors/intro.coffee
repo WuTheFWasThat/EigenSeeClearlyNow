@@ -1,31 +1,20 @@
-# From the three.js github example
+# Intro: One Vector
 init_vector_intro = ->
 
   # Setup scene, camera, renderer
-  [scene, camera, renderer] = setup()
+  [scene, camera, renderer] = setupView()
 
-  # Axes
-  # TODO get other half of axes,
-  # otherwise write buildAxes() with an Object3D in utils
-  axisLen = 300
-  axisHelper = new THREE.AxisHelper(axisLen)
-  scene.add axisHelper
-
-  # Grid
-  gridSize = axisLen
-  gridStep = gridSize / 10
-  gridColor = 0x3D3D5C
-  buildGrids scene, gridSize, gridStep, gridColor
+  # Setup axes, grid
+  setupAxes scene
 
   # Vector with arrow
+  # TODO build our own vector arrow
   vectorColor = 0xCC0099
   arrowLen = 0
   arrowHead = 50
   direction = new THREE.Vector3(1, 0, 0)
   vectorArrow = new THREE.ArrowHelper(direction, origin, arrowLen, vectorColor, arrowHead, arrowHead)
   scene.add vectorArrow
-
-  #do buildAxes
 
   # Changes vector based on user input
   animate = ->
