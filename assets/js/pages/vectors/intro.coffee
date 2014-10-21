@@ -11,12 +11,12 @@ init_vector_intro = ->
   # Vector with arrow
   # TODO build our own vector arrow
   vectorColor = 0xCC0099
-  arrowLen = 0
-  arrowHead = 50
-
-  vector = new Vector([100, 0, 0])
-
-  vector.draw_on view.scene
+  vectorDirection = new THREE.Vector3(1, 0, 0)
+  vectorLen = 1
+  headLength = 5
+  headWidth = 5
+  vector = new THREE.ArrowHelper(vectorDirection, origin, vectorLen, vectorColor, headLength, headWidth)
+  view.scene.add vector
 
   # Changes vector based on user input
   animate = ->
@@ -31,7 +31,9 @@ init_vector_intro = ->
     $('#sliderYVal').text(vectorYVal)
     $('#sliderZVal').text(vectorZVal)
 
-    vector.set_coordinates vectorXVal, vectorYVal, vectorZVal
+    newVector = new THREE.Vector3(vectorXVal, vectorYVal, vectorZVal)
+    vector.setLength newVector.length()
+    vector.setDirection newVector.normalize()
     return
 
   $(document).keydown (e) ->
