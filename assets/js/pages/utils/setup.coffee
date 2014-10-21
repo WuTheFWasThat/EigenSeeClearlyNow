@@ -9,46 +9,44 @@ class View
     options = options or {}
 
     options.cameraDistance = options.cameraDistance or 200
-    # Default scene
-    buildScene = ->
-      return new THREE.Scene()
+
+    #######################
+    # SCENE
+    #######################
+
+    @scene = new THREE.Scene()
+
+    #######################
+    # CAMERA
+    #######################
+
+    width = 500
+    height = 500
+
+    frustumWidth = width / 2
+    frustumHeight = height / 2
+
+    near = -1000
+    far = 1000
+
+    @camera = new THREE.OrthographicCamera(-frustumWidth, frustumWidth, frustumHeight, -frustumHeight, near, far)
 
     # angles in degrees
-    theta = 45 # polar angle
-    phi = 30 # azimuthal angle
+    @theta = 45 # polar angle
+    @phi = 30 # azimuthal angle
 
-    # Default orthographic camera
-    buildCamera = ->
-      width = 500
-      height = 500
+    do @positionCamera
 
-      frustumWidth = width / 2
-      frustumHeight = height / 2
+    #######################
+    # CAMERA
+    #######################
 
-      near = -1000
-      far = 1000
+    backgroundColor = options.backgroundColor or 0x000066
 
-      x = (Math.cos (Math.PI * phi / 180)) * (Math.sin (Math.PI * theta / 180))
-      y = Math.sin (Math.PI * phi / 180)
-      z = (Math.cos (Math.PI * phi / 180)) * (Math.cos (Math.PI * theta / 180))
-
-      camera = new THREE.OrthographicCamera(-frustumWidth, frustumWidth, frustumHeight, -frustumHeight, near, far)
-      camera.position.set x, y, z
-      camera.lookAt origin
-      return camera
-
-    # Default renderer uses antialiasing
-    # and uses WebGL if possible (for faster rendering)
-    buildRenderer = (canvas) ->
-      color = 0x000066
-      renderer = new THREE.Renderer({canvas: canvas[0], antialias: true})
-      renderer.setSize canvas.width(), canvas.height()
-      renderer.setClearColor color
-      return renderer
-
-    @scene = buildScene()
-    @camera = buildCamera()
-    @renderer = buildRenderer(canvas)
+    # Default renderer uses antialiasing and uses WebGL if possible (for faster rendering)
+    @renderer = new THREE.Renderer({canvas: canvas[0], antialias: true})
+    @renderer.setSize canvas.width(), canvas.height()
+    @renderer.setClearColor backgroundColor
 
     #console.log scene.position
     #camera.lookAt(scene.position)
@@ -57,6 +55,17 @@ class View
   render: ->
     @renderer.render @scene, @camera
 
+  positionCamera: ->
+    x = (Math.cos (Math.PI * @phi / 180)) * (Math.sin (Math.PI * @theta / 180))
+    y = Math.sin (Math.PI * @phi / 180)
+    z = (Math.cos (Math.PI * @phi / 180)) * (Math.cos (Math.PI * @theta / 180))
+    @camera.position.set x, y, z
+    @camera.lookAt origin
+
+  rotate: (dtheta, dphi) ->
+    @theta += dtheta
+    @phi += dphi
+    do @positionCamera
 
 # Sets up default axes and grid
 setupAxes = (scene) ->

@@ -32,6 +32,7 @@ init_vector_intro = ->
     $('#sliderZVal').text(vectorZVal)
 
     vector.set_coordinates vectorXVal, vectorYVal, vectorZVal
+    #view.rotate 5, 1
 
     return
 
