@@ -32,9 +32,20 @@ init_vector_intro = ->
     $('#sliderZVal').text(vectorZVal)
 
     vector.set_coordinates vectorXVal, vectorYVal, vectorZVal
-    #view.rotate 5, 1
-
     return
 
+  $(document).keydown (e) ->
+    speed = 2
+    switch e.keyCode
+      when 37 # left
+        view.rotate -speed, 0
+      when 38 # up
+        view.rotate 0, speed
+      when 39 # right
+        view.rotate speed, 0
+      when 40 # down
+        view.rotate 0, -speed
+    do e.preventDefault
+    return false
 
   return do animate
