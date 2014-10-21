@@ -3,10 +3,10 @@ init_vector_intro = ->
 
   canvas = $("#canvas")
   # Setup scene, camera, renderer
-  [scene, camera, renderer] = setupView(canvas)
+  view = new View(canvas)
 
   # Setup axes, grid
-  setupAxes scene
+  setupAxes view.scene
 
   # Vector with arrow
   # TODO build our own vector arrow
@@ -16,12 +16,12 @@ init_vector_intro = ->
 
   vector = new Vector([100, 0, 0])
 
-  vector.draw_on scene
+  vector.draw_on view.scene
 
   # Changes vector based on user input
   animate = ->
     requestAnimationFrame animate
-    renderer.render scene, camera
+    do view.render
 
     vectorXVal = parseInt $('#sliderX').val()
     vectorYVal = parseInt $('#sliderY').val()
@@ -30,13 +30,6 @@ init_vector_intro = ->
     $('#sliderXVal').text(vectorXVal)
     $('#sliderYVal').text(vectorYVal)
     $('#sliderZVal').text(vectorZVal)
-
-    timer = new Date().getTime() * 0.0005
-    camera.position.x = Math.floor(Math.cos( timer ) * 200)
-    camera.position.z = Math.floor(Math.sin( timer ) * 200)
-    #console.log scene.position
-    camera.lookAt(scene.position)
-    #console.log camera.position
 
     vector.set_coordinates vectorXVal, vectorYVal, vectorZVal
 
