@@ -10,30 +10,23 @@ init_vector_intro = ->
 
   # Vector with arrow
   # TODO build our own vector arrow
-  vectorColor = 0xCC0099
-  vectorDirection = new THREE.Vector3(1, 0, 0)
-  vectorLen = 1
-  headLength = 5
-  headWidth = 5
-  vector = new THREE.ArrowHelper(vectorDirection, origin, vectorLen, vectorColor, headLength, headWidth)
-  view.scene.add vector
+  vector = new Vector([1, 0, 0])
+  vector.draw_on view.scene
 
   # Changes vector based on user input
   animate = ->
     requestAnimationFrame animate
     do view.render
 
-    vectorXVal = parseInt $('#sliderX').val()
-    vectorYVal = parseInt $('#sliderY').val()
-    vectorZVal = parseInt $('#sliderZ').val()
+    x = parseInt $('#sliderX').val()
+    y = parseInt $('#sliderY').val()
+    z = parseInt $('#sliderZ').val()
 
-    $('#sliderXVal').text(vectorXVal)
-    $('#sliderYVal').text(vectorYVal)
-    $('#sliderZVal').text(vectorZVal)
+    $('#sliderXVal').text(x)
+    $('#sliderYVal').text(y)
+    $('#sliderZVal').text(z)
 
-    newVector = new THREE.Vector3(vectorXVal, vectorYVal, vectorZVal)
-    vector.setLength newVector.length()
-    vector.setDirection newVector.normalize()
+    vector.set_trajectory(x, y, z)
     return
 
   $(document).keydown (e) ->
