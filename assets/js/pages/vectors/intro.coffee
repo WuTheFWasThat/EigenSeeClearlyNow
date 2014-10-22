@@ -37,17 +37,24 @@ init_vector_intro = ->
     return
 
   $(document).keydown (e) ->
+    cancel = () ->
+      do e.preventDefault
+      return false
+
     speed = 2
+
     switch e.keyCode
       when 37 # left
         view.rotate -speed, 0
+        return do cancel
       when 38 # up
         view.rotate 0, speed
+        return do cancel
       when 39 # right
         view.rotate speed, 0
+        return do cancel
       when 40 # down
         view.rotate 0, -speed
-    do e.preventDefault
-    return false
+        return do cancel
 
   return do animate

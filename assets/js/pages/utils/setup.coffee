@@ -66,6 +66,13 @@ class View
   rotate: (dtheta, dphi) ->
     @theta += dtheta
     @phi += dphi
+
+    # normalize
+    @theta = @theta % 360
+    # limit
+    @phi = Math.min @phi, 90
+    @phi = Math.max @phi, -90
+
     do @positionCamera
 
 # Sets up default axes and grid
