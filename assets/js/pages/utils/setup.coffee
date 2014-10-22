@@ -41,7 +41,8 @@ class View
     # CAMERA
     #######################
 
-    backgroundColor = options.backgroundColor or 0x000066
+    defaultBackgroundColor = 0x000050
+    backgroundColor = options.backgroundColor or defaultBackgroundColor
 
     # Default renderer uses antialiasing and uses WebGL if possible (for faster rendering)
     @renderer = new THREE.Renderer({canvas: canvas[0], antialias: true})
