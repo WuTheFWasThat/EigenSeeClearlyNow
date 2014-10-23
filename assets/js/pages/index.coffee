@@ -17,5 +17,10 @@ if do hasWebGL
   THREE.Renderer = THREE.WebGLRenderer
 else
   THREE.Renderer = THREE.CanvasRenderer
-  $('#noWebGL').removeClass 'hidden'
+  if not $.cookie('noWebGL')
+    $('#noWebGLDismiss').click ->
+      $.cookie('noWebGL', 'acknowledged')
+      $('#noWebGL').addClass 'hidden'
+    $('#noWebGLReason').text(if window.WebGLRenderingContext then 'browser' else 'graphics card')
+    $('#noWebGL').removeClass 'hidden'
 
