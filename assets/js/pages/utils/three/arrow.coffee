@@ -21,22 +21,27 @@ headWidth - Number
   coneGeometry = new THREE.CylinderGeometry(0, 0.5, 1, 5, 1)
   coneGeometry.applyMatrix new THREE.Matrix4().makeTranslation(0, -0.5, 0)
 
-  THREE.Arrow = (dir, origin, length, color, headLength, headWidth) ->
+  THREE.Arrow = (dir, length, origin, color, headLength, headWidth, lineWidth) ->
       # dir is assumed to be normalized
       THREE.Object3D.call this
-      color = 0xffff00  if color is `undefined`
-      length = 1  if length is `undefined`
-      headLength = 0.2 * length  if headLength is `undefined`
-      headWidth = 0.2 * headLength  if headWidth is `undefined`
+      color = color or 0xffff00
+      lineWidth = lineWidth or 1
+
       @position.copy origin
-      @line = new THREE.Line(lineGeometry, new THREE.LineBasicMaterial(color: color))
+      @line = new THREE.Line(lineGeometry, new THREE.LineBasicMaterial(color: color, linewidth: lineWidth))
       @line.matrixAutoUpdate = false
       @add @line
       @cone = new THREE.Mesh(coneGeometry, new THREE.MeshBasicMaterial(color: color))
       @cone.matrixAutoUpdate = false
       @add @cone
       @setDirection dir
-      @setLength length, headLength, headWidth
+
+      @length = length or 1
+      @headLength = headLength or 0.2 * length
+      @headWidth = headWidth or 0.2 * headLength
+
+      @setLength @length
+      @setCone @headLength, @headWidth
       return
 
   THREE.Arrow:: = Object.create(THREE.Object3D::)
@@ -57,13 +62,17 @@ headWidth - Number
         @quaternion.setFromAxisAngle axis, radians
       return
 
-  THREE.Arrow::setLength = (length, headLength, headWidth) ->
-    headLength = 0.2 * length  if headLength is `undefined`
-    headWidth = 0.2 * headLength  if headWidth is `undefined`
+  THREE.Arrow::setLength = (length) ->
+    @length = length
     @line.scale.set 1, length, 1
     @line.updateMatrix()
-    @cone.scale.set headWidth, headLength, headWidth
     @cone.position.y = length
+    @cone.updateMatrix()
+
+  THREE.Arrow::setCone = (headLength, headWidth) ->
+    @headLength = headLength
+    @headWidth = headWidth
+    @cone.scale.set headWidth, headLength, headWidth
     @cone.updateMatrix()
     return
 

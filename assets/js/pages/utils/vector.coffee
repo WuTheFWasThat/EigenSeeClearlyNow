@@ -17,19 +17,14 @@ class Vector
       options.offset = options.offset or {x: 0, y:0, z:0}
       offset = vectorize(options.offset)
 
-      # three.js material
-
-      material_options = options.material or {color: 0xffaaaa}
-      @material = new THREE.LineBasicMaterial(material_options)
-
       # three.js geometry
-
       vectorColor = options.color or 0xCC0099
 
       headLength = options.headLength or 5
       headWidth  = options.headWidth or 5
+      lineWidth = options.lineWidth or 1
 
-      @arrow = new THREE.Arrow(vector.normalize(), offset, vector.length(), vectorColor, headLength, headWidth)
+      @arrow = new THREE.Arrow(vector.normalize(), vector.length(), offset, vectorColor, headLength, headWidth, lineWidth)
 
   set_trajectory: (x, y, z) ->
       tmpVector = new THREE.Vector3(x, y, z)
