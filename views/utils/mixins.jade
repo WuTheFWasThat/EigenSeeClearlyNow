@@ -1,0 +1,17 @@
+mixin slider_input(min, max, step, xval, yval, zval)
+  .well
+
+    .slider-input.slider-Xinput
+      span.slider-name X
+      input#sliderX(type='range', min=min, max=max, step=step, value=xval)
+      span#sliderXVal=xval
+
+    .slider-input.slider-Yinput
+      span.slider-name Y
+      input#sliderY(type='range', min=min, max=max, step=step, value=yval)
+      span#sliderYVal=yval
+
+    .slider-input.slider-Zinput
+      span.slider-name Z
+      input#sliderZ(type='range', min=min, max=max, step=step, value=zval)
+      span#sliderZVal=zval
