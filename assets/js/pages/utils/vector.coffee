@@ -29,7 +29,7 @@ class Vector
       headLength = options.headLength or 5
       headWidth  = options.headWidth or 5
 
-      @arrow = new THREE.ArrowHelper(vector.normalize(), offset, vector.length(), vectorColor, headLength, headWidth)
+      @arrow = new THREE.Arrow(vector.normalize(), offset, vector.length(), vectorColor, headLength, headWidth)
 
   set_trajectory: (x, y, z) ->
       tmpVector = new THREE.Vector3(x, y, z)
