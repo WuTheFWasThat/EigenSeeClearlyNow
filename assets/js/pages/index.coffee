@@ -17,4 +17,5 @@ if do hasWebGL
   THREE.Renderer = THREE.WebGLRenderer
 else
   THREE.Renderer = THREE.CanvasRenderer
+  $('#noWebGL').removeClass 'hidden'
 

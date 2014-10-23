@@ -4,6 +4,8 @@
 
 This is a project to help anyone learning linear algebra visualize its concepts.
 
+For 3D visualizations, we use [three.js](https://github.com/mrdoob/three.js).
+
 It is still a very, very early-stage work in progress.
 
 A demo should be available at https://jeffwu-eigen.terminal.com/
