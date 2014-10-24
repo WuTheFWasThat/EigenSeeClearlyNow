@@ -1,7 +1,7 @@
 $(document).ready(->
   render_contents_on_div = (contents, div, path= "") ->
     for section in contents
-      console.log section
+      # console.log section
       childdiv = $('<li>')
       childlink = $('<a>').text section.name
       childdiv.append childlink

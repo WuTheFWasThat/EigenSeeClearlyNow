@@ -24,3 +24,5 @@ else
     $('#noWebGLReason').text(if window.WebGLRenderingContext then 'browser' else 'graphics card')
     $('#noWebGL').removeClass 'hidden'
 
+keyHandler = new KeyHandler()
+
