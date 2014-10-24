@@ -44,12 +44,16 @@ body, html
 ///////////////////////////////////////////////////////////////////////////////
 
 .slider-input-container
-    .slider-name
-        margin-right: 10px
-.slider-input-container-X
-    color: red
-.slider-input-container-Y
-    color: green
-.slider-input-container-Z
-    color: blue
+  &.slider-input-container-X
+     color: red
+  &.slider-input-container-Y
+     color: green
+  &.slider-input-container-Z
+      color: blue
 
+canvas.center
+    padding-left: 0
+    padding-right: 0
+    margin-left: auto
+    margin-right: auto
+    display: block

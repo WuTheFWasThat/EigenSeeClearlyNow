@@ -2,12 +2,12 @@ extends ../../layout
 
 block content
   .row
-    .col-md-3
-      canvas#canvasA(style='width:300px;height:300px')
-    .col-md-3
-      canvas#canvasB(style='width:300px;height:300px')
-    .col-md-6
-      canvas#canvasC(style='width:300px;height:300px')
+    .col-md-4
+      canvas#canvasA.center(style='width:300px;height:300px')
+    .col-md-4
+      canvas#canvasB.center(style='width:300px;height:300px')
+    .col-md-4
+      canvas#canvasC.center(style='width:300px;height:300px')
 
    .row
       h4 Use arrow keys to rotate!
@@ -20,21 +20,21 @@ block content
     - var yvalA = 25
     - var zvalA = 25
 
-    .col-md-3
+    .col-md-4
       +slider_input('vectorA', min, max, step, xvalA, yvalA, zvalA)
 
     - var xvalB = 25
     - var yvalB = 25
     - var zvalB = -25
 
-    .col-md-3
+    .col-md-4
       +slider_input('vectorB', min, max, step, xvalA, yvalB, zvalB)
 
     - var xval = xvalA + xvalB
     - var yval = yvalA + zvalB
     - var zval = zvalA + zvalB
 
-    .col-md-6
+    .col-md-4
       +slider_input('vectorSum', 2 * min, 2 * max, step, xval, yval, zval)
 
 block morefoot
