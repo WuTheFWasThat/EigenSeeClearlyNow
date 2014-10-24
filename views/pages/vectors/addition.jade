@@ -1,11 +1,18 @@
 extends ../../layout
 
+block morehead
+  - var bodyClass = 'vector-addition'
+
 block content
-  .row
+  .row(style='position:relative')
     .col-md-4
       canvas#canvasA.center(style='width:300px;height:300px')
+    .col-md-1#plus
+       div +
     .col-md-4
       canvas#canvasB.center(style='width:300px;height:300px')
+    .col-md-1#equals
+       div =
     .col-md-4
       canvas#canvasC.center(style='width:300px;height:300px')
 
@@ -35,7 +42,7 @@ block content
     - var zval = zvalA + zvalB
 
     .col-md-4
-      +slider_input('vectorSum', 2 * min, 2 * max, step, xval, yval, zval)
+      +slider_input('vectorSum', 2 * min, 2 * max, step, xval, yval, zval, true)
 
 block morefoot
   script.

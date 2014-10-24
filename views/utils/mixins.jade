@@ -1,17 +1,17 @@
-mixin slider_input(id, min, max, step, xval, yval, zval)
+mixin slider_input(id, min, max, step, xval, yval, zval, disabled)
   .well(id=id)
 
     .slider-input-container.slider-input-container-X
       = ' X = '
       span.slider-input-val-X=xval
-      input.slider-input-X(type='range', min=min, max=max, step=step, value=xval)
+      input.slider-input-X(type='range', min=min, max=max, step=step, value=xval, disabled=disabled)
 
     .slider-input-container.slider-input-container-Y
       = ' Y = '
       span.slider-input-val-Y=yval
-      input.slider-input-Y(type='range', min=min, max=max, step=step, value=yval)
+      input.slider-input-Y(type='range', min=min, max=max, step=step, value=yval, disabled=disabled)
 
     .slider-input-container.slider-input-container-Z
       = ' Z = '
       span.slider-input-val-Z=zval
-      input.slider-input-Z(type='range', min=min, max=max, step=step, value=zval)
+      input.slider-input-Z(type='range', min=min, max=max, step=step, value=zval, disabled=disabled)
