@@ -20,8 +20,8 @@ class View
     # CAMERA
     #######################
 
-    width = 500
-    height = 500
+    width = options.width or 500
+    height = options.height or 500
 
     frustumWidth = width / 2
     frustumHeight = height / 2
@@ -53,7 +53,21 @@ class View
     #camera.lookAt(scene.position)
     #console.log camera.position
 
+    @sliderInputVectors = {}
+
   render: ->
+    for id, vector of @sliderInputVectors
+      input = $('#' + id)
+      x = parseInt $('.slider-input-X', input).val()
+      y = parseInt $('.slider-input-Y', input).val()
+      z = parseInt $('.slider-input-Z', input).val()
+
+      $('.slider-input-val-X', input).text(x)
+      $('.slider-input-val-Y', input).text(y)
+      $('.slider-input-val-Z', input).text(z)
+
+      vector.set_trajectory(x, y, z)
+
     @renderer.render @scene, @camera
 
   positionCamera: ->
@@ -75,17 +89,27 @@ class View
 
     do @positionCamera
 
-# Sets up default axes and grid
-setupAxes = (scene) ->
-  # TODO build our own axes wrapped in an Object3D
-  axisLen = 300
-  axes = new THREE.AxisHelper(axisLen)
-  scene.add axes
+  addAxes: () ->
+    # TODO build our own axes wrapped in an Object3D
+    axisLen = 300
+    axes = new THREE.AxisHelper(axisLen)
+    @scene.add axes
 
-  # TODO use grids or not?
-  gridLen = axisLen
-  gridStep = gridLen / 10
-  gridColor = 0x3D3D5C
-  buildGrids scene, gridLen, gridStep, gridColor
-  return
+    # TODO use grids or not?
+    gridLen = axisLen
+    gridStep = gridLen / 10
+    gridColor = 0x3D3D5C
+    buildGrids @scene, gridLen, gridStep, gridColor
+    return
+
+  addVectorFromSliderID: (id) ->
+    vector = new Vector([1, 0, 0])
+    vector.draw_on @scene
+    @sliderInputVectors[id] = vector
+    return vector
+
+  # Changes vector based on user input
+  animate: ->
+    requestAnimationFrame @animate.bind(this)
+    do @render
 
