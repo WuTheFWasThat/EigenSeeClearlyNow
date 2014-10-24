@@ -8,3 +8,4 @@
 
 #= require pages/index.coffee
 #= require pages/vectors/intro.coffee
+#= require pages/vectors/addition.coffee

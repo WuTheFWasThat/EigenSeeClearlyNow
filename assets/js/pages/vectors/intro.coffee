@@ -12,6 +12,9 @@ init_vector_intro = ->
   # Vector with arrow
   view.addVectorFromSliderID 'vectorInput'
 
+  # register view with keyboard handler
   keyHandler.register_view view
+
+  # animate!
   do view.animate
 
