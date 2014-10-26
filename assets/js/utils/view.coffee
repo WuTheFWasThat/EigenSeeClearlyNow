@@ -53,21 +53,7 @@ class View
     #camera.lookAt(scene.position)
     #console.log camera.position
 
-    @sliderInputVectors = {}
-
   render: ->
-    for id, vector of @sliderInputVectors
-      input = $('#' + id)
-      x = parseInt $('.slider-input-X', input).val()
-      y = parseInt $('.slider-input-Y', input).val()
-      z = parseInt $('.slider-input-Z', input).val()
-
-      $('.slider-input-val-X', input).text(x)
-      $('.slider-input-val-Y', input).text(y)
-      $('.slider-input-val-Z', input).text(z)
-
-      vector.set_trajectory(x, y, z)
-
     @renderer.render @scene, @camera
 
   positionCamera: ->
@@ -100,10 +86,8 @@ class View
     buildGrids @scene, gridLen, gridStep, gridColor
     return
 
-  addVectorFromSliderID: (id) ->
-    vector = new Vector([1, 0, 0])
+  addVector: (vector) ->
     vector.draw_on @scene
-    @sliderInputVectors[id] = vector
     return vector
 
   # Changes vector based on user input

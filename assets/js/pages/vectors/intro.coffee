@@ -10,11 +10,17 @@ init_vector_intro = ->
   do view.addAxes
 
   # Vector with arrow
-  view.addVectorFromSliderID 'vectorInput'
+
+  vectorInput = new VectorSliderInput('vectorInput')
+  vector = new Vector(do vectorInput.get_coordinates)
+  vectorInput.change (x, y, z) ->
+    vector.set_trajectory(x, y, z)
+  view.addVector vector
 
   # register view with keyboard handler
   keyHandler.register_view view
 
   # animate!
   do view.animate
+
 

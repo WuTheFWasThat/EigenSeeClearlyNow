@@ -4,12 +4,22 @@ init_vector_addition= ->
   canvasA = $("#canvasA")
   viewA = new View(canvasA)
   do viewA.addAxes
-  viewA.addVectorFromSliderID 'vectorA'
+
+  vectorInputA = new VectorSliderInput('vectorA')
+  vectorA = new Vector(do vectorInputA.get_coordinates)
+  vectorInputA.change (x, y, z) ->
+    vectorA.set_trajectory(x, y, z)
+  viewA.addVector vectorA
 
   canvasB = $("#canvasB")
   viewB = new View(canvasB)
   do viewB.addAxes
-  viewB.addVectorFromSliderID 'vectorB'
+
+  vectorInputB = new VectorSliderInput('vectorB')
+  vectorB = new Vector(do vectorInputB.get_coordinates)
+  vectorInputB.change (x, y, z) ->
+    vectorB.set_trajectory(x, y, z)
+  viewB.addVector vectorB
 
   canvasC = $("#canvasC")
   viewC = new View(canvasC)
