@@ -9,30 +9,30 @@ vectorize = (coords) ->
 class Vector
 
   # Example: vector = new Vector([100, 0, 0], color: 0xFF0000)
+  # Example: var x = vector.trajectory.x
   constructor: (trajectory, options) ->
       options = options or {}
 
       # represents the direction
-      vector = vectorize(trajectory)
+      @trajectory = vectorize(trajectory)
 
       # represents the start point of the vector
       options.offset = options.offset or {x: 0, y: 0, z: 0}
       offset = vectorize(options.offset)
 
       # three.js geometry
-      vectorColor = options.color or 0xCC0099
+      @color = options.color or 0xCC0099
 
       headLength = options.headLength or 5
       headWidth  = options.headWidth or 5
       lineWidth = options.lineWidth or 1
-      vectorLength = vector.length()   # get actual length before normalizing
 
-      @arrow = new THREE.Arrow(vector.normalize(), vectorLength, offset, vectorColor, headLength, headWidth, lineWidth)
+      @arrow = new THREE.Arrow(@trajectory.clone().normalize(), @trajectory.length(), offset, @color, headLength, headWidth, lineWidth)
 
   set_trajectory: (x, y, z) ->
-      tmpVector = new THREE.Vector3(x, y, z)
-      @arrow.setLength tmpVector.length()
-      @arrow.setDirection tmpVector.normalize()
+      @trajectory = new THREE.Vector3(x, y, z)
+      @arrow.setDirection @trajectory.clone().normalize()
+      @arrow.setLength @trajectory.length()
 
   # draw!
   draw_on: (scene) ->

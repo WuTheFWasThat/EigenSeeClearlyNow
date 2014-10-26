@@ -2,15 +2,44 @@
 
 # Basic XYZ axes (default colors: XYZ -> RGB)
 buildAxes = (scene, axesLength) ->
-  axisX = new Vector([axesLength, 0, 0], color: 0xFF0000)
-  axisY = new Vector([0, axesLength, 0], color: 0x00FF00)
-  axisZ = new Vector([0, 0, axesLength], color: 0x0000FF)
+  axisX = buildAxis 'X', [axesLength, 0, 0], 0xFF0000
+  axisY = buildAxis 'Y', [0, axesLength, 0], 0x00FF00
+  axisZ = buildAxis 'Z', [0, 0, axesLength], 0x0000FF
+
   axes = new THREE.Object3D()
-  axes.add axisX.arrow
-  axes.add axisY.arrow
-  axes.add axisZ.arrow
+  axes.add axisX
+  axes.add axisY
+  axes.add axisZ
   scene.add axes
   return
+
+# Basic axis with label
+buildAxis = (axisLabel, axisCoords, axisColor) ->
+  axisVector = new Vector(axisCoords, color: axisColor)
+  label = buildAxisLabel axisLabel, axisVector
+  axis = new THREE.Object3D()
+  axis.add axisVector.arrow
+  axis.add label
+  return axis
+
+# Basic axis label
+buildAxisLabel = (labelText, axis) ->
+  defaultLabelOptions = {
+        size: 10,
+        height: 4,
+        curveSegments: 6,
+        font: "helvetiker",
+        style: "normal"
+  }
+  textGeometry = new THREE.TextGeometry(labelText, defaultLabelOptions)
+  textMaterial = new THREE.MeshBasicMaterial({color: axis.color})
+  text = new THREE.Mesh(textGeometry, textMaterial)
+  textOffset = 30
+  text.position.x = axis.trajectory.x + textOffset
+  text.position.y = axis.trajectory.y + textOffset
+  text.position.z = axis.trajectory.z + textOffset
+  # TODO text.rotation = camera.rotation...
+  return text
 
 # Basic XYZ grids
 buildGrids = (scene, gridSize, gridStep, gridColor) ->
