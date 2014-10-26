@@ -75,8 +75,8 @@ class View
 
     do @positionCamera
 
-  addAxes: () ->
-    axisLen = 300
+  addAxes: (axisLen) ->
+    axisLen = axisLen or 200
     buildAxes @scene, axisLen
 
     # TODO use grids or not?

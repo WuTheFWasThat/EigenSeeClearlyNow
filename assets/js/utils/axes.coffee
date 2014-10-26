@@ -25,19 +25,19 @@ buildAxis = (axisLabel, axisCoords, axisColor) ->
 # Basic axis label
 buildAxisLabel = (labelText, axis) ->
   defaultLabelOptions = {
-        size: 10,
-        height: 4,
-        curveSegments: 6,
-        font: "helvetiker",
-        style: "normal"
+    size: 10,
+    height: 4,
+    curveSegments: 6,
+    font: "helvetiker",
+    style: "normal"
   }
   textGeometry = new THREE.TextGeometry(labelText, defaultLabelOptions)
   textMaterial = new THREE.MeshBasicMaterial({color: axis.color})
   text = new THREE.Mesh(textGeometry, textMaterial)
   textOffset = 30
-  text.position.x = axis.trajectory.x + textOffset
-  text.position.y = axis.trajectory.y + textOffset
-  text.position.z = axis.trajectory.z + textOffset
+  text.position.x = axis.trajectory.x + (if labelText == 'X' then textOffset else 0)
+  text.position.y = axis.trajectory.y + (if labelText == 'Y' then textOffset else 0)
+  text.position.z = axis.trajectory.z + (if labelText == 'Z' then textOffset else 0)
   # TODO text.rotation = camera.rotation...
   return text
 
