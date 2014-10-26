@@ -16,21 +16,23 @@ headWidth - Number
 
 ( ->
 
-  lineGeometry = new THREE.Geometry()
-  lineGeometry.vertices.push new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 1, 0)
-  coneGeometry = new THREE.CylinderGeometry(0, 0.5, 1, 5, 1)
-  coneGeometry.applyMatrix new THREE.Matrix4().makeTranslation(0, -0.5, 0)
-
   THREE.Arrow = (dir, length, origin, color, headLength, headWidth, lineWidth) ->
       # dir is assumed to be normalized
       THREE.Object3D.call this
       color = color or 0xffff00
       lineWidth = lineWidth or 1
 
+      lineGeometry = new THREE.Geometry()
+      lineGeometry.vertices.push new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 1, 0)
+
       @position.copy origin
       @line = new THREE.Line(lineGeometry, new THREE.LineBasicMaterial(color: color, linewidth: lineWidth))
       @line.matrixAutoUpdate = false
       @add @line
+
+      coneGeometry = new THREE.CylinderGeometry(0, 0.5, 1, 5, 1)
+      coneGeometry.applyMatrix new THREE.Matrix4().makeTranslation(0, -0.5, 0)
+
       @cone = new THREE.Mesh(coneGeometry, new THREE.MeshBasicMaterial(color: color))
       @cone.matrixAutoUpdate = false
       @add @cone
@@ -46,10 +48,8 @@ headWidth - Number
 
   THREE.Arrow:: = Object.create(THREE.Object3D::)
 
-  axis = new THREE.Vector3()
-  radians = undefined
-
   THREE.Arrow::setDirection = (dir) ->
+      axis = new THREE.Vector3()
 
       # dir is assumed to be normalized
       if dir.y > 0.99999
