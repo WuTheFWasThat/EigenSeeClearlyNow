@@ -9,10 +9,9 @@ class VectorSliderInput
       do @get_coordinates
 
       binddim = (dim) =>
-        console.log('1', @input)
         $('.slider-input-' + dim, @input).on 'input change', _.throttle( =>
           prop = dim.toLowerCase()
-          @[prop] = $('.slider-input-' + dim, @input).val()
+          @[prop] = parseInt $('.slider-input-' + dim, @input).val()
           $('.slider-input-val-' + dim, @input).text(@[prop])
           for f in change_fns
             f(@x, @y, @z)

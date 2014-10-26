@@ -7,8 +7,6 @@ init_vector_addition= ->
 
   vectorInputA = new VectorSliderInput('vectorA')
   vectorA = new Vector(do vectorInputA.get_coordinates)
-  vectorInputA.change (x, y, z) ->
-    vectorA.set_trajectory(x, y, z)
   viewA.addVector vectorA
 
   canvasB = $("#canvasB")
@@ -17,13 +15,30 @@ init_vector_addition= ->
 
   vectorInputB = new VectorSliderInput('vectorB')
   vectorB = new Vector(do vectorInputB.get_coordinates)
-  vectorInputB.change (x, y, z) ->
-    vectorB.set_trajectory(x, y, z)
   viewB.addVector vectorB
 
   canvasC = $("#canvasC")
   viewC = new View(canvasC)
   do viewC.addAxes
+  vectorC = new Vector(new THREE.Vector3().addVectors(
+                        vectorA.trajectory,
+                        vectorB.trajectory,
+                      ))
+  viewC.addVector vectorC
+
+  vectorInputA.change (x, y, z) ->
+    vectorA.set_trajectory(x, y, z)
+
+    vectorC.set_trajectory(x + vectorB.trajectory.x,
+                           y + vectorB.trajectory.y,
+                           z + vectorB.trajectory.z)
+
+  vectorInputB.change (x, y, z) ->
+    vectorB.set_trajectory(x, y, z)
+
+    vectorC.set_trajectory(x + vectorA.trajectory.x,
+                           y + vectorA.trajectory.y,
+                           z + vectorA.trajectory.z)
 
   # register view with keyboard handler
   keyHandler.register_view viewA
