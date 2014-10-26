@@ -1,8 +1,16 @@
 # Axes-related functions
 
-# Basic XYZ axes
-buildAxes = (options) ->
-  console.log 'dummy function'
+# Basic XYZ axes (default colors: XYZ -> RGB)
+buildAxes = (scene, axesLength) ->
+  axisX = new Vector([axesLength, 0, 0], color: 0xFF0000)
+  axisY = new Vector([0, axesLength, 0], color: 0x00FF00)
+  axisZ = new Vector([0, 0, axesLength], color: 0x0000FF)
+  axes = new THREE.Object3D()
+  axes.add axisX.arrow
+  axes.add axisY.arrow
+  axes.add axisZ.arrow
+  scene.add axes
+  return
 
 # Basic XYZ grids
 buildGrids = (scene, gridSize, gridStep, gridColor) ->

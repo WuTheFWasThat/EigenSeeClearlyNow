@@ -90,10 +90,8 @@ class View
     do @positionCamera
 
   addAxes: () ->
-    # TODO build our own axes wrapped in an Object3D
     axisLen = 300
-    axes = new THREE.AxisHelper(axisLen)
-    @scene.add axes
+    buildAxes @scene, axisLen
 
     # TODO use grids or not?
     gridLen = axisLen
