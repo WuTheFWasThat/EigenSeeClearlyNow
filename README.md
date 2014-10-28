@@ -32,9 +32,8 @@ Then just hit port 8080 on localhost
 
 ## SHORT TERM TO-DO: ##
 
-- make our own axes
-- make gridding better?
 - make distances/etc aspects of view configurable
+- make gridding better?
 - click/drag to rotate
 - make TOC foldable
 - hook up addition properly

@@ -3,7 +3,9 @@ init_vector_addition= ->
 
   canvasA = $("#canvasA")
   viewA = new View(canvasA)
-  do viewA.addAxes
+  viewA.addAxes(
+    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
+  )
 
   vectorInputA = new VectorSliderInput('vectorA')
   vectorA = new Vector(do vectorInputA.get_coordinates)
@@ -11,7 +13,9 @@ init_vector_addition= ->
 
   canvasB = $("#canvasB")
   viewB = new View(canvasB)
-  do viewB.addAxes
+  viewB.addAxes(
+    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
+  )
 
   vectorInputB = new VectorSliderInput('vectorB')
   vectorB = new Vector(do vectorInputB.get_coordinates)
@@ -19,7 +23,9 @@ init_vector_addition= ->
 
   canvasC = $("#canvasC")
   viewC = new View(canvasC)
-  do viewC.addAxes
+  viewC.addAxes(
+    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
+  )
   vectorC = new Vector(new THREE.Vector3().addVectors(
                         vectorA.trajectory,
                         vectorB.trajectory,

@@ -1,10 +1,18 @@
 # Axes-related functions
 
 # Basic XYZ axes (default colors: XYZ -> RGB)
-buildAxes = (scene, axesLength) ->
-  axisX = buildAxis 'X', [axesLength, 0, 0], 0xFF0000
-  axisY = buildAxis 'Y', [0, axesLength, 0], 0x00FF00
-  axisZ = buildAxis 'Z', [0, 0, axesLength], 0x0000FF
+buildAxes = (scene, options) ->
+  options = options or {}
+  axesLength = options.axesLength or 200
+  colors = [DEFAULT.COLOR.AXIS, DEFAULT.COLOR.AXIS, DEFAULT.COLOR.AXIS]
+  if options.color
+    colors = [options.color, options.color, options.color]
+  else if options.colors
+    colors = options.colors
+
+  axisX = buildAxis 'X', [axesLength, 0, 0], colors[0]
+  axisY = buildAxis 'Y', [0, axesLength, 0], colors[1]
+  axisZ = buildAxis 'Z', [0, 0, axesLength], colors[2]
 
   axes = new THREE.Object3D()
   axes.add axisX

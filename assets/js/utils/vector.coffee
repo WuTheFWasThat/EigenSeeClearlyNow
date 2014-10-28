@@ -21,7 +21,7 @@ class Vector
       offset = vectorize(options.offset)
 
       # three.js geometry
-      @color = options.color or 0xCC0099
+      @color = if options.color? then options.color else DEFAULT.COLOR.VECTOR
 
       headLength = options.headLength or 5
       headWidth  = options.headWidth or 5

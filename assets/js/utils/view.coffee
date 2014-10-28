@@ -41,8 +41,7 @@ class View
     # CAMERA
     #######################
 
-    defaultBackgroundColor = 0x000050
-    backgroundColor = options.backgroundColor or defaultBackgroundColor
+    backgroundColor = options.backgroundColor or DEFAULT.COLOR.BACKGROUND
 
     # Default renderer uses antialiasing and uses WebGL if possible (for faster rendering)
     @renderer = new THREE.Renderer({canvas: canvas[0], antialias: true})
@@ -75,14 +74,13 @@ class View
 
     do @positionCamera
 
-  addAxes: (axisLen) ->
-    axisLen = axisLen or 200
-    buildAxes @scene, axisLen
+  addAxes: (options) ->
+    buildAxes @scene, options
 
     # TODO use grids or not?
-    gridLen = axisLen
+    gridLen = 200
     gridStep = gridLen / 10
-    gridColor = 0x3D3D5C
+    gridColor = DEFAULT.COLOR.GRID
     buildGrids @scene, gridLen, gridStep, gridColor
     return
 

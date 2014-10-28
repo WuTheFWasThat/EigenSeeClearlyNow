@@ -19,7 +19,7 @@ headWidth - Number
   THREE.Arrow = (dir, length, origin, color, headLength, headWidth, lineWidth) ->
       # dir is assumed to be normalized
       THREE.Object3D.call this
-      color = color or 0xffff00
+      color = if color? then color else DEFAULT.COLOR.ARROW
       lineWidth = lineWidth or 1
 
       lineGeometry = new THREE.Geometry()

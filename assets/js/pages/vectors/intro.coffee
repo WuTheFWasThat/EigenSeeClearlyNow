@@ -7,7 +7,10 @@ init_vector_intro = ->
   view = new View(canvas)
 
   # Setup axes, grid
-  do view.addAxes
+  view.addAxes (
+    axesLength: 200
+    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
+  )
 
   # Vector with arrow
 
