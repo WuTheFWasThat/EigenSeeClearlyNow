@@ -4,7 +4,7 @@
 buildAxes = (scene, options) ->
   options = options or {}
   axesLength = options.axesLength or 200
-  colors = [DEFAULT.COLOR.AXIS, DEFAULT.COLOR.AXIS, DEFAULT.COLOR.AXIS]
+  colors = [DEFAULT.AXIS.COLOR, DEFAULT.AXIS.COLOR, DEFAULT.AXIS.COLOR]
   if options.color
     colors = [options.color, options.color, options.color]
   else if options.colors

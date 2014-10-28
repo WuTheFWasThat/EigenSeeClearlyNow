@@ -7,8 +7,14 @@ init_vector_addition= ->
     colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
   )
 
+  vectorOptions = (
+    lineWidth: 3
+    headWidth: 12
+    headLength: 10
+  )
+
   vectorInputA = new VectorSliderInput('vectorA')
-  vectorA = new Vector(do vectorInputA.get_coordinates)
+  vectorA = new Vector(do vectorInputA.get_coordinates, vectorOptions)
   viewA.addVector vectorA
 
   canvasB = $("#canvasB")
@@ -18,7 +24,7 @@ init_vector_addition= ->
   )
 
   vectorInputB = new VectorSliderInput('vectorB')
-  vectorB = new Vector(do vectorInputB.get_coordinates)
+  vectorB = new Vector(do vectorInputB.get_coordinates, vectorOptions)
   viewB.addVector vectorB
 
   canvasC = $("#canvasC")
@@ -26,10 +32,8 @@ init_vector_addition= ->
   viewC.addAxes(
     colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
   )
-  vectorC = new Vector(new THREE.Vector3().addVectors(
-                        vectorA.trajectory,
-                        vectorB.trajectory,
-                      ))
+  vectorSum = new THREE.Vector3().addVectors(vectorA.trajectory, vectorB.trajectory)
+  vectorC = new Vector(vectorSum, vectorOptions)
   viewC.addVector vectorC
 
   vectorInputA.change (x, y, z) ->

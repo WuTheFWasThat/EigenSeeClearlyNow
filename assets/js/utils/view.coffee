@@ -41,7 +41,7 @@ class View
     # CAMERA
     #######################
 
-    backgroundColor = options.backgroundColor or DEFAULT.COLOR.BACKGROUND
+    backgroundColor = options.backgroundColor or DEFAULT.BACKGROUND.COLOR
 
     # Default renderer uses antialiasing and uses WebGL if possible (for faster rendering)
     @renderer = new THREE.Renderer({canvas: canvas[0], antialias: true})
@@ -80,7 +80,7 @@ class View
     # TODO use grids or not?
     gridLen = 200
     gridStep = gridLen / 10
-    gridColor = DEFAULT.COLOR.GRID
+    gridColor = DEFAULT.GRID.COLOR
     buildGrids @scene, gridLen, gridStep, gridColor
     return
 

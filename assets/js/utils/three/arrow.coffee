@@ -16,17 +16,15 @@ headWidth - Number
 
 ( ->
 
-  THREE.Arrow = (dir, length, origin, color, headLength, headWidth, lineWidth) ->
+  THREE.Arrow = (dir, length, origin, color, headLength, headWidth, arrowThickness) ->
       # dir is assumed to be normalized
       THREE.Object3D.call this
-      color = if color? then color else DEFAULT.COLOR.ARROW
-      lineWidth = lineWidth or 1
 
       lineGeometry = new THREE.Geometry()
       lineGeometry.vertices.push new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 1, 0)
 
       @position.copy origin
-      @line = new THREE.Line(lineGeometry, new THREE.LineBasicMaterial(color: color, linewidth: lineWidth))
+      @line = new THREE.Line(lineGeometry, new THREE.LineBasicMaterial(color: color, linewidth: arrowThickness))
       @line.matrixAutoUpdate = false
       @add @line
 

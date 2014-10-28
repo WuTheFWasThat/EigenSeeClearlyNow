@@ -21,11 +21,11 @@ class Vector
       offset = vectorize(options.offset)
 
       # three.js geometry
-      @color = if options.color? then options.color else DEFAULT.COLOR.VECTOR
+      @color = if options.color? then options.color else DEFAULT.VECTOR.COLOR
 
-      headLength = options.headLength or 5
-      headWidth  = options.headWidth or 5
-      lineWidth = options.lineWidth or 1
+      headLength = options.headLength or DEFAULT.VECTOR.HEAD_LENGTH
+      headWidth  = options.headWidth or DEFAULT.VECTOR.HEAD_WIDTH
+      lineWidth = options.lineWidth or DEFAULT.VECTOR.THICKNESS
 
       @arrow = new THREE.Arrow(@trajectory.clone().normalize(), @trajectory.length(), offset, @color, headLength, headWidth, lineWidth)
 
