@@ -27,6 +27,10 @@ DEFAULT = (
   BACKGROUND: (
     COLOR: COLORS.DARK_BLUE
   )
+  CAMERA: (
+    WIDTH: 500
+    HEIGHT: 500
+  )
 )
 
 
