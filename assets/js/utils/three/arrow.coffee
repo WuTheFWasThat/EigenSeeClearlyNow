@@ -28,7 +28,8 @@ headWidth - Number
       @line.matrixAutoUpdate = false
       @add @line
 
-      coneGeometry = new THREE.CylinderGeometry(0, 0.5, 1, 5, 1)
+      # radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded
+      coneGeometry = new THREE.CylinderGeometry(0, 0.5, 1, 16, 1)
       coneGeometry.applyMatrix new THREE.Matrix4().makeTranslation(0, -0.5, 0)
 
       @cone = new THREE.Mesh(coneGeometry, new THREE.MeshBasicMaterial(color: color))

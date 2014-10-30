@@ -134,7 +134,7 @@ class View
     wheelspeed = wheelspeed or 1000
     @canvas.bind 'mousewheel', (e) =>
       change = e.originalEvent.wheelDelta / wheelspeed
-      @zoomlevel += change
+      @zoomlevel -= change
       do @zoomCamera
       do e.preventDefault
       return false
