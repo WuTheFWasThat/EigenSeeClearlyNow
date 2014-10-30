@@ -21,13 +21,32 @@ buildAxes = (scene, options) ->
   scene.add axes
   return
 
-# Basic axis with label
+# Full axis with label
 buildAxis = (axisLabel, axisCoords, axisColor) ->
+  posAxis = buildPositiveAxis axisLabel, axisCoords, axisColor
+  negAxis = buildNegativeAxis axisCoords, axisColor
+  fullAxis = new THREE.Object3D()
+  fullAxis.add posAxis
+  fullAxis.add negAxis
+  return fullAxis
+
+# Positive axis is a solid vector with text label
+buildPositiveAxis = (axisLabel, axisCoords, axisColor) ->
   axisVector = new Vector(axisCoords, color: axisColor)
   label = buildAxisLabel axisLabel, axisVector
   axis = new THREE.Object3D()
   axis.add axisVector.arrow
   axis.add label
+  return axis
+
+# Negative axis is a dashed line
+buildNegativeAxis = (axisCoords, axisColor) ->
+  axisLine = new THREE.LineDashedMaterial({lineWidth: 1, color: axisColor, dashSize: 10, gapSize: 10})
+  axisGeometry = new THREE.Geometry()
+  axisGeometry.vertices.push(new THREE.Vector3(0, 0, 0))
+  axisGeometry.vertices.push(new THREE.Vector3(-axisCoords[0], -axisCoords[1], -axisCoords[2]))
+  axisGeometry.computeLineDistances()
+  axis = new THREE.Line(axisGeometry, axisLine, THREE.LinePieces)
   return axis
 
 # Basic axis label
