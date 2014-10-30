@@ -9,7 +9,11 @@ class View
     @canvas = canvas
     options = options or {}
 
-    options.bindMouseWheel = options.bindMouseWheel or true
+    options.bindMouse= if options.bindMouse? then options.bindMouse else true
+    if options.bindMouse
+      do @bindMouse
+
+    options.bindMouseWheel = if options.bindMouseWheel? then options.bindMouseWheel else true
     if options.bindMouseWheel
       do @bindMouseWheel
 
@@ -101,6 +105,30 @@ class View
   addVector: (vector) ->
     vector.draw_on @scene
     return vector
+
+  bindMouse: () ->
+    mousedown = false
+    lastx = null
+    lasty = null
+
+    @canvas.mousedown (e) =>
+      mousedown = true
+      lastx = e.offsetX
+      lasty = e.offsetY
+
+    @canvas.mouseup (e) =>
+      mousedown = false
+      lastx = null
+      lasty = null
+
+    @canvas.mousemove (e) =>
+      if mousedown
+        dx = e.offsetX - lastx
+        dy = e.offsetY - lasty
+        lastx = e.offsetX
+        lasty = e.offsetY
+
+        @rotate -dx, dy
 
   bindMouseWheel: (wheelspeed) ->
     wheelspeed = wheelspeed or 1000
