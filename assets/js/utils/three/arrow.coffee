@@ -68,6 +68,10 @@ headWidth - Number
     @cone.position.y = length
     @cone.updateMatrix()
 
+  THREE.Arrow::setOffset = (origin) ->
+      @position.copy origin
+      return
+
   THREE.Arrow::setCone = (headLength, headWidth) ->
     @headLength = headLength
     @headWidth = headWidth

@@ -34,6 +34,10 @@ class Vector
       @arrow.setDirection @trajectory.clone().normalize()
       @arrow.setLength @trajectory.length()
 
+  set_offset: (x, y, z) ->
+      offset = new THREE.Vector3(x, y, z)
+      @arrow.setOffset offset
+
   # draw!
   draw_on: (scene) ->
       scene.add @arrow
