@@ -14,6 +14,8 @@ class VectorSliderInput
       for dim in ['X', 'Y', 'Z']
         binddim dim
 
+      @color = @input.css('border-color')
+
   _change_dim: (dim) ->
       prop = dim.toLowerCase()
       @[prop] = parseInt $('.slider-input-' + dim, @input).val()
