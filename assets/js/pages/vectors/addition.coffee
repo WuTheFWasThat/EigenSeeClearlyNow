@@ -1,5 +1,6 @@
 # Intro: One Vector
 init_vector_addition= ->
+  keyHandler = new KeyHandler()
 
   canvasA = $("#canvasA")
   viewA = new View(canvasA)

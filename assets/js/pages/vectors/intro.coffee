@@ -1,5 +1,6 @@
 # Intro: One Vector
 init_vector_intro = ->
+  keyHandler = new KeyHandler()
 
   canvas = $("#canvas")
 
