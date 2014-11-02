@@ -32,7 +32,7 @@ buildAxis = (axisLabel, axisCoords, axisColor) ->
 
 # Positive axis is a solid vector with text label
 buildPositiveAxis = (axisLabel, axisCoords, axisColor) ->
-  axisVector = new Vector(axisCoords, color: axisColor)
+  axisVector = new VectorView(axisCoords, color: axisColor)
   label = buildAxisLabel axisLabel, axisVector
   axis = new THREE.Object3D()
   axis.add axisVector.arrow

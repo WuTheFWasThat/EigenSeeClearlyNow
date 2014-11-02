@@ -6,9 +6,9 @@ vectorize = (coords) ->
     throw new Error ('Cannot vectorize ' + JSON.stringify coords)
   return new THREE.Vector3(coords.x, coords.y, coords.z)
 
-class Vector
+class VectorView
 
-  # Example: vector = new Vector([100, 0, 0], color: 0xFF0000)
+  # Example: vector = new VectorView([100, 0, 0], color: 0xFF0000)
   # Example: var x = vector.trajectory.x
   constructor: (trajectory, options) ->
       options = options or {}

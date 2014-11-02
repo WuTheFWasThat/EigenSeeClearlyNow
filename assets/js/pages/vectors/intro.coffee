@@ -21,7 +21,7 @@ init_vector_intro = ->
   # Vector with arrow
 
   vectorInput = new VectorSliderInput('vectorInput')
-  vector = new Vector(do vectorInput.get_coordinates, vectorOptions)
+  vector = new VectorView(do vectorInput.get_coordinates, vectorOptions)
   vectorInput.on 'change', (x, y, z) ->
     vector.set_trajectory(x, y, z)
   view.addVector vector

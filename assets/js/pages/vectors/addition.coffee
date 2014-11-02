@@ -16,7 +16,7 @@ init_vector_addition= ->
   vectorInputA = new VectorSliderInput('vectorA')
   vectorAOptions = _.clone vectorOptions
   vectorAOptions.color = vectorInputA.color
-  vectorA = new Vector(do vectorInputA.get_coordinates, vectorAOptions)
+  vectorA = new VectorView(do vectorInputA.get_coordinates, vectorAOptions)
   viewA.addVector vectorA
 
   canvasB = $("#canvasB")
@@ -28,7 +28,7 @@ init_vector_addition= ->
   vectorInputB = new VectorSliderInput('vectorB')
   vectorBOptions = _.clone vectorOptions
   vectorBOptions.color = vectorInputB.color
-  vectorB = new Vector(do vectorInputB.get_coordinates, vectorBOptions)
+  vectorB = new VectorView(do vectorInputB.get_coordinates, vectorBOptions)
   viewB.addVector vectorB
 
   vectorInputSum = new VectorSliderInput('vectorSum')
@@ -44,16 +44,16 @@ init_vector_addition= ->
   )
 
   sumAOptions = _.clone vectorAOptions
-  vectorSumA = new Vector(do vectorInputA.get_coordinates, sumAOptions)
+  vectorSumA = new VectorView(do vectorInputA.get_coordinates, sumAOptions)
 
   sumBOptions = _.clone vectorBOptions
   sumBOptions.offset = do vectorInputA.get_coordinates
-  vectorSumB = new Vector(do vectorInputB.get_coordinates, sumBOptions)
+  vectorSumB = new VectorView(do vectorInputB.get_coordinates, sumBOptions)
 
   trajectorySum = new THREE.Vector3().addVectors(vectorA.trajectory, vectorB.trajectory)
 
   vectorOptions.color = vectorInputSum.color
-  vectorSum = new Vector(trajectorySum, vectorOptions)
+  vectorSum = new VectorView(trajectorySum, vectorOptions)
   viewC.addVector vectorSumA
   viewC.addVector vectorSumB
   viewC.addVector vectorSum
