@@ -4,21 +4,26 @@ class VectorSliderInput
 
       @change_fns = []
 
-      change_fns = @change_fns
-
       do @get_coordinates
 
       binddim = (dim) =>
         $('.slider-input-' + dim, @input).on 'input change', _.throttle( =>
-          prop = dim.toLowerCase()
-          @[prop] = parseInt $('.slider-input-' + dim, @input).val()
-          $('.slider-input-val-' + dim, @input).text(@[prop])
-          for f in change_fns
-            f(@x, @y, @z)
+          @_change_dim dim
         , 10)
 
       for dim in ['X', 'Y', 'Z']
         binddim dim
+
+  _change_dim: (dim) ->
+      prop = dim.toLowerCase()
+      @[prop] = parseInt $('.slider-input-' + dim, @input).val()
+      $('.slider-input-val-' + dim, @input).text(@[prop])
+      for f in @change_fns
+        f(@x, @y, @z)
+
+  change: () ->
+      for dim in ['X', 'Y', 'Z']
+        @_change_dim dim
 
   get_coordinates: () ->
       @x = parseInt $('.slider-input-X', @input).val()
@@ -30,6 +35,8 @@ class VectorSliderInput
       $('.slider-input-X', @input).val(x)
       $('.slider-input-Y', @input).val(y)
       $('.slider-input-Z', @input).val(z)
+      do @change
 
-  change: (f) ->
-    @change_fns.push f
+  on: (ev, f) ->
+    if ev == 'change'
+      @change_fns.push f
