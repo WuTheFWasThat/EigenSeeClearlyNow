@@ -35,8 +35,6 @@ Then just hit port 8080 on localhost
 - make distances/etc aspects of view configurable
 - make gridding better?
 - make TOC foldable
-- hook up addition properly
-- color-coded vectors
 
 ## ROUGH ROAD MAP: ##
 
