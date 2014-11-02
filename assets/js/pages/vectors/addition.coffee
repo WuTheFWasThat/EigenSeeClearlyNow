@@ -32,6 +32,7 @@ init_vector_addition= ->
   viewB.addVector vectorB
 
   vectorInputSum = new VectorSliderInput('vectorSum')
+  vectorInputSum.sum vectorInputA, vectorInputB
 
   ################
   # SUM
@@ -67,9 +68,6 @@ init_vector_addition= ->
     vectorSum.set_trajectory(x + vectorB.trajectory.x,
                              y + vectorB.trajectory.y,
                              z + vectorB.trajectory.z)
-    vectorInputSum.set_coordinates(x + vectorB.trajectory.x,
-                                   y + vectorB.trajectory.y,
-                                   z + vectorB.trajectory.z)
 
   vectorInputB.on 'change', (x, y, z) ->
     vectorB.set_trajectory(x, y, z)
@@ -78,10 +76,6 @@ init_vector_addition= ->
     vectorSum.set_trajectory(x + vectorA.trajectory.x,
                              y + vectorA.trajectory.y,
                              z + vectorA.trajectory.z)
-
-    vectorInputSum.set_coordinates(x + vectorA.trajectory.x,
-                                   y + vectorA.trajectory.y,
-                                   z + vectorA.trajectory.z)
 
   # register view with keyboard handler
   keyHandler.register_view viewA

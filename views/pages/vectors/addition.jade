@@ -19,13 +19,13 @@ block content
    .row
       h4 Use arrow keys to rotate!
 
-    - var xvalA = 25
-    - var yvalA = 25
-    - var zvalA = 25
+    - var xvalA = 50
+    - var yvalA = -50
+    - var zvalA = 0
 
-    - var xvalB = 25
-    - var yvalB = 25
-    - var zvalB = -25
+    - var xvalB = 50
+    - var yvalB = 50
+    - var zvalB = -50
 
     - var options = {}
     - options.min = -100
@@ -50,7 +50,6 @@ block content
 
     - options.min = 2 * options.min
     - options.max = 2 * options.max
-    - options.step = 2 * options.step
     - options.x = xvalA + xvalB
     - options.y = yvalA + yvalB
     - options.z = zvalA + zvalB
