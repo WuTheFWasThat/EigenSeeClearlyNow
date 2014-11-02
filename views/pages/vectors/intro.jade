@@ -6,16 +6,16 @@ block content
       canvas#canvas(style='width:500px;height:500px')
       h4 Use arrow keys to rotate!
 
-    - var min = -100
-    - var max = 100
-    - var step = 10
-
-    - var xval = 50
-    - var yval = 50
-    - var zval = 0
+    - var options = {}
+    - options.min = -100
+    - options.max = 100
+    - options.step = 10
+    - options.x = 50
+    - options.y = 50
+    - options.z = 0
 
     .col-md-6
-      +slider_input('vectorInput', min, max, step, xval, yval, zval)
+      +slider_input('vectorInput', options)
 
 block morefoot
   script.
