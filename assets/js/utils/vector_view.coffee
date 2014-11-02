@@ -6,19 +6,23 @@ vectorize = (coords) ->
     throw new Error ('Cannot vectorize ' + JSON.stringify coords)
   return new THREE.Vector3(coords.x, coords.y, coords.z)
 
+###
+Class representing a drawn vector
+Options:
+  trajectory: represents the direction the vector is pointing
+  offset: represents the origin of the vector
+###
 class VectorView
-
-  # Example: vector = new VectorView([100, 0, 0], color: 0xFF0000)
-  # Example: var x = vector.trajectory.x
-  constructor: (trajectory, options) ->
+  constructor: (options) ->
       options = options or {}
 
       # represents the direction
-      @trajectory = vectorize(trajectory)
+      options.trajectory = options.trajectory or {x: 0, y: 0, z: 0}
+      @trajectory = vectorize(options.trajectory)
 
       # represents the start point of the vector
       options.offset = options.offset or {x: 0, y: 0, z: 0}
-      offset = vectorize(options.offset)
+      @offset = vectorize(options.offset)
 
       # three.js geometry
       @color = if options.color? then options.color else DEFAULT.VECTOR.COLOR
@@ -27,16 +31,31 @@ class VectorView
       headWidth  = options.headWidth or DEFAULT.VECTOR.HEAD_WIDTH
       lineWidth = options.lineWidth or DEFAULT.VECTOR.THICKNESS
 
-      @arrow = new THREE.Arrow(@trajectory.clone().normalize(), @trajectory.length(), offset, @color, headLength, headWidth, lineWidth)
+      @arrow = new THREE.Arrow(@trajectory.clone().normalize(), @trajectory.length(), @offset, @color, headLength, headWidth, lineWidth)
+      return @
 
-  set_trajectory: (x, y, z) ->
-      @trajectory = new THREE.Vector3(x, y, z)
+  set_trajectory: (trajectory) ->
+      @trajectory = vectorize(trajectory)
       @arrow.setDirection @trajectory.clone().normalize()
       @arrow.setLength @trajectory.length()
+      return @
 
-  set_offset: (x, y, z) ->
-      offset = new THREE.Vector3(x, y, z)
-      @arrow.setOffset offset
+  set_offset: (offset) ->
+      @offset = vectorize(offset)
+      @arrow.setOffset @offset
+      return @
+
+  set_reactive_trajectory: (r_vector) ->
+      @set_trajectory do r_vector.get_coordinates
+      r_vector.on 'change', (x, y, z) =>
+        @set_trajectory([x, y, z])
+      return @
+
+  set_reactive_offset: (r_vector) ->
+      @set_offset do r_vector.get_coordinates
+      r_vector.on 'change', (x, y, z) =>
+        @set_offset([x, y, z])
+      return @
 
   # draw!
   draw_on: (scene) ->

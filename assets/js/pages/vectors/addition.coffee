@@ -17,7 +17,7 @@ init_vector_addition= ->
   vectorInputA = new VectorSliderInput('vectorA')
   vectorAOptions = _.clone vectorOptions
   vectorAOptions.color = vectorInputA.color
-  vectorA = new VectorView(do vectorInputA.get_coordinates, vectorAOptions)
+  vectorA = new VectorView(vectorAOptions).set_reactive_trajectory vectorInputA
   viewA.addVector vectorA
 
   canvasB = $("#canvasB")
@@ -29,7 +29,7 @@ init_vector_addition= ->
   vectorInputB = new VectorSliderInput('vectorB')
   vectorBOptions = _.clone vectorOptions
   vectorBOptions.color = vectorInputB.color
-  vectorB = new VectorView(do vectorInputB.get_coordinates, vectorBOptions)
+  vectorB = new VectorView(vectorBOptions).set_reactive_trajectory vectorInputB
   viewB.addVector vectorB
 
   vectorInputSum = new VectorSliderInput('vectorSum')
@@ -46,37 +46,29 @@ init_vector_addition= ->
   )
 
   sumAOptions = _.clone vectorAOptions
-  vectorSumA = new VectorView(do vectorInputA.get_coordinates, sumAOptions)
+  vectorSumA = new VectorView(sumAOptions).set_reactive_trajectory vectorInputA
 
   sumBOptions = _.clone vectorBOptions
-  sumBOptions.offset = do vectorInputA.get_coordinates
-  vectorSumB = new VectorView(do vectorInputB.get_coordinates, sumBOptions)
+  vectorSumB = new VectorView(sumBOptions).set_reactive_trajectory vectorInputB
+  vectorSumB.set_reactive_offset vectorInputA
 
   trajectorySum = new THREE.Vector3().addVectors(vectorA.trajectory, vectorB.trajectory)
-
   vectorOptions.color = vectorInputSum.color
-  vectorSum = new VectorView(trajectorySum, vectorOptions)
+  vectorSum = new VectorView(vectorOptions).set_trajectory trajectorySum
   viewC.addVector vectorSumA
   viewC.addVector vectorSumB
   viewC.addVector vectorSum
 
 
   vectorInputA.on 'change', (x, y, z) ->
-    vectorA.set_trajectory(x, y, z)
-    vectorSumA.set_trajectory(x, y, z)
-    vectorSumB.set_offset(x, y, z)
-
-    vectorSum.set_trajectory(x + vectorB.trajectory.x,
+    vectorSum.set_trajectory([x + vectorB.trajectory.x,
                              y + vectorB.trajectory.y,
-                             z + vectorB.trajectory.z)
+                             z + vectorB.trajectory.z])
 
   vectorInputB.on 'change', (x, y, z) ->
-    vectorB.set_trajectory(x, y, z)
-    vectorSumB.set_trajectory(x, y, z)
-
-    vectorSum.set_trajectory(x + vectorA.trajectory.x,
+    vectorSum.set_trajectory([x + vectorA.trajectory.x,
                              y + vectorA.trajectory.y,
-                             z + vectorA.trajectory.z)
+                             z + vectorA.trajectory.z])
 
   # register view with keyboard handler
   keyHandler.register_view viewA

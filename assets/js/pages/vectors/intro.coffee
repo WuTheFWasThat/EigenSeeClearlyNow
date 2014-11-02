@@ -22,9 +22,9 @@ init_vector_intro = ->
   # Vector with arrow
 
   vectorInput = new VectorSliderInput('vectorInput')
-  vector = new VectorView(do vectorInput.get_coordinates, vectorOptions)
+  vector = new VectorView(vectorOptions).set_trajectory do vectorInput.get_coordinates
   vectorInput.on 'change', (x, y, z) ->
-    vector.set_trajectory(x, y, z)
+    vector.set_trajectory([x, y, z])
   view.addVector vector
 
   # register view with keyboard handler
