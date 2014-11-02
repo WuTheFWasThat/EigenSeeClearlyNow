@@ -1,18 +1,19 @@
 $(document).ready(->
   render_contents_on_div = (contents, div, path= "") ->
+    list = $('<ul>')
+    div.append list
     for section in contents
       # console.log section
-      childdiv = $('<li>')
-      childlink = $('<a>').text section.name
-      childdiv.append childlink
-      childpath= path+ "/" + section.name
+      child = $('<li>')
+      childpath= path + "/" + section.name
       if section.sections
-        childlist= $('<ul>')
-        render_contents_on_div section.sections, childlist, childpath
-        childdiv.append childlist
+        child.append $('<div>').text section.name
+        render_contents_on_div section.sections, child, childpath
       else
+        childlink = $('<a>').text section.name
         childlink.attr 'href', childpath
-      div.append(childdiv)
+        child.append childlink
+      list.append(child)
 
   table_of_contents = [
     {
