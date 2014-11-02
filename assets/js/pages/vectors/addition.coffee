@@ -52,23 +52,12 @@ init_vector_addition= ->
   vectorSumB = new VectorView(sumBOptions).set_reactive_trajectory vectorInputB
   vectorSumB.set_reactive_offset vectorInputA
 
-  trajectorySum = new THREE.Vector3().addVectors(vectorA.trajectory, vectorB.trajectory)
   vectorOptions.color = vectorInputSum.color
-  vectorSum = new VectorView(vectorOptions).set_trajectory trajectorySum
+  vectorSum = new VectorView(vectorOptions).set_reactive_trajectory vectorInputSum
+
   viewC.addVector vectorSumA
   viewC.addVector vectorSumB
   viewC.addVector vectorSum
-
-
-  vectorInputA.on 'change', (x, y, z) ->
-    vectorSum.set_trajectory([x + vectorB.trajectory.x,
-                             y + vectorB.trajectory.y,
-                             z + vectorB.trajectory.z])
-
-  vectorInputB.on 'change', (x, y, z) ->
-    vectorSum.set_trajectory([x + vectorA.trajectory.x,
-                             y + vectorA.trajectory.y,
-                             z + vectorA.trajectory.z])
 
   # register view with keyboard handler
   keyHandler.register_view viewA
