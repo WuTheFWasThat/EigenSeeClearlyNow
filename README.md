@@ -39,6 +39,7 @@ Then just hit port 8080 on localhost
 - make distances/etc aspects of view configurable
 - make gridding better?
 - make TOC foldable
+- fix tips of arrows
 
 maybe eventually..
 - make mousewheel handling more flexible

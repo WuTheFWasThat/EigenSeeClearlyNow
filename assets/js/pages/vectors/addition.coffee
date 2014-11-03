@@ -16,7 +16,8 @@ INIT['vectors-addition'] = ->
   vectorInputA = new VectorSliderInput('vectorA')
   vectorAOptions = _.clone vectorOptions
   vectorAOptions.color = vectorInputA.color
-  vectorA = new VectorView(vectorAOptions).set_reactive_trajectory vectorInputA
+  vectorA = new VectorView(vectorAOptions)
+            .set_reactive_trajectory vectorInputA
   viewA.addVector vectorA
 
   canvasB = $("#canvasB")
@@ -28,7 +29,8 @@ INIT['vectors-addition'] = ->
   vectorInputB = new VectorSliderInput('vectorB')
   vectorBOptions = _.clone vectorOptions
   vectorBOptions.color = vectorInputB.color
-  vectorB = new VectorView(vectorBOptions).set_reactive_trajectory vectorInputB
+  vectorB = new VectorView(vectorBOptions)
+            .set_reactive_trajectory vectorInputB
   viewB.addVector vectorB
 
   vectorInputSum = new VectorSliderInput('vectorSum')
@@ -46,15 +48,18 @@ INIT['vectors-addition'] = ->
 
   sumAOptions = _.clone vectorAOptions
   sumAOptions.lineWidth = 2
-  vectorSumA = new VectorView(sumAOptions).set_reactive_trajectory vectorInputA
+  vectorSumA = new VectorView(sumAOptions)
+               .set_reactive_trajectory vectorInputA
 
   sumBOptions = _.clone vectorBOptions
   sumBOptions.lineWidth = 2
-  vectorSumB = new VectorView(sumBOptions).set_reactive_trajectory vectorInputB
-  vectorSumB.set_reactive_offset vectorInputA
+  vectorSumB = new VectorView(sumBOptions)
+               .set_reactive_trajectory vectorInputB
+               .set_reactive_offset vectorInputA
 
   vectorOptions.color = vectorInputSum.color
-  vectorSum = new VectorView(vectorOptions).set_reactive_trajectory vectorInputSum
+  vectorSum = new VectorView(vectorOptions)
+              .set_reactive_trajectory vectorInputSum
 
   viewC.addVector vectorSumA
   viewC.addVector vectorSumB
