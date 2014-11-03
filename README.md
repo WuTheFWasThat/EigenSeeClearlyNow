@@ -4,9 +4,7 @@
 
 This is a project to help anyone learning linear algebra visualize its concepts.
 
-For 3D visualizations, we use [three.js](https://github.com/mrdoob/three.js).
-
-It is still a very, very early-stage work in progress.
+It is still a very early-stage work in progress.
 
 Click [here](https://jeffwu-eigen.terminal.com/) for a demo.
 
@@ -14,7 +12,8 @@ Click [here](https://jeffwu-eigen.terminal.com/) for a demo.
 
 ### Option 1 - On Terminal.com ###
 
-Make an account on Terminal.com if you don't have one.  Log in, and start this snapshot: https://www.terminal.com/snapshot/c89d0aaa382a9242995afc053ac74ad3d787d0010511d8cad9aacd9426d3ed29
+Make an account on Terminal.com if you don't have one.
+Log in, and start [this snapshot](https://www.terminal.com/snapshot/c0409926af9adfefb358320c21dcd53f883a778e75dde28f360a917c7ffad442).
 
 ### Option 2 - Set up yourself ###
 
@@ -32,9 +31,18 @@ Then just hit port 8080 on localhost
 
 ## SHORT TERM TO-DO: ##
 
+- make commutativity demo
+- figure out how to require directory for sass??
+- think about organization of pages (maybe use symlinks)
+- does typeface load/initialize slowly?
+- figure out good color schemes
 - make distances/etc aspects of view configurable
 - make gridding better?
 - make TOC foldable
+
+maybe eventually..
+- make mousewheel handling more flexible
+- make keyboard handler more flexible??
 
 ## ROUGH ROAD MAP: ##
 
@@ -72,7 +80,6 @@ more:
   spectral theora
   SVD?
 
-
 advanced:
   dual space?
   direct sum?
@@ -83,3 +90,8 @@ advanced:
 
 Feel free to send me pull requests!
 
+For 3D visualizations, we use [three.js](https://github.com/mrdoob/three.js).  Many thanks to them!
+
+### CONTRIBUTORS: ###
+- Jeff Wu
+- Yang Hong
