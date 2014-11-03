@@ -18,7 +18,4 @@ NOTE: order matters here
 
 #= require_tree utils
 
-#= require pages/layout.coffee
-#= require pages/index.coffee
-#= require pages/vectors/intro.coffee
-#= require pages/vectors/addition.coffee
+#= require_tree pages
