@@ -1,5 +1,6 @@
 # Intro: One Vector
-init_vector_intro = ->
+INIT['vectors-intro'] = ->
+
   canvas = $("#canvas")
 
   # Setup scene, camera, renderer

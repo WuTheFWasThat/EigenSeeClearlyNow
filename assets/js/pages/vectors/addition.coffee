@@ -1,5 +1,5 @@
 # Intro: One Vector
-init_vector_addition= ->
+INIT['vectors-addition'] = ->
 
   canvasA = $("#canvasA")
   viewA = new View(canvasA)

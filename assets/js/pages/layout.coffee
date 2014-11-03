@@ -1,3 +1,5 @@
+INIT = {}
+
 $(document).ready ->
   hasWebGL = ->
     canvas = document.createElement 'canvas'
@@ -22,3 +24,7 @@ $(document).ready ->
       $('#noWebGLReason').text(if window.WebGLRenderingContext then 'browser' else 'graphics card')
       $('#noWebGL').removeClass 'hidden'
 
+  # runner for javascript via INIT functions
+  bodyClass = $('body').attr('class').split(' ')[0]
+  if INIT[bodyClass]
+    do INIT[bodyClass]
