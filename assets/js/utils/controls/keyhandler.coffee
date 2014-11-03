@@ -4,6 +4,7 @@ class KeyHandler
   constructor: ->
     @views = {}
 
+    # TODO: have general handler for any key, register view does the up/down etc
     $(document).keydown (e) =>
       cancel = () ->
         do e.preventDefault
@@ -31,10 +32,9 @@ class KeyHandler
     id = 0
     while id of @views
       id += 1
-    view.keyboard_id = id
     @views[id] = [view, speed]
+    return id
 
-  unregister_view: (view) ->
-    delete view.keyboard_id
-    delete @views[view.keyboard_id]
+  unregister_view: (id) ->
+    delete @views[id]
 

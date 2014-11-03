@@ -1,7 +1,5 @@
 # Intro: One Vector
 init_vector_intro = ->
-  keyHandler = new KeyHandler()
-
   canvas = $("#canvas")
 
   # Setup scene, camera, renderer
@@ -27,8 +25,12 @@ init_vector_intro = ->
     vector.set_trajectory([x, y, z])
   view.addVector vector
 
-  # register view with keyboard handler
+  # bind inputs
+  keyHandler = new KeyHandler()
   keyHandler.register_view view
+
+  mouseHandler = new MouseHandler()
+  mouseHandler.register_view view
 
   # animate!
   do view.animate

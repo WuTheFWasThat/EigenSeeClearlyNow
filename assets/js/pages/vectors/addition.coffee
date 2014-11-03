@@ -1,6 +1,5 @@
 # Intro: One Vector
 init_vector_addition= ->
-  keyHandler = new KeyHandler()
 
   canvasA = $("#canvasA")
   viewA = new View(canvasA)
@@ -59,10 +58,16 @@ init_vector_addition= ->
   viewC.addVector vectorSumB
   viewC.addVector vectorSum
 
-  # register view with keyboard handler
+  # bind inputs
+  keyHandler = new KeyHandler()
   keyHandler.register_view viewA
   keyHandler.register_view viewB
   keyHandler.register_view viewC
+
+  mouseHandler = new MouseHandler()
+  mouseHandler.register_view viewA
+  mouseHandler.register_view viewB
+  mouseHandler.register_view viewC
 
   # animate!
   do viewA.animate
