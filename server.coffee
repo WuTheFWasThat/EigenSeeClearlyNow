@@ -3,22 +3,26 @@
 # Register CoffeeScript loader
 #require('coffee-script/register')
 
-express = require("express")
-_ = require("underscore")
 
-process.on "uncaughtException", (err) ->
-  console.log "Uncaught exception", err.message
-  console.log "Uncaught exception", err.stack
+express = require 'express'
+execSync = require 'execSync'
+_ = require 'underscore'
+
+execSync.exec 'python scripts/compile_css_template.py assets/css/app.tmpl.sass assets/css/app.css.sass'
+
+process.on 'uncaughtException', (err) ->
+  console.log 'Uncaught exception', err.message
+  console.log 'Uncaught exception', err.stack
   return
 
-env = process.env.NODE_ENV or "development"
+env = process.env.NODE_ENV or 'development'
 
 app = express()
 
 # Asset pipeline
-connect_assets = require("connect-assets")(
+connect_assets = require('connect-assets')(
   helperContext: app.locals
-  buildDir: ((if env is "production" then "public/assets" else false))
+  buildDir: ((if env is 'production' then 'public/assets' else false))
 )
 app.use connect_assets
 
@@ -47,7 +51,7 @@ app.use (req, res, next) ->
 
 port = process.argv[2] or 8080
 app.listen port
-console.log "Started server on port " + port
+console.log 'Started server on port ' + port
 
 # Expose app
 exports = module.exports = app

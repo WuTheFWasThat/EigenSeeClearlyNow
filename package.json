@@ -7,13 +7,14 @@
     "npm": "1.2.x"
   },
   "scripts": {
-    "start": "NODE_ENV=development ./node_modules/.bin/nodemon -e coffee,jade,sass server.coffee"
+    "start": "NODE_ENV=development ./node_modules/.bin/nodemon --ignore 'assets/css/app.css.sass' -e coffee,jade,sass server.coffee"
   },
   "dependencies": {
     "async": "latest",
     "coffee-script": "latest",
     "connect-assets": "latest",
     "connect-flash": "latest",
+    "execSync": "latest",
     "express": "latest",
     "jade": "latest",
     "nodemon": "latest",
