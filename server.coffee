@@ -22,6 +22,9 @@ connect_assets = require("connect-assets")(
 )
 app.use connect_assets
 
+# for MathJax to work
+app.use express.static(__dirname + '/assets/js/lib/MathJax')
+
 app.set 'views', 'views'
 app.set 'view engine', 'jade'
 

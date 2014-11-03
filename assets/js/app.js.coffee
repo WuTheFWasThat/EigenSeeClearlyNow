@@ -14,7 +14,7 @@ NOTE: order matters here
 
 #= require lib/underscore-min.js
 #= require lib/bootstrap.min.js
-#= require lib/MathJax.js
+#= require lib/MathJax/MathJax.js
 
 #= require_tree utils
 
