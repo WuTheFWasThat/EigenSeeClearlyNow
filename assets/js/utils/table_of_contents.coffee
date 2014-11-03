@@ -27,10 +27,10 @@ $(document).ready(->
         }
       ]
     }
-    {
-      name: "matrices"
-      sections: [name: "intro"]
-    }
+    #{
+    #  name: "matrices"
+    #  sections: [name: "intro"]
+    #}
   ]
 
   render_contents_on_div table_of_contents, $('#table_of_contents')

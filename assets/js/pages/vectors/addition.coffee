@@ -8,7 +8,7 @@ init_vector_addition= ->
   )
 
   vectorOptions = (
-    lineWidth: 3
+    lineWidth: 4
     headWidth: 12
     headLength: 10
   )
@@ -45,9 +45,11 @@ init_vector_addition= ->
   )
 
   sumAOptions = _.clone vectorAOptions
+  sumAOptions.lineWidth = 2
   vectorSumA = new VectorView(sumAOptions).set_reactive_trajectory vectorInputA
 
   sumBOptions = _.clone vectorBOptions
+  sumBOptions.lineWidth = 2
   vectorSumB = new VectorView(sumBOptions).set_reactive_trajectory vectorInputB
   vectorSumB.set_reactive_offset vectorInputA
 
