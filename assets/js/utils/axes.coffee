@@ -70,7 +70,7 @@ buildAxisLabel = (labelText, axis) ->
 
 # Basic XYZ grids
 buildGrids = (scene, gridSize, gridStep, gridColor) ->
-  gridXZ = new THREE.GridHelper(gridSize, gridStep)
+  gridXZ = new THREE.Grid(gridSize, gridStep)
   gridXZ.position = new THREE.Vector3(0, 0, 0)
   gridXZ.rotation = new THREE.Euler(0, 0, 0)
   gridXZ.setColors gridColor, gridColor
