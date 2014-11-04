@@ -31,15 +31,13 @@ Then just hit port 8080 on localhost
 
 ## SHORT TERM TO-DO: ##
 
-- make commutativity demo
-- figure out how to require directory for sass??
 - think about organization of pages (maybe use symlinks)
 - does typeface load/initialize slowly?
 - figure out good color schemes
 - make distances/etc aspects of view configurable
 - make gridding better?
 - make TOC foldable
-- fix tips of arrows
+- make commutativity demo
 
 maybe eventually..
 - make mousewheel handling more flexible

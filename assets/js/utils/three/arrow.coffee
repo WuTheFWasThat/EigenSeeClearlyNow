@@ -63,7 +63,7 @@ headWidth - Number
 
   THREE.Arrow::setLength = (length) ->
     @length = length
-    @line.scale.set 1, length, 1
+    @line.scale.set 1, (length-@headLength), 1
     @line.updateMatrix()
     @cone.position.y = length
     @cone.updateMatrix()
