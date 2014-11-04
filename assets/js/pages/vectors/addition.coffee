@@ -13,11 +13,13 @@ INIT['vectors-addition'] = ->
     headLength: 10
   )
 
+  setupInputVector = (sliderInput, vectorOptions, line_width) ->
+    vector = new VectorView(vectorOptions).set_reactive_trajectory sliderInput
+    vector.set_color sliderInput.color
+    vector.set_line_width line_width
+
   vectorInputA = new VectorSliderInput('vectorA')
-  vectorAOptions = _.clone vectorOptions
-  vectorAOptions.color = vectorInputA.color
-  vectorA = new VectorView(vectorAOptions)
-            .set_reactive_trajectory vectorInputA
+  vectorA = setupInputVector(vectorInputA, vectorOptions, 4)
   viewA.addVector vectorA
 
   canvasB = $("#canvasB")
@@ -27,14 +29,8 @@ INIT['vectors-addition'] = ->
   )
 
   vectorInputB = new VectorSliderInput('vectorB')
-  vectorBOptions = _.clone vectorOptions
-  vectorBOptions.color = vectorInputB.color
-  vectorB = new VectorView(vectorBOptions)
-            .set_reactive_trajectory vectorInputB
+  vectorB = setupInputVector(vectorInputB, vectorOptions, 4)
   viewB.addVector vectorB
-
-  vectorInputSum = new VectorSliderInput('vectorSum')
-  vectorInputSum.sum vectorInputA, vectorInputB
 
   ################
   # SUM
@@ -46,20 +42,15 @@ INIT['vectors-addition'] = ->
     colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
   )
 
-  sumAOptions = _.clone vectorAOptions
-  sumAOptions.lineWidth = 2
-  vectorSumA = new VectorView(sumAOptions)
-               .set_reactive_trajectory vectorInputA
+  vectorSumA = setupInputVector(vectorInputA, vectorOptions, 2)
 
-  sumBOptions = _.clone vectorBOptions
-  sumBOptions.lineWidth = 2
-  vectorSumB = new VectorView(sumBOptions)
-               .set_reactive_trajectory vectorInputB
+  vectorSumB = setupInputVector(vectorInputB, vectorOptions, 2)
                .set_reactive_offset vectorInputA
 
-  vectorOptions.color = vectorInputSum.color
-  vectorSum = new VectorView(vectorOptions)
-              .set_reactive_trajectory vectorInputSum
+  vectorInputSum = new VectorSliderInput('vectorSum')
+  vectorInputSum.sum vectorInputA, vectorInputB
+
+  vectorSum = setupInputVector(vectorInputSum, vectorOptions, 4)
 
   viewC.addVector vectorSumA
   viewC.addVector vectorSumB

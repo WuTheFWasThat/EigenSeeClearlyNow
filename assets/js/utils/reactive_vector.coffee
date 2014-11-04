@@ -45,3 +45,4 @@ class ReactiveVector
 
     for other in others
       other.on 'change', set_sum
+

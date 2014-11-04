@@ -29,9 +29,9 @@ class VectorView
 
       headLength = options.headLength or DEFAULT.VECTOR.HEAD_LENGTH
       headWidth  = options.headWidth or DEFAULT.VECTOR.HEAD_WIDTH
-      lineWidth = options.lineWidth or DEFAULT.VECTOR.THICKNESS
+      @lineWidth = options.lineWidth or DEFAULT.VECTOR.THICKNESS
 
-      @arrow = new THREE.Arrow(@trajectory.clone().normalize(), @trajectory.length(), @offset, @color, headLength, headWidth, lineWidth)
+      @arrow = new THREE.Arrow(@trajectory.clone().normalize(), @trajectory.length(), @offset, @color, headLength, headWidth, @lineWidth)
       return @
 
   set_trajectory: (trajectory) ->
@@ -43,6 +43,16 @@ class VectorView
   set_offset: (offset) ->
       @offset = vectorize(offset)
       @arrow.setOffset @offset
+      return @
+
+  set_color: (color) ->
+      @color = color
+      @arrow.setColor @color
+      return @
+
+  set_line_width: (lineWidth) ->
+      @lineWidth = lineWidth
+      @arrow.setLineWidth @lineWidth
       return @
 
   set_reactive_trajectory: (r_vector) ->

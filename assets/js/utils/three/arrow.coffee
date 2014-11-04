@@ -24,6 +24,7 @@ headWidth - Number
       lineGeometry.vertices.push new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 1, 0)
 
       @position.copy origin
+
       @line = new THREE.Line(lineGeometry, new THREE.LineBasicMaterial(color: color, linewidth: arrowThickness))
       @line.matrixAutoUpdate = false
       @add @line
@@ -82,6 +83,10 @@ headWidth - Number
   THREE.Arrow::setColor = (color) ->
     @line.material.color.set color
     @cone.material.color.set color
+    return
+
+  THREE.Arrow::setLineWidth = (lineWidth) ->
+    @line.material.linewidth = lineWidth
     return
 
 )()
