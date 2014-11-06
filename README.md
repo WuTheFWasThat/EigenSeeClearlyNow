@@ -31,8 +31,6 @@ Then just hit port 8080 on localhost
 
 ## SHORT TERM TO-DO: ##
 
-- fix drag rotate on firefox
-- think about organization of pages (maybe use symlinks)
 - does typeface load/initialize slowly?
 - figure out good color schemes
 - make distances/etc aspects of view configurable

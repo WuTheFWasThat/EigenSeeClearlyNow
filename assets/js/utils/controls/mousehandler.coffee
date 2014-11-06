@@ -27,8 +27,8 @@ class MouseHandler
 
     div.mousedown (e) ->
       mousedown = true
-      lastx = e.offsetX
-      lasty = e.offsetY
+      lastx = e.pageX
+      lasty = e.pageY
 
     div.mouseup (e) ->
       mousedown = false
@@ -37,10 +37,10 @@ class MouseHandler
 
     div.mousemove (e) =>
       if mousedown
-        dx = e.offsetX - lastx
-        dy = e.offsetY - lasty
-        lastx = e.offsetX
-        lasty = e.offsetY
+        dx = e.pageX - lastx
+        dy = e.pageY - lasty
+        lastx = e.pageX
+        lasty = e.pageY
         @mousedrag -dx, dy
 
     id = 0
