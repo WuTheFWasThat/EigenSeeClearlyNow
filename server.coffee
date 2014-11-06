@@ -9,6 +9,7 @@ execSync = require 'execSync'
 _ = require 'underscore'
 
 execSync.exec 'python scripts/compile_css_template.py assets/css/app.tmpl.sass assets/css/app.css.sass'
+execSync.exec 'python scripts/setup_assets_symlinks.py'
 
 process.on 'uncaughtException', (err) ->
   console.log 'Uncaught exception', err.message
@@ -35,11 +36,11 @@ app.set 'view engine', 'jade'
 app.get '/', (req, res) ->
   res.render 'index'
 
-app.get '/:section/:subsection', (req, res) ->
+app.get '/:chapter/:section', (req, res) ->
+  chapter = req.param 'chapter'
   section = req.param 'section'
-  subsection = req.param 'subsection'
   #try
-  res.render 'pages/' + section + '/' + subsection
+  res.render 'pages/' + chapter + '/' + section
   #catch e
   #  res.render '404'
 

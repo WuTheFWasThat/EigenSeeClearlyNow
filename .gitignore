@@ -3,4 +3,9 @@ npm-debug.log
 *.swp
 *.swn
 *.swo
+
 assets/css/app.css.sass
+
+assets/css/pages
+assets/js/pages
+views/pages

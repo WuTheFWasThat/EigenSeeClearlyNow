@@ -18,4 +18,6 @@ NOTE: order matters here
 
 #= require_tree utils
 
+#= require layout
+#= require index
 #= require_tree pages

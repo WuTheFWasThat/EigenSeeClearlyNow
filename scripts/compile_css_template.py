@@ -1,6 +1,5 @@
 import os
 import sys
-import subprocess
 
 if len(sys.argv) < 3:
     print 'Usage: python %s <template_file> <out_file>' % sys.argv[0]
