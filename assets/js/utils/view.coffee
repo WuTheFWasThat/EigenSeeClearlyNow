@@ -9,10 +9,6 @@ class View
     @canvas = canvas
     options = options or {}
 
-    options.bindMouseWheel = if options.bindMouseWheel? then options.bindMouseWheel else true
-    if options.bindMouseWheel
-      do @bindMouseWheel
-
     #######################
     # SCENE
     #######################
@@ -25,7 +21,7 @@ class View
 
     @width = options.width or DEFAULT.CAMERA.WIDTH
     @height = options.height or DEFAULT.CAMERA.HEIGHT
-    @zoomlevel = 0
+    @zoomLevel = 0
 
     @camera = new THREE.OrthographicCamera()
     do @zoomCamera
@@ -55,7 +51,7 @@ class View
     @renderer.render @scene, @camera
 
   zoomCamera: ->
-    zoomFactor = Math.pow(2, @zoomlevel)
+    zoomFactor = Math.pow(2, @zoomLevel)
     frustumWidth = @width * zoomFactor / 2
     frustumHeight = @height * zoomFactor / 2
 
@@ -102,14 +98,9 @@ class View
     vector.draw_on @scene
     return vector
 
-  bindMouseWheel: (wheelspeed) ->
-    wheelspeed = wheelspeed or 1000
-    @canvas.bind 'mousewheel', (e) =>
-      change = e.originalEvent.wheelDelta / wheelspeed
-      @zoomlevel -= change
+  zoom: (zoomChange) ->
+      @zoomLevel += zoomChange
       do @zoomCamera
-      do e.preventDefault
-      return false
 
   # Changes vector based on user input
   animate: ->
