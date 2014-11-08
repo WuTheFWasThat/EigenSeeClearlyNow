@@ -31,6 +31,9 @@ Then just hit port 8080 on localhost
 
 ## SHORT TERM TO-DO: ##
 
+- make axes labels follow camera
+- fix canvas dimensions to be flexible
+- add lighting?
 - does typeface load/initialize slowly?
 - figure out good color schemes
 - make distances/etc aspects of view configurable

@@ -100,6 +100,8 @@ class View
 
   zoom: (zoomChange) ->
       @zoomLevel += zoomChange
+      @zoomLevel = Math.max(@zoomLevel, -5)
+      @zoomLevel = Math.min(@zoomLevel, 5)
       do @zoomCamera
 
   # Changes vector based on user input
