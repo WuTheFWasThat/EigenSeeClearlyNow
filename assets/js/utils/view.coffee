@@ -38,14 +38,26 @@ class View
 
     backgroundColor = options.backgroundColor or DEFAULT.BACKGROUND.COLOR
 
+    options.square = if options.square? then options.square else true
+
     # Default renderer uses antialiasing and uses WebGL if possible (for faster rendering)
     @renderer = new THREE.Renderer({canvas: @canvas[0], antialias: true})
-    @renderer.setSize @canvas.width(), @canvas.height()
     @renderer.setClearColor backgroundColor
+    do @resize
+
+    if options.square
+        $(window).resize =>
+            @canvas.height(@canvas.width())
+            do @resize
+        $(window).resize()
+
 
     #console.log scene.position
     #camera.lookAt(scene.position)
     #console.log camera.position
+
+  resize: ->
+    @renderer.setSize @canvas.width(), @canvas.height(), false
 
   render: ->
     @renderer.render @scene, @camera
