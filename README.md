@@ -32,7 +32,6 @@ Then just hit port 8080 on localhost
 ## SHORT TERM TO-DO: ##
 
 - make axes labels follow camera
-- add lighting?
 - does typeface load/initialize slowly?
 - figure out good color schemes
 - make distances/etc aspects of view configurable
