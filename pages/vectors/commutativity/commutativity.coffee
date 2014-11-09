@@ -1,44 +1,29 @@
 # Commutativity: Showing vector addition is commutative
 INIT['vectors-commutativity'] = ->
 
-  canvasA = $("#canvasA")
-  viewA = new View(canvasA)
-  viewA.addAxes(
-    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
-  )
-
   vectorOptions = (
     lineWidth: 4
     headWidth: 12
     headLength: 10
   )
 
+  # TODO put this method somewhere appropriate, shouldn't repeat it in demo coffee files
   setupInputVector = (sliderInput, vectorOptions, line_width) ->
     vector = new VectorView(vectorOptions).set_reactive_trajectory sliderInput
     vector.set_color sliderInput.color
     vector.set_line_width line_width
 
   vectorInputA = new VectorSliderInput('vectorA')
-  vectorA = setupInputVector(vectorInputA, vectorOptions, 4)
-  viewA.addVector vectorA
-
-  canvasB = $("#canvasB")
-  viewB = new View(canvasB)
-  viewB.addAxes(
-    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
-  )
 
   vectorInputB = new VectorSliderInput('vectorB')
-  vectorB = setupInputVector(vectorInputB, vectorOptions, 4)
-  viewB.addVector vectorB
 
   ################
   # SUM
   ################
 
-  canvasC = $("#canvasC")
-  viewC = new View(canvasC)
-  viewC.addAxes(
+  canvas = $("#sumCanvas")
+  view = new View(canvas)
+  view.addAxes(
     colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
   )
 
@@ -57,25 +42,19 @@ INIT['vectors-commutativity'] = ->
 
   vectorSum = setupInputVector(vectorInputSum, vectorOptions, 4)
 
-  viewC.addVector vectorAFromOrigin
-  viewC.addVector vectorBFromA
-  viewC.addVector vectorBFromOrigin
-  viewC.addVector vectorAFromB
-  viewC.addVector vectorSum
+  view.addVector vectorAFromOrigin
+  view.addVector vectorBFromA
+  view.addVector vectorBFromOrigin
+  view.addVector vectorAFromB
+  view.addVector vectorSum
 
   # bind inputs
   keyHandler = new KeyHandler()
-  keyHandler.register_view viewA
-  keyHandler.register_view viewB
-  keyHandler.register_view viewC
+  keyHandler.register_view view
 
   mouseHandler = new MouseHandler()
-  mouseHandler.register_view viewA
-  mouseHandler.register_view viewB
-  mouseHandler.register_view viewC
+  mouseHandler.register_view view
 
   # animate!
-  do viewA.animate
-  do viewB.animate
-  do viewC.animate
+  do view.animate
 
