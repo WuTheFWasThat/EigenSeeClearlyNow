@@ -25,6 +25,9 @@ $(document).ready(->
         {
           name: "addition"
         }
+        {
+          name: "commutativity"
+        }
       ]
     }
     #{

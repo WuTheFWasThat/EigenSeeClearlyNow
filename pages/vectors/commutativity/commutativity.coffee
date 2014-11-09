@@ -1,5 +1,5 @@
-# Addition: Adding two vectors
-INIT['vectors-addition'] = ->
+# Commutativity: Showing vector addition is commutative
+INIT['vectors-commutativity'] = ->
 
   canvasA = $("#canvasA")
   viewA = new View(canvasA)
@@ -42,18 +42,25 @@ INIT['vectors-addition'] = ->
     colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
   )
 
-  vectorSumA = setupInputVector(vectorInputA, vectorOptions, 2)
+  vectorAFromOrigin = setupInputVector(vectorInputA, vectorOptions, 2)
 
-  vectorSumB = setupInputVector(vectorInputB, vectorOptions, 2)
+  vectorBFromA = setupInputVector(vectorInputB, vectorOptions, 2)
                .set_reactive_offset vectorInputA
+
+  vectorBFromOrigin = setupInputVector(vectorInputB, vectorOptions, 2)
+
+  vectorAFromB = setupInputVector(vectorInputA, vectorOptions, 2)
+               .set_reactive_offset vectorInputB
 
   vectorInputSum = new VectorSliderInput('vectorSum')
   vectorInputSum.sum vectorInputA, vectorInputB
 
   vectorSum = setupInputVector(vectorInputSum, vectorOptions, 4)
 
-  viewC.addVector vectorSumA
-  viewC.addVector vectorSumB
+  viewC.addVector vectorAFromOrigin
+  viewC.addVector vectorBFromA
+  viewC.addVector vectorBFromOrigin
+  viewC.addVector vectorAFromB
   viewC.addVector vectorSum
 
   # bind inputs
