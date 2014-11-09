@@ -1,6 +1,7 @@
 body.vectors-addition
 
   $fontsize: 40px
+  $symbol-half-width: percentage(1/24)
 
   canvas
     width: 100%
@@ -8,13 +9,12 @@ body.vectors-addition
 
   #plus, #equals
     position:absolute
-    left: 33%
     top: 50%
-    margin-left: -20px
+    text-align: center
     font-size: $fontsize
     margin-top: (-$fontsize - 85)
 
   #plus
-    left: 33%
+    left: (percentage(1/3) - $symbol-half-width)
   #equals
-    left: 66%
+    left: (percentage(2/3) - $symbol-half-width)

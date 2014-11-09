@@ -19,8 +19,7 @@ block content
 
 
   .row(style='position:relative')
-    .col-md-4
-      canvas#canvasA.center(style='width:100%;')
+    .col-md-6
 
       - options.x = xvalA
       - options.y = yvalA
@@ -28,23 +27,11 @@ block content
       - options.color = 'FFFF66'
       +slider_input('vectorA', options)
 
-    .col-md-1#plus
-       div +
-
-    .col-md-4
-      canvas#canvasB.center(style='width:100%;')
-
       - options.x = xvalB
       - options.y = yvalB
       - options.z = zvalB
       - options.color = '6699FF'
       +slider_input('vectorB', options)
-
-    .col-md-1#equals
-       div =
-
-    .col-md-4
-      canvas#sumCanvas.center(style='width:100%;')
 
       - options.min = 2 * options.min
       - options.max = 2 * options.max
@@ -56,4 +43,6 @@ block content
 
       +slider_input('vectorSum', options)
 
+    .col-md-6
+      canvas#sumCanvas.center
 
