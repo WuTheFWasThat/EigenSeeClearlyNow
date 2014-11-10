@@ -43,6 +43,38 @@ class MouseHandler
         lasty = e.pageY
         @mousedrag -dx, dy
 
+    # for mobile
+
+    touching = false
+    touchx = null
+    touchy = null
+
+    div[0].addEventListener 'touchstart', (e) ->
+      if e.touches.length == 1
+        touching = true
+        touchx = e.touches[0].clientX
+        touchy = e.touches[0].clientY
+
+    div[0].addEventListener 'touchend', (e) ->
+      touching = false
+      touchx = null
+      touchy = null
+
+    div[0].addEventListener 'touchcancel', (e) ->
+      touching = false
+      touchx = null
+      touchy = null
+
+    div[0].addEventListener 'touchmove', (e) =>
+      if touching
+        dx = e.touches[0].clientX - touchx
+        dy = e.touches[0].clientY - touchy
+        touchx = e.touches[0].clientX
+        touchy = e.touches[0].clientY
+        @mousedrag -dx, dy
+      do e.preventDefault
+      return false
+
     id = 0
     while id of @mousedrag_event_emitters
       id += 1
@@ -63,6 +95,38 @@ class MouseHandler
     div.bind 'mousewheel', (e) =>
       change = e.originalEvent.wheelDelta / wheelspeed
       @mousewheel -change
+      do e.preventDefault
+      return false
+
+    # for mobile
+
+    pinching = false
+    dist = null
+
+    div[0].addEventListener 'touchstart', (e) ->
+      if e.touches.length > 1
+        pinching = true
+        dx = e.touches[0].clientX - e.touches[1].clientX
+        dy = e.touches[0].clientY - e.touches[1].clientY
+        dist = Math.sqrt(dx * dx + dy * dy)
+
+    div[0].addEventListener 'touchend', (e) ->
+      pinching = false
+      dist = null
+
+    div[0].addEventListener 'touchcancel', (e) ->
+      pinching = false
+      dist = null
+
+    div[0].addEventListener 'touchmove', (e) =>
+      if pinching
+        dx = e.touches[0].clientX - e.touches[1].clientX
+        dy = e.touches[0].clientY - e.touches[1].clientY
+        newdist = Math.sqrt(dx * dx + dy * dy)
+        ddist = (dist - newdist) / 100
+        dist = newdist
+        @mousewheel ddist
+
       do e.preventDefault
       return false
 
