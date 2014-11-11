@@ -31,25 +31,16 @@ Then just hit port 8080 on localhost
 
 ## SHORT TERM TO-DO: ##
 
+- add latex to commutativity demo
 - make axes labels follow camera
-- does typeface load/initialize slowly?
 - figure out good color schemes
 - make distances/etc aspects of view configurable
 - make gridding better?
 - make TOC foldable
-- make commutativity demo
-
-maybe eventually..
-- make mousewheel handling more flexible
-- make keyboard handler more flexible??
+- make keyboard handler more flexible?
 
 ## ROUGH ROAD MAP: ##
 
-- Vectors
-  1.  show a vector
-      show a vector in 3 dimensions
-  2.  vector addition
-      show vector addition commutes (with a parallelogram?)
 - Matrices
   1. explain that a matrix is a linear transformation
   2. start with a diagonal square matrix
