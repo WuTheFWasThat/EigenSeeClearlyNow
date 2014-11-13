@@ -31,7 +31,6 @@ Then just hit port 8080 on localhost
 
 ## SHORT TERM TO-DO: ##
 
-- add latex to commutativity demo
 - make axes labels follow camera
 - figure out good color schemes
 - make distances/etc aspects of view configurable

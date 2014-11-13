@@ -1,6 +1,8 @@
+
 extends ../../layout
 
 block morehead
+  include ../../includes/mathjax
   - var bodyClass = 'vectors-commutativity'
 
 block content
@@ -18,7 +20,11 @@ block content
   - options.step = 10
 
 
-  .row(style='position:relative')
+  .row(style='margin-bottom:20px')
+    .text-center
+      h1 $\vec{a} + \vec{b} = \vec{b} + \vec{a}$
+
+  .row
     .col-md-6
 
       - options.x = xvalA
