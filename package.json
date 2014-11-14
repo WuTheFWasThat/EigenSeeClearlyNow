@@ -14,7 +14,6 @@
     "coffee-script": "latest",
     "connect-assets": "latest",
     "connect-flash": "latest",
-    "execSync": "latest",
     "express": "latest",
     "jade": "latest",
     "nodemon": "latest",

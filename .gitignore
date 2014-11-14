@@ -3,10 +3,11 @@ npm-debug.log
 *.swp
 *.swn
 *.swo
-*.exec
 
+# this is compiled by scripts/compile_css_template.py
 assets/css/app.css.sass
 
+# these are compiled by scripts/setup_assets_symlinks.py
 assets/css/pages
 assets/js/pages
 views/pages

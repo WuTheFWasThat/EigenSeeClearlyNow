@@ -32,7 +32,6 @@ Then just hit port 8080 on localhost
 ## SHORT TERM TO-DO: ##
 
 - make axes labels follow camera
-- get rid of execSync
 - do span game!
   - reactive constant
 

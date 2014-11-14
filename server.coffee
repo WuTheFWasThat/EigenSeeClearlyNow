@@ -3,13 +3,22 @@
 # Register CoffeeScript loader
 #require('coffee-script/register')
 
-
-express = require 'express'
-execSync = require 'execSync'
 _ = require 'underscore'
+async = require 'async'
+cp = require 'child_process'
+express = require 'express'
 
-execSync.exec 'python scripts/compile_css_template.py assets/css/app.tmpl.sass assets/css/app.css.sass'
-execSync.exec 'python scripts/setup_assets_symlinks.py'
+makeExec = (cmd) ->
+  return (cb) ->
+    cp.exec cmd, (err, stdout, stderr) ->
+      if err
+        return cb(err)
+      return cb(null)
+
+prereqs = [
+  makeExec('python scripts/setup_assets_symlinks.py')
+  makeExec('python scripts/compile_css_template.py assets/css/app.tmpl.sass assets/css/app.css.sass'),
+]
 
 process.on 'uncaughtException', (err) ->
   console.log 'Uncaught exception', err.message
@@ -50,9 +59,14 @@ app.use (req, res, next) ->
     url: _.escape req.url
   return
 
-port = process.argv[2] or 8080
-app.listen port
-console.log 'Started server on port ' + port
+
+async.series prereqs, (err) ->
+  if err
+    console.log 'Error', err
+    process.exit(1)
+  port = process.argv[2] or 8080
+  app.listen port
+  console.log 'Started server on port ' + port
 
 # Expose app
 exports = module.exports = app
