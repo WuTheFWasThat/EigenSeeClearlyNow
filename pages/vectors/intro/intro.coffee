@@ -12,12 +12,6 @@ INIT['vectors-intro'] = ->
     headLength: 10
   )
 
-  # Setup axes, grid
-  view.addAxes (
-    axesLength: 200
-    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
-  )
-
   # Vector with arrow
 
   vectorInput = new VectorSliderInput('vectorInput')

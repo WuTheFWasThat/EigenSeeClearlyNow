@@ -3,9 +3,6 @@ INIT['vector_spaces-span_game'] = ->
 
   canvas = $("#canvas")
   view = new View(canvas)
-  view.addAxes(
-    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
-  )
 
   vectorOptions = (
     lineWidth: 4

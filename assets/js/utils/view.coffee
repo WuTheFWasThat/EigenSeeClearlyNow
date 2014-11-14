@@ -31,7 +31,7 @@ class View
     do @positionCamera
 
     #######################
-    # CAMERA
+    # MAIN SCENE
     #######################
 
     backgroundColor = options.backgroundColor or DEFAULT.BACKGROUND.COLOR
@@ -49,6 +49,13 @@ class View
             do @resize
         $(window).resize()
 
+    #######################
+    # AXES AND GRID
+    #######################
+
+    options.axes = if options.axes? then options.axes else true
+    if options.axes
+      @addAxes options.axesOptions
 
     #console.log scene.position
     #camera.lookAt(scene.position)
@@ -95,13 +102,8 @@ class View
     do @positionCamera
 
   addAxes: (options) ->
-    buildAxes @scene, options
-
-    # TODO use grids or not?
-    gridLen = 200
-    gridStep = gridLen / 10
-    gridColor = DEFAULT.GRID.COLOR
-    buildGrids @scene, gridLen, gridStep, gridColor
+    axes = new Axes(options)
+    axes.drawOn @
     return
 
   addVector: (vector) ->

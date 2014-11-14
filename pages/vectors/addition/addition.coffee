@@ -3,9 +3,6 @@ INIT['vectors-addition'] = ->
 
   canvasA = $("#canvasA")
   viewA = new View(canvasA)
-  viewA.addAxes(
-    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
-  )
 
   vectorOptions = (
     lineWidth: 4
@@ -24,9 +21,6 @@ INIT['vectors-addition'] = ->
 
   canvasB = $("#canvasB")
   viewB = new View(canvasB)
-  viewB.addAxes(
-    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
-  )
 
   vectorInputB = new VectorSliderInput('vectorB')
   vectorB = setupInputVector(vectorInputB, vectorOptions, 4)
@@ -38,9 +32,6 @@ INIT['vectors-addition'] = ->
 
   canvasC = $("#canvasC")
   viewC = new View(canvasC)
-  viewC.addAxes(
-    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
-  )
 
   vectorSumA = setupInputVector(vectorInputA, vectorOptions, 2)
 

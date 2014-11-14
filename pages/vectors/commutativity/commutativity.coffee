@@ -23,9 +23,6 @@ INIT['vectors-commutativity'] = ->
 
   canvas = $("#sumCanvas")
   view = new View(canvas)
-  view.addAxes(
-    colors: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
-  )
 
   vectorAFromOrigin = setupInputVector(vectorInputA, vectorOptions, 2)
 
