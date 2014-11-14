@@ -1,7 +1,5 @@
 # Set up the basic necessities: scene, camera, renderer
 
-# General constants
-origin = new THREE.Vector3(0, 0, 0)
 
 # Sets up default scene, camera, and renderer
 class View
@@ -82,7 +80,7 @@ class View
     y = Math.sin (Math.PI * @phi / 180)
     z = (Math.cos (Math.PI * @phi / 180)) * (Math.cos (Math.PI * @theta / 180))
     @camera.position.set x, y, z
-    @camera.lookAt origin
+    @camera.lookAt ORIGIN
 
   rotate: (dtheta, dphi) ->
     @theta += dtheta
@@ -109,6 +107,9 @@ class View
   addVector: (vector) ->
     vector.draw_on @scene
     return vector
+
+  add: (object) ->
+    @scene.add object
 
   zoom: (zoomChange) ->
       @zoomLevel += zoomChange

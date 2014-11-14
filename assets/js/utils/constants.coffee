@@ -4,12 +4,15 @@ COLORS = (
   RED         : 0xFF0000
   GREEN       : 0x00FF00
   BLUE        : 0x0000FF
+  YELLOW      : 0xFFFF00
 
   GRAY        : 0xAAAAAA
   BLUISH_GRAY : 0x222244
   MAGENTA     : 0xCC0099
   DARK_BLUE   : 0x000030
 )
+
+ORIGIN = new THREE.Vector3(0, 0, 0)
 
 DEFAULT = (
   VECTOR: (

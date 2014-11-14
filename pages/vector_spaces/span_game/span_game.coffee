@@ -1,4 +1,4 @@
-# Addition: Adding two vectors
+# Span Game: Reach a point
 INIT['vector_spaces-span_game'] = ->
 
   canvas = $("#canvas")
@@ -13,6 +13,15 @@ INIT['vector_spaces-span_game'] = ->
     headLength: 10
   )
 
+  createPoint = (x, y, z) ->
+    sphereGeometry = new THREE.SphereGeometry( 5, 20, 20 )
+    sphereMaterial = new THREE.MeshBasicMaterial( {color: COLORS.YELLOW} )
+    sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
+    sphere.position.set x, y, z
+    return sphere
+
+  point = createPoint(50, 62, -45)
+  view.add point
 
   # bind inputs
   keyHandler = new KeyHandler()

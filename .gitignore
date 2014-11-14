@@ -3,6 +3,7 @@ npm-debug.log
 *.swp
 *.swn
 *.swo
+*.exec
 
 assets/css/app.css.sass
 
