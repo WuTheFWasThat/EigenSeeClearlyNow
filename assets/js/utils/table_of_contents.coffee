@@ -5,7 +5,7 @@ $(document).ready(->
     for section in contents
       # console.log section
       child = $('<li>')
-      childpath= path + "/" + section.name
+      childpath= path + "/" + section.name.replace(' ', '_')
       if section.sections
         child.append $('<div>').text section.name
         render_contents_on_div section.sections, child, childpath
@@ -27,6 +27,14 @@ $(document).ready(->
         }
         {
           name: "commutativity"
+        }
+      ]
+    }
+    {
+      name: "vector spaces"
+      sections: [
+        {
+          name: "span game"
         }
       ]
     }

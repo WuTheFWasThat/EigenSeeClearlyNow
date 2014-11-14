@@ -1,0 +1,27 @@
+extends ../../layout
+
+block morehead
+  - var bodyClass = 'vector_spaces-span_game'
+
+block content
+  - var options = {}
+  - options.min = -10
+  - options.max = 10
+  - options.step = 1
+
+
+  .row(style='position:relative')
+    .col-md-6
+      canvas#canvas.center
+
+    .col-md-6
+      - options.color = '#FFFF66'
+      +slider_input('coefficient1', options)
+
+      - options.color = '#6699FF'
+      +slider_input('coefficient2', options)
+
+      - options.color = '#FF6699'
+      +slider_input('coefficient3', options)
+
+
