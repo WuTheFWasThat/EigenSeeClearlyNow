@@ -49,14 +49,10 @@ INIT['vectors-addition'] = ->
 
   # bind inputs
   keyHandler = new KeyHandler()
-  keyHandler.register_view viewA
-  keyHandler.register_view viewB
-  keyHandler.register_view viewC
+  keyHandler.register_views viewA, viewB, viewC
 
   mouseHandler = new MouseHandler()
-  mouseHandler.register_view viewA
-  mouseHandler.register_view viewB
-  mouseHandler.register_view viewC
+  mouseHandler.register_views viewA, viewB, viewC
 
   # animate!
   do viewA.animate
