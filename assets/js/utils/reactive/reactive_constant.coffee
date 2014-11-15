@@ -28,3 +28,21 @@ class ReactiveConstant extends Reactive
     for summand in summands
       summand.on 'change', set_sum
 
+  setFromSliderInput: (sliderInputId) ->
+    @input = $('#' + sliderInputId)
+
+    $('.slider-input', @input).on 'input change', _.throttle( =>
+      @val = parseInt $('.slider-input', @input).val()
+      do @change
+    , 10)
+
+    # get color from border-color.  needs full property for FF
+    @color = @input.css('border-left-color')
+
+    @on 'change', (val) =>
+      $('.slider-input', @input).val(val)
+      $('.slider-input-val', @input).text(val)
+
+    @val = parseInt $('.slider-input', @input).val()
+
+    return @
