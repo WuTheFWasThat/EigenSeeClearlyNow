@@ -15,14 +15,14 @@ INIT['vectors-addition'] = ->
     vector.set_color sliderInput.color
     vector.set_line_width line_width
 
-  vectorInputA = new VectorSliderInput('vectorA')
+  vectorInputA = new ReactiveVector().setFromSliderInput('vectorA')
   vectorA = setupInputVector(vectorInputA, vectorOptions, 4)
   viewA.add vectorA
 
   canvasB = $("#canvasB")
   viewB = new View(canvasB)
 
-  vectorInputB = new VectorSliderInput('vectorB')
+  vectorInputB = new ReactiveVector().setFromSliderInput('vectorB')
   vectorB = setupInputVector(vectorInputB, vectorOptions, 4)
   viewB.add vectorB
 
@@ -38,7 +38,7 @@ INIT['vectors-addition'] = ->
   vectorSumB = setupInputVector(vectorInputB, vectorOptions, 2)
                .set_reactive_offset vectorInputA
 
-  vectorInputSum = new VectorSliderInput('vectorSum')
+  vectorInputSum = new ReactiveVector().setFromSliderInput('vectorSum')
   vectorInputSum.sum vectorInputA, vectorInputB
 
   vectorSum = setupInputVector(vectorInputSum, vectorOptions, 4)

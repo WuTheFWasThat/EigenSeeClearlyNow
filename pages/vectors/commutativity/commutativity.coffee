@@ -13,8 +13,8 @@ INIT['vectors-commutativity'] = ->
     vector.set_color sliderInput.color
     vector.set_line_width line_width
 
-  vectorInputA = new VectorSliderInput('vectorA')
-  vectorInputB = new VectorSliderInput('vectorB')
+  vectorInputA = new ReactiveVector().setFromSliderInput('vectorA')
+  vectorInputB = new ReactiveVector().setFromSliderInput('vectorB')
 
   ################
   # SUM
@@ -33,7 +33,7 @@ INIT['vectors-commutativity'] = ->
   vectorAFromB = setupInputVector(vectorInputA, vectorOptions, 2)
                .set_reactive_offset vectorInputB
 
-  vectorInputSum = new VectorSliderInput('vectorSum')
+  vectorInputSum = new ReactiveVector().setFromSliderInput('vectorSum')
   vectorInputSum.sum vectorInputA, vectorInputB
 
   vectorSum = setupInputVector(vectorInputSum, vectorOptions, 4)
