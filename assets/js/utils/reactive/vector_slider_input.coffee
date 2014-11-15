@@ -1,6 +1,6 @@
 class VectorSliderInput extends ReactiveVector
   constructor: (id) ->
-      do @_base_constructor
+      super
 
       @input = $('#' + id)
 

@@ -1,21 +1,15 @@
 # represents a vector which responds to changes instantly
 
-class ReactiveVector
+class ReactiveVector extends Reactive
   constructor: () ->
-      do @_base_constructor
-
-  _base_constructor: () ->
-      @on_change_fns = []
-
+      super
       @x = 0
       @y = 0
       @z = 0
-
       return
 
   change: () ->
-      for f in @on_change_fns
-        f(@x, @y, @z)
+      @emit 'change', @x, @y, @z
 
   get_coordinates: () ->
       return [@x, @y, @z]
@@ -26,23 +20,19 @@ class ReactiveVector
       @z = z
       do @change
 
-  on: (ev, f) ->
-    if ev == 'change'
-      @on_change_fns.push f
-
-  # add with another reactive vector, returns a new one
-  sum: (others...) ->
+  # sets this reactive vector to be the sum of summand reactive vectors
+  sum: (summands...) ->
     set_sum = () =>
       sum_x = 0
       sum_y = 0
       sum_z = 0
-      for other in others
-        sum_x += other.x
-        sum_y += other.y
-        sum_z += other.z
+      for summand in summands
+        sum_x += summand.x
+        sum_y += summand.y
+        sum_z += summand.z
       @set_coordinates sum_x, sum_y, sum_z
       do @change
 
-    for other in others
-      other.on 'change', set_sum
+    for summand in summands
+      summand.on 'change', set_sum
 

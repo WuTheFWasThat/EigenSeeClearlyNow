@@ -15,6 +15,9 @@ NOTE: order matters here
 #= require lib/underscore-min.js
 #= require lib/bootstrap.min.js
 
+## the first few are because of dependency issues
+#= require utils/reactive/reactive.coffee
+#= require utils/reactive/reactive_vector.coffee
 #= require_tree utils
 
 #= require layout
