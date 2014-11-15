@@ -15,6 +15,12 @@ class ReactiveVector extends Reactive
   set_coordinates: (x, y, z) ->
     @vector.set(x, y, z)
     do @change
+    return @
+
+  set_vector: (vector) ->
+    @vector = vector
+    do @change
+    return @
 
   # sets this reactive vector to be the sum of summand reactive vectors
   sum: (summands...) ->
@@ -22,7 +28,7 @@ class ReactiveVector extends Reactive
       sum = new THREE.Vector3()
       for summand in summands
         sum.add(summand.vector)
-      @set_coordinates sum.x, sum.y, sum.z
+      @set_vector sum
 
     for summand in summands
       summand.on 'change', set_sum

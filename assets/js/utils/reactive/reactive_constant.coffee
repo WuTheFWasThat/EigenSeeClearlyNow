@@ -46,3 +46,15 @@ class ReactiveConstant extends Reactive
     @val = parseInt $('.slider-input', @input).val()
 
     return @
+
+  # Multiplies this reactive constant by another reactive constant/vector, resulting in a reactive constant/vector
+  times: (multiplicand) ->
+    if multiplicand instanceof ReactiveVector
+      product = new ReactiveVector()
+      set_values = () =>
+        product_vector = multiplicand.vector.clone().multiplyScalar(@val)
+        product.set_vector product_vector
+      @.on 'change', set_values
+      multiplicand.on 'change', set_values
+      do set_values
+      return product
