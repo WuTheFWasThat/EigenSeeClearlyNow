@@ -1,17 +1,21 @@
 $(document).ready(->
+  my_location = window.location.pathname
   render_contents_on_div = (contents, div, path= "") ->
     list = $('<ul>')
     div.append list
     for section in contents
       # console.log section
       child = $('<li>')
-      childpath= path + "/" + section.name.replace(' ', '_')
+      childpath = path + "/" + section.name.replace(' ', '_')
       if section.sections
         child.append $('<div>').text section.name
         render_contents_on_div section.sections, child, childpath
       else
-        childlink = $('<a>').text section.name
-        childlink.attr 'href', childpath
+        if childpath == my_location
+          childlink = $('<b>')
+        else
+          childlink = $('<a>').attr 'href', childpath
+        childlink.text section.name
         child.append childlink
       list.append(child)
 
