@@ -16,7 +16,9 @@ class VectorSliderInput extends ReactiveVector
 
       # @disabled = $('.slider-input-X', @input).attr('disabled')
 
-      @color = @input.css('border-color')
+      # get color from border-color.  needs full property for FF
+      @color = @input.css('border-left-color')
+
       @on 'change', (x, y, z) =>
         $('.slider-input-X', @input).val(x)
         $('.slider-input-Y', @input).val(y)

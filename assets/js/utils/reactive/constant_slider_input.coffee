@@ -9,7 +9,8 @@ class ConstantSliderInput extends ReactiveConstant
         do @change
       , 10)
 
-      @color = @input.css('border-color')
+      # get color from border-color.  needs full property for FF
+      @color = @input.css('border-left-color')
 
       @on 'change', (val) =>
         $('.slider-input', @input).val(val)

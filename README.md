@@ -32,11 +32,13 @@ Then just hit port 8080 on localhost
 ## SHORT TERM TO-DO: ##
 
 - make axes labels follow camera
+- make distances/etc aspects of view configurable
+
+- look into load times
+
 - do span game!
-  - reactive constant
 
 - figure out good color schemes
-- make distances/etc aspects of view configurable
 - make gridding better?
 - make TOC foldable
 - make keyboard handler more flexible?
