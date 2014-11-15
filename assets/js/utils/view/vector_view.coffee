@@ -1,4 +1,3 @@
-
 vectorize = (coords) ->
   if coords.length == 3
     coords = {x: coords[0], y: coords[1], z: coords[2]}

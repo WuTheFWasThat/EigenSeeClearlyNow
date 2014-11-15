@@ -18,7 +18,7 @@ INIT['vectors-intro'] = ->
   vector = new VectorView(vectorOptions).set_trajectory do vectorInput.get_coordinates
   vectorInput.on 'change', (x, y, z) ->
     vector.set_trajectory([x, y, z])
-  view.addVector vector
+  view.add vector
 
   # bind inputs
   keyHandler = new KeyHandler()
@@ -29,5 +29,3 @@ INIT['vectors-intro'] = ->
 
   # animate!
   do view.animate
-
-

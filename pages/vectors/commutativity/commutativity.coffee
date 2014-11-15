@@ -14,7 +14,6 @@ INIT['vectors-commutativity'] = ->
     vector.set_line_width line_width
 
   vectorInputA = new VectorSliderInput('vectorA')
-
   vectorInputB = new VectorSliderInput('vectorB')
 
   ################
@@ -39,11 +38,7 @@ INIT['vectors-commutativity'] = ->
 
   vectorSum = setupInputVector(vectorInputSum, vectorOptions, 4)
 
-  view.addVector vectorAFromOrigin
-  view.addVector vectorBFromA
-  view.addVector vectorBFromOrigin
-  view.addVector vectorAFromB
-  view.addVector vectorSum
+  view.add vectorAFromOrigin, vectorBFromA, vectorBFromOrigin, vectorAFromB, vectorSum
 
   # bind inputs
   keyHandler = new KeyHandler()
@@ -54,4 +49,3 @@ INIT['vectors-commutativity'] = ->
 
   # animate!
   do view.animate
-

@@ -17,14 +17,14 @@ INIT['vectors-addition'] = ->
 
   vectorInputA = new VectorSliderInput('vectorA')
   vectorA = setupInputVector(vectorInputA, vectorOptions, 4)
-  viewA.addVector vectorA
+  viewA.add vectorA
 
   canvasB = $("#canvasB")
   viewB = new View(canvasB)
 
   vectorInputB = new VectorSliderInput('vectorB')
   vectorB = setupInputVector(vectorInputB, vectorOptions, 4)
-  viewB.addVector vectorB
+  viewB.add vectorB
 
   ################
   # SUM
@@ -43,9 +43,7 @@ INIT['vectors-addition'] = ->
 
   vectorSum = setupInputVector(vectorInputSum, vectorOptions, 4)
 
-  viewC.addVector vectorSumA
-  viewC.addVector vectorSumB
-  viewC.addVector vectorSum
+  viewC.add vectorSumA, vectorSumB, vectorSum
 
   # bind inputs
   keyHandler = new KeyHandler()

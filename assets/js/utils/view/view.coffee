@@ -106,12 +106,12 @@ class View
     @axes.drawOn @
     return
 
-  addVector: (vector) ->
-    vector.draw_on @scene
-    return vector
-
-  add: (object) ->
-    @scene.add object
+  add: (objects...) ->
+    for object in objects
+      if object instanceof VectorView
+        object.draw_on @scene
+      else
+        @scene.add object
 
   zoom: (zoomChange) ->
       @zoomLevel += zoomChange
