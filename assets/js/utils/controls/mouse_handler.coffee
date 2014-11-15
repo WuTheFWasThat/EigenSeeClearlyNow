@@ -91,12 +91,18 @@ class MouseHandler
       fn d
 
   register_mousewheel_on: (div) ->
-    wheelspeed = wheelspeed or 1000
-    div.bind 'mousewheel', (e) =>
-      change = e.originalEvent.wheelDelta / wheelspeed
-      @mousewheel -change
+    wheelspeed = wheelspeed or 10
+    cancel = (e) ->
+      do e.stopPropagation
       do e.preventDefault
       return false
+
+    div.bind 'MozMousePixelScroll', cancel
+    div.bind 'mousewheel DOMMouseScroll', (e) =>
+      change = (e.originalEvent.wheelDelta / (wheelspeed * 120)) or
+               (- e.originalEvent.detail / wheelspeed)
+      @mousewheel -change
+      return cancel e
 
     # for mobile
 

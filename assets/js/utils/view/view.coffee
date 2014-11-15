@@ -102,8 +102,8 @@ class View
     do @positionCamera
 
   addAxes: (options) ->
-    axes = new Axes(options)
-    axes.drawOn @
+    @axes = new Axes(options)
+    @axes.drawOn @
     return
 
   addVector: (vector) ->
