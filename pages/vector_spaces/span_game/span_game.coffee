@@ -30,26 +30,31 @@ INIT['vector_spaces-span_game'] = ->
     vector = new VectorView(vectorOptions)
     vector.set_reactive_trajectory scaledVector
     vector.set_color sliderInput.color
-    return vector
+    return [vector, scaledVector]
 
   # The three vectors and their scalar input sliders
   # TODO change these initial coordinates
   a_x = 10
   a_y = 60
   a_z = 5
-  vectorA = setupScalingVector('coefficient1', new THREE.Vector3(a_x, a_y, a_z))
+  [vectorViewA, vectorA] = setupScalingVector('coefficient1', new THREE.Vector3(a_x, a_y, a_z))
 
   b_x = Math.floor((Math.random() - 0.5) * 60)
   b_y = 30
   b_z = 15
-  vectorB = setupScalingVector('coefficient2', new THREE.Vector3(b_x, b_y, b_z))
+  [vectorViewB, vectorB] = setupScalingVector('coefficient2', new THREE.Vector3(b_x, b_y, b_z))
 
   c_x = Math.floor((Math.random() - 0.5) * 60)
   c_y = -10
   c_z = 50
-  vectorC = setupScalingVector('coefficient3', new THREE.Vector3(c_x, c_y, c_z))
+  [vectorViewC, vectorC] = setupScalingVector('coefficient3', new THREE.Vector3(c_x, c_y, c_z))
 
-  view.add vectorA, vectorB, vectorC
+  vectorSum = new ReactiveVector().sum vectorA, vectorB, vectorC
+  vectorViewSum = new VectorView(vectorOptions)
+                  .set_reactive_trajectory vectorSum
+                  .set_color COLORS.GRAY
+
+  view.add vectorViewA, vectorViewB, vectorViewC, vectorViewSum
 
   # bind inputs
   keyHandler = new KeyHandler()
