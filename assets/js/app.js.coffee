@@ -17,6 +17,7 @@ NOTE: order matters here
 
 ## the first few are because of dependency issues
 #= require utils/reactive/reactive.coffee
+#= require utils/reactive/reactive_constant.coffee
 #= require utils/reactive/reactive_vector.coffee
 #= require_tree utils
 
