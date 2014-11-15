@@ -7,7 +7,7 @@ class VectorSliderInput extends ReactiveVector
       binddim = (dim) =>
         $('.slider-input-' + dim, @input).on 'input change', _.throttle( =>
           prop = dim.toLowerCase()
-          @[prop] = parseInt $('.slider-input-' + dim, @input).val()
+          @vector[prop] = parseInt $('.slider-input-' + dim, @input).val()
           do @change
         , 10)
 
@@ -27,7 +27,7 @@ class VectorSliderInput extends ReactiveVector
         $('.slider-input-val-Y', @input).text(y)
         $('.slider-input-val-Z', @input).text(z)
 
-      @x = parseInt $('.slider-input-X', @input).val()
-      @y = parseInt $('.slider-input-Y', @input).val()
-      @z = parseInt $('.slider-input-Z', @input).val()
+      @vector.x = parseInt $('.slider-input-X', @input).val()
+      @vector.y = parseInt $('.slider-input-Y', @input).val()
+      @vector.z = parseInt $('.slider-input-Z', @input).val()
 
