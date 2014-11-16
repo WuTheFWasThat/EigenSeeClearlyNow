@@ -1,17 +1,19 @@
-mixin slider_input(id, options)
+mixin constant_slider_input(id, options)
   - var min = options.min || -100
   - var max = options.max || 100
   - var step = options.step || 10
   - var value = options.value || 0
   - var disabled = options.disabled || false
+  - var inline = options.inline || false
   - var color = options.color || ''
 
-  - var stylestring = ''
-  - if (color) { stylestring += 'border: 5px solid ' + color + ';' }
+  - var wellStyle = options.wellStyle || ''
+  - if (color) { wellStyle += 'border: 5px solid ' + color + ';'; }
+  - if (inline) { wellStyle += 'display: inline-block; '; }
 
-  .well(id=id, style=stylestring)
+  .well.constant-slider-input(id=id, style=wellStyle)
     .slider-input-container
-      span.slider-input-val=value
+      .slider-input-val=value
       input.slider-input(type='range', min=min, max=max, step=step, value=value, disabled=disabled)
 
 mixin vector_slider_input(id, options)
@@ -22,12 +24,14 @@ mixin vector_slider_input(id, options)
   - var y = options.y || 0
   - var z = options.z || 0
   - var disabled = options.disabled || false
+  - var inline = options.inline || false
   - var color = options.color || ''
 
-  - var stylestring = ''
-  - if (color) { stylestring += 'border: 5px solid ' + color + ';' }
+  - var wellStyle = options.wellStyle || ''
+  - if (color) { wellStyle += 'border: 5px solid ' + color + ';' }
+  - if (inline) { wellStyle += 'display: inline-block; '; }
 
-  .well(id=id, style=stylestring)
+  .well(id=id, style=wellStyle)
     .slider-input-container.slider-input-container-X
       = ' X = '
       span.slider-input-val.slider-input-val-X=x

@@ -1,6 +1,7 @@
 extends ../../layout
 
 block morehead
+  include ../../includes/mathjax
   - var bodyClass = 'vector_spaces-span_game'
 
 block content
@@ -8,20 +9,32 @@ block content
   - options.min = -10
   - options.max = 10
   - options.step = 1
+  - options.inline = true
+  - options.wellStyle = 'margin-left: 5px;'
 
+  h2.text-center Reach the target!
+
+  h1.text-center $c_u \cdot \vec{u} + c_v \cdot \vec{v} + c_w \cdot \vec{w} = \vec{t}$
+
+  hr
 
   .row(style='position:relative')
     .col-md-6
       canvas#canvas.center
 
     .col-md-6
+      span $c_u = $
       - options.color = '#FFFF66'
-      +slider_input('coefficient1', options)
+      +constant_slider_input('coefficient1', options)
 
+      br
+
+      span $c_v = $
       - options.color = '#6699FF'
-      +slider_input('coefficient2', options)
+      +constant_slider_input('coefficient2', options)
 
+      br
+
+      span $c_w = $
       - options.color = '#FF6699'
-      +slider_input('coefficient3', options)
-
-
+      +constant_slider_input('coefficient3', options)
