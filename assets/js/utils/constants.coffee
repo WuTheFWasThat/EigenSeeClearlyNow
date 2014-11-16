@@ -1,15 +1,18 @@
 COLORS = (
-  BLACK       : 0x000000
-  WHITE       : 0xFFFFFF
-  RED         : 0xFF0000
-  GREEN       : 0x00FF00
-  BLUE        : 0x0000FF
-  YELLOW      : 0xFFFF00
-
-  GRAY        : 0xAAAAAA
-  BLUISH_GRAY : 0x222244
-  MAGENTA     : 0xCC0099
-  DARK_BLUE   : 0x000030
+  BLACK         : 0x000000
+  WHITE         : 0xFFFFFF
+  RED           : 0xFF0000
+  GREEN         : 0x00FF00
+  BLUE          : 0x0000FF
+  YELLOW        : 0xFFFF00
+  LIGHT_YELLOW  : 0xFFFF00
+  LIGHT_RED     : 0xFF6699
+  LIGHT_GREEN   : 0x99FF99
+  LIGHT_BLUE    : 0x6699FF
+  GRAY          : 0xAAAAAA
+  BLUISH_GRAY   : 0x222244
+  MAGENTA       : 0xCC0099
+  DARK_BLUE     : 0x000030
 )
 
 ORIGIN = new THREE.Vector3(0, 0, 0)

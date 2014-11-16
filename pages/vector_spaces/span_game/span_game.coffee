@@ -12,12 +12,12 @@ INIT['vector_spaces-span_game'] = ->
 
   # Setup a vector hooked up to a scalar input slider
   setupScalingVector = (sliderName, vector) ->
-    sliderInput = new ReactiveConstant().setFromSliderInput(sliderName)
-    scaledVector = sliderInput.times new ReactiveVector().set_vector vector
+    scalar = new ReactiveConstant().setFromSliderInput(sliderName)
+    scaledVector = scalar.times new ReactiveVector().set_vector vector
     vector = new VectorView(vectorOptions)
     vector.set_reactive_trajectory scaledVector
-    vector.set_color sliderInput.color
-    return [vector, scaledVector]
+    vector.set_color scalar.color
+    return [scalar, vector, scaledVector]
 
   # Get a random scalar value within the slider input values
   getRandomScalarValue = (sliderInputName) ->
@@ -53,15 +53,15 @@ INIT['vector_spaces-span_game'] = ->
   # Create the initial three vectors and make them reactive to their scalar input sliders
   a_scalar = getRandomScalarValue 'coefficient1'
   vectorA = getRandomVector a_scalar
-  [vectorViewA, reactiveVectorA] = setupScalingVector('coefficient1', vectorA)
+  [constantA, vectorViewA, reactiveVectorA] = setupScalingVector('coefficient1', vectorA)
 
   b_scalar = getRandomScalarValue 'coefficient2'
   vectorB = getRandomVector b_scalar
-  [vectorViewB, reactiveVectorB] = setupScalingVector('coefficient2', vectorB)
+  [constantB, vectorViewB, reactiveVectorB] = setupScalingVector('coefficient2', vectorB)
 
   c_scalar = getRandomScalarValue 'coefficient1'
   vectorC = getRandomVector c_scalar
-  [vectorViewC, reactiveVectorC] = setupScalingVector('coefficient3', vectorC)
+  [constantC, vectorViewC, reactiveVectorC] = setupScalingVector('coefficient3', vectorC)
 
   # Create the sum of the scaled vectors
   reactiveVectorSum = new ReactiveVector().sum reactiveVectorA, reactiveVectorB, reactiveVectorC
@@ -92,6 +92,55 @@ INIT['vector_spaces-span_game'] = ->
   targetVector = do calculateTargetVector
   point = createPoint(targetVector.x, targetVector.y, targetVector.z, COLORS.GRAY)
   view.add point
+
+  vec2latex = (vector) ->
+    return '(' + vector.x + ' , ' + vector.y + ' , ' + vector.z + ')'
+
+  vec2latexAligned = (vector) ->
+    return '& (\\,' + vector.x + ' && , \\,' + vector.y + ' && , \\,' + vector.z + ' & )'
+    # this one works well in texshop...
+    # return '&& ( && ' + vector.x + ' && , && ' + vector.y + ' && , && ' + vector.z + ' & )'
+    # return '& (\\qquad' + vector.x + ' && , \\qquad' + vector.y + ' && , \\qquad' + vector.z + ' & )'
+
+
+  $('#targetEquation').text('$\\vec{t} = %s$'.format(vec2latex(targetVector)))
+
+  # vectorsEquation = '$$\\begin{alignat}{2}
+  #   \\vec{u} = %s \\\\
+  #   \\vec{v} = %s \\\\
+  #   \\vec{w} = %s \\\\
+  # \\end{alignat}
+  # $$'.format(
+  #   vec2latexAligned(vectorA),
+  #   vec2latexAligned(vectorB),
+  #   vec2latexAligned(vectorC)
+  # )
+  # $('#vectorsEquations').text vectorsEquation
+
+  $('#uEquation').text('$\\vec{u} = %s$'.format(vec2latex(vectorA)))
+  $('#vEquation').text('$\\vec{v} = %s$'.format(vec2latex(vectorB)))
+  $('#wEquation').text('$\\vec{w} = %s$'.format(vec2latex(vectorC)))
+
+  reactiveVectorSum.on 'change', (x, y, z) ->
+    curEquation = '$$\\begin{align}
+    & c_u \\cdot \\vec{u} + c_v \\cdot \\vec{v} + c_w \\cdot \\vec{w} \\\\
+    = \\quad & %s \\cdot %s + %s \\cdot %s + %s \\cdot %s \\\\
+    = \\quad & %s
+    \\end{align}$$'.format(
+      constantA.get()
+      vec2latex(vectorA)
+      constantB.get()
+      vec2latex(vectorB)
+      constantC.get()
+      vec2latex(vectorC)
+      vec2latex({x: x, y: y, z:z})
+    )
+
+    $('#curEquation').text(curEquation)
+    MathJax.Hub.Queue ['Typeset', MathJax.Hub]
+  do reactiveVectorSum.change
+
+  MathJax.Hub.Queue ['Typeset', MathJax.Hub]
 
   # bind inputs
   keyHandler = new KeyHandler()

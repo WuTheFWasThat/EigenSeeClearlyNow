@@ -23,18 +23,37 @@ block content
       canvas#canvas.center
 
     .col-md-6
-      span $c_u = $
-      - options.color = '#99FF99'
-      +constant_slider_input('coefficient1', options)
+      .row
+        .col-md-6
+          span $c_u = $
+          - options.color = '#99FF99'
+          +constant_slider_input('coefficient1', options)
+          span='  ,'
+        .col-md-6
+          p.basisEquation#uEquation
 
-      br
+      .row
+        .col-md-6
+          span $c_v = $
+          - options.color = '#6699FF'
+          +constant_slider_input('coefficient2', options)
+          span='  ,'
+        .col-md-6
+          p.basisEquation#vEquation
 
-      span $c_v = $
-      - options.color = '#6699FF'
-      +constant_slider_input('coefficient2', options)
+      .row
+        .col-md-6
+          span $c_w = $
+          - options.color = '#FF6699'
+          +constant_slider_input('coefficient3', options)
+          span='  ,'
+        .col-md-6
+          p.basisEquation#wEquation
 
-      br
+      .row
+        h4#targetEquation.text-center
 
-      span $c_w = $
-      - options.color = '#FF6699'
-      +constant_slider_input('coefficient3', options)
+      hr
+
+      .row.incorrect
+        p#curEquation
