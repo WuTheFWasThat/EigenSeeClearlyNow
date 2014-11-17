@@ -60,7 +60,7 @@ var _typeface_js = {
 			this.customLogFn(message);
 
 		} else if (window.console && window.console.log) {
-			window.console.log(message);
+			//window.console.log(message);
 		}
 
 	},
