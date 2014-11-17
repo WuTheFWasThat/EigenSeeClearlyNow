@@ -87,7 +87,7 @@ class View
     y = Math.sin (Math.PI * @phi / 180)
     z = (Math.cos (Math.PI * @phi / 180)) * (Math.cos (Math.PI * @theta / 180))
     @camera.position.set x, y, z
-    @camera.lookAt ORIGIN
+    @camera.lookAt new THREE.Vector3()
 
   rotate: (dtheta, dphi) ->
     @theta += dtheta

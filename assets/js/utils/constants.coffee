@@ -1,44 +1,59 @@
-COLORS = (
-  BLACK         : 0x000000
-  WHITE         : 0xFFFFFF
-  RED           : 0xFF0000
-  GREEN         : 0x00FF00
-  BLUE          : 0x0000FF
-  YELLOW        : 0xFFFF00
-  LIGHT_YELLOW  : 0xFFFF00
-  LIGHT_RED     : 0xFF6699
-  LIGHT_GREEN   : 0x99FF99
-  LIGHT_BLUE    : 0x6699FF
-  GRAY          : 0xAAAAAA
-  BLUISH_GRAY   : 0x222244
-  MAGENTA       : 0xCC0099
-  DARK_BLUE     : 0x000030
-)
+( ->
+  isClient = (typeof module is "undefined" or typeof module.exports is "undefined")
 
-ORIGIN = new THREE.Vector3(0, 0, 0)
+  ((exports) ->
+    stringToColor = (str) ->
+      if isClient
+        return parseInt('0x' + str)
+      else
+        return '#' + str
 
-DEFAULT = (
-  VECTOR: (
-    COLOR: COLORS.MAGENTA
-    THICKNESS: 1
-    HEAD_WIDTH: 5
-    HEAD_LENGTH: 5
-  )
-  AXIS: (
-    COLORS: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
-    LENGTH: 200
-  )
-  GRID: (
-    COLOR_CENTER_LINE: COLORS.DARK_BLUE
-    COLOR_GRID: COLORS.BLUISH_GRAY
-  )
-  BACKGROUND: (
-    COLOR: COLORS.DARK_BLUE
-  )
-  CAMERA: (
-    WIDTH: 500
-    HEIGHT: 500
-  )
-)
+    STRCOLORS = (
+      BLACK         : '000000'
+      WHITE         : 'FFFFFF'
+      RED           : 'FF0000'
+      GREEN         : '00FF00'
+      BLUE          : '0000FF'
+      YELLOW        : 'FFFF00'
+      LIGHT_YELLOW  : 'FFFF66'
+      LIGHT_RED     : 'FF6699'
+      LIGHT_GREEN   : '99FF66'
+      LIGHT_BLUE    : '6699FF'
+      GRAY          : 'AAAAAA'
+      BLUISH_GRAY   : '222244'
+      MAGENTA       : 'CC0099'
+      DARK_BLUE     : '000030'
+    )
 
+    COLORS = {}
+    for name, colorstr of STRCOLORS
+      COLORS[name] = stringToColor colorstr
+    exports.COLORS = COLORS
 
+    DEFAULT = (
+      VECTOR: (
+        COLOR: COLORS.MAGENTA
+        THICKNESS: 1
+        HEAD_WIDTH: 5
+        HEAD_LENGTH: 5
+      )
+      AXIS: (
+        COLORS: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
+        LENGTH: 200
+      )
+      GRID: (
+        COLOR_CENTER_LINE: COLORS.DARK_BLUE
+        COLOR_GRID: COLORS.BLUISH_GRAY
+      )
+      BACKGROUND: (
+        COLOR: COLORS.DARK_BLUE
+      )
+      CAMERA: (
+        WIDTH: 500
+        HEIGHT: 500
+      )
+    )
+    exports.DEFAULT = DEFAULT
+
+  ) (if isClient then window else module.exports)
+)()

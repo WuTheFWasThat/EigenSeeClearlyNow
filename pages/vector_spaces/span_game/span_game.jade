@@ -26,7 +26,7 @@ block content
       .row
         .col-md-6
           span $c_u = $
-          - options.color = '#99FF99'
+          - options.color = CONSTANTS.COLORS.LIGHT_RED
           +constant_slider_input('coefficient1', options)
           span='  ,'
         .col-md-6
@@ -35,7 +35,7 @@ block content
       .row
         .col-md-6
           span $c_v = $
-          - options.color = '#6699FF'
+          - options.color = CONSTANTS.COLORS.LIGHT_GREEN
           +constant_slider_input('coefficient2', options)
           span='  ,'
         .col-md-6
@@ -44,7 +44,7 @@ block content
       .row
         .col-md-6
           span $c_w = $
-          - options.color = '#FF6699'
+          - options.color = CONSTANTS.COLORS.LIGHT_BLUE
           +constant_slider_input('coefficient3', options)
           span='  ,'
         .col-md-6

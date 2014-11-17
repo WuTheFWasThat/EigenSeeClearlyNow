@@ -1,12 +1,14 @@
 #!./node_modules/.bin/coffee
 
-# Register CoffeeScript loader
-#require('coffee-script/register')
-
 _ = require 'underscore'
 async = require 'async'
 cp = require 'child_process'
 express = require 'express'
+
+# Register CoffeeScript loader
+require 'coffee-script/register'
+
+constants = require './assets/js/utils/constants.coffee'
 
 makeExec = (cmd) ->
   return (cb) ->
@@ -35,6 +37,10 @@ connect_assets = require('connect-assets')(
   buildDir: ((if env is 'production' then 'public/assets' else false))
 )
 app.use connect_assets
+
+app.use (req, res, next) ->
+  res.locals.CONSTANTS = constants
+  do next
 
 # for MathJax to work
 app.use express.static(__dirname + '/assets/js/lib/MathJax')
