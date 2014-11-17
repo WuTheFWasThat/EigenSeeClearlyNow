@@ -42,9 +42,6 @@ app.use (req, res, next) ->
   res.locals.CONSTANTS = constants
   do next
 
-# for MathJax to work
-app.use express.static(__dirname + '/assets/js/lib/MathJax')
-
 app.set 'views', 'views'
 app.set 'view engine', 'jade'
 
