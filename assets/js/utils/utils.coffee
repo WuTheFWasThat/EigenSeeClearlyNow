@@ -1,7 +1,15 @@
+################################################################################
+# javascript event handling
+################################################################################
+
 cancelEvent = (e) ->
   do e.stopPropagation
   do e.preventDefault
   return false
+
+################################################################################
+# strings
+################################################################################
 
 String::format = ->
   newStr = this
@@ -10,3 +18,10 @@ String::format = ->
       newStr = newStr.replace('%s', arguments[i++])
   return newStr
 
+################################################################################
+# numbers
+################################################################################
+
+# get a random integer between min and max, inclusive
+Number.randInt = (min, max) ->
+  return Math.floor(min + Math.random() * (max - min + 1))

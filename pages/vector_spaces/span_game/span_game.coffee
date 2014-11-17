@@ -5,72 +5,74 @@ INIT['vector_spaces-span_game'] = ->
   view = new View(canvas)
 
   vectorOptions = (
-    lineWidth: 4
-    headWidth: 12
+    lineWidth: 2
+    headWidth: 6
     headLength: 10
   )
 
   # Setup a vector hooked up to a scalar input slider
   setupScalingVector = (sliderName, vector) ->
-    scalar = new ReactiveConstant().setFromSliderInput(sliderName)
-    scaledVector = scalar.times new ReactiveVector().set_vector vector
+    coefficient = new ReactiveConstant().setFromSliderInput(sliderName)
+    scaledVector = coefficient.times new ReactiveVector().set_vector vector
     vector = new VectorView(vectorOptions)
     vector.set_reactive_trajectory scaledVector
-    vector.set_color scalar.color
-    return [scalar, vector, scaledVector]
+    vector.set_color coefficient.color
+    return [coefficient, vector, scaledVector]
 
-  # Get a random scalar value within the slider input values
-  getRandomScalarValue = (sliderInputName) ->
+  # Get a random coefficient value within the slider input values
+  getRandomCoefficientValue = (sliderInputName) ->
     input = $('#' + sliderInputName + ' .slider-input')
     min = parseInt input.attr 'min'
     max = parseInt input.attr 'max'
-    range = max - min
-    scalarValue = Math.floor(min + Math.random() * (range + 1))
-    return scalarValue
+    return Number.randInt min, max
 
-  # Get a random coordinate value within the axis length
-  # scaled down by the given scale factor
-  getRandomCoordValue = (scaleFactor) ->
-    if (scaleFactor == 0)
-      scaleFactor = 1
-    min = 5
-    axisLenBuffer = 100  # buffer to stay within reasonable viewing bounds
-    max = Math.floor((DEFAULT.AXIS.LENGTH - axisLenBuffer) / Math.abs(scaleFactor))
-    range = max - min
-    coordValue = Math.floor(min + Math.random() * (range + 1))
-    if (Math.round(Math.random()) == 0)
+  getRandomCoordinateValue = (maxabs) ->
+    minabs = Math.floor(maxabs / 2)
+    coordValue = Number.randInt minabs, maxabs
+    if Math.round(Math.random()) == 0
       coordValue = -coordValue
     return coordValue
 
   # Get a THREE vector with a random set of coordinates
   # scaled down by the given scale factor
-  getRandomVector = (scaleFactor) ->
-    x = getRandomCoordValue scaleFactor
-    y = getRandomCoordValue scaleFactor
-    z = getRandomCoordValue scaleFactor
+  getRandomVector = (sliderInputName) ->
+    input = $('#' + sliderInputName + ' .slider-input')
+    min_coefficient = parseInt input.attr 'min'
+    max_coefficient = parseInt input.attr 'max'
+    max_coefficient_abs = Math.max Math.abs(min_coefficient), Math.abs(max_coefficient), 1
+
+    # max absolute value for vector coordinates, based on axis length divided by max coefficient
+    max_abs = Math.floor(DEFAULT.AXIS.LENGTH / (max_coefficient_abs * 2))
+
+    # Get random coordinate values, but vector should be nonzero
+    x = getRandomCoordinateValue max_abs
+    y = getRandomCoordinateValue max_abs
+    z = getRandomCoordinateValue max_abs
     return new THREE.Vector3(x, y, z)
 
   # Create the initial three vectors and make them reactive to their scalar input sliders
-  a_scalar = getRandomScalarValue 'coefficient1'
-  vectorA = getRandomVector a_scalar
-  [constantA, vectorViewA, reactiveVectorA] = setupScalingVector('coefficient1', vectorA)
+  u_coefficient = getRandomCoefficientValue 'coefficient1'
+  vectorU = getRandomVector 'coefficient1'
+  [constantU, vectorViewU, reactiveVectorU] = setupScalingVector('coefficient1', vectorU)
 
-  b_scalar = getRandomScalarValue 'coefficient2'
-  vectorB = getRandomVector b_scalar
-  [constantB, vectorViewB, reactiveVectorB] = setupScalingVector('coefficient2', vectorB)
+  v_coefficient = getRandomCoefficientValue 'coefficient2'
+  vectorV = getRandomVector 'coefficient2'
+  [constantV, vectorViewV, reactiveVectorV] = setupScalingVector('coefficient2', vectorV)
 
-  c_scalar = getRandomScalarValue 'coefficient1'
-  vectorC = getRandomVector c_scalar
-  [constantC, vectorViewC, reactiveVectorC] = setupScalingVector('coefficient3', vectorC)
+  w_coefficient = getRandomCoefficientValue 'coefficient3'
+  vectorW = getRandomVector 'coefficient3'
+  [constantW, vectorViewW, reactiveVectorW] = setupScalingVector('coefficient3', vectorW)
 
   # Create the sum of the scaled vectors
-  reactiveVectorSum = new ReactiveVector().sum reactiveVectorA, reactiveVectorB, reactiveVectorC
+  reactiveVectorSum = new ReactiveVector().sum reactiveVectorU, reactiveVectorV, reactiveVectorW
   vectorViewSum = new VectorView(vectorOptions)
                   .set_reactive_trajectory reactiveVectorSum
                   .set_color COLORS.GRAY
+                  .set_line_width 4
+                  .set_head_width 12
 
   # Add all vectors to the view
-  view.add vectorViewA, vectorViewB, vectorViewC, vectorViewSum
+  view.add vectorViewU, vectorViewV, vectorViewW, vectorViewSum
 
   # Create a point sphere at the given coordinates
   createPoint = (x, y, z, color) ->
@@ -82,16 +84,16 @@ INIT['vector_spaces-span_game'] = ->
 
   # Calculate the answer vector by summing the scaled vectors
   calculateTargetVector = () ->
-    scaledVectorA = vectorA.clone().multiplyScalar(a_scalar)
-    scaledVectorB = vectorB.clone().multiplyScalar(b_scalar)
-    scaledVectorC = vectorC.clone().multiplyScalar(c_scalar)
-    targetVector = scaledVectorA.add(scaledVectorB).add(scaledVectorC)
+    scaledVectorU = vectorU.clone().multiplyScalar(u_coefficient)
+    scaledVectorV = vectorV.clone().multiplyScalar(v_coefficient)
+    scaledVectorW = vectorW.clone().multiplyScalar(w_coefficient)
+    targetVector = scaledVectorU.add(scaledVectorV).add(scaledVectorW)
     return targetVector
 
-  # The target point to reach (based on the scalars above)
+  # The target point to reach (based on the coefficients above)
   targetVector = do calculateTargetVector
-  point = createPoint(targetVector.x, targetVector.y, targetVector.z, COLORS.GRAY)
-  view.add point
+  targetPoint = createPoint(targetVector.x, targetVector.y, targetVector.z, COLORS.GRAY)
+  view.add targetPoint
 
   vec2latex = (vector) ->
     return '(' + vector.x + ' , ' + vector.y + ' , ' + vector.z + ')'
@@ -111,15 +113,15 @@ INIT['vector_spaces-span_game'] = ->
   #   \\vec{w} = %s \\\\
   # \\end{alignat}
   # $$'.format(
-  #   vec2latexAligned(vectorA),
-  #   vec2latexAligned(vectorB),
-  #   vec2latexAligned(vectorC)
+  #   vec2latexAligned(vectorU),
+  #   vec2latexAligned(vectorV),
+  #   vec2latexAligned(vectorW)
   # )
   # $('#vectorsEquations').text vectorsEquation
 
-  $('#uEquation').text('$\\vec{u} = %s$'.format(vec2latex(vectorA)))
-  $('#vEquation').text('$\\vec{v} = %s$'.format(vec2latex(vectorB)))
-  $('#wEquation').text('$\\vec{w} = %s$'.format(vec2latex(vectorC)))
+  $('#uEquation').text('$\\vec{u} = %s$'.format(vec2latex(vectorU)))
+  $('#vEquation').text('$\\vec{v} = %s$'.format(vec2latex(vectorV)))
+  $('#wEquation').text('$\\vec{w} = %s$'.format(vec2latex(vectorW)))
 
   reactiveVectorSum.on 'change', (x, y, z) ->
     curEquation = '$$\\begin{align}
@@ -127,17 +129,30 @@ INIT['vector_spaces-span_game'] = ->
     = \\quad & %s \\cdot %s + %s \\cdot %s + %s \\cdot %s \\\\
     = \\quad & %s
     \\end{align}$$'.format(
-      constantA.get()
-      vec2latex(vectorA)
-      constantB.get()
-      vec2latex(vectorB)
-      constantC.get()
-      vec2latex(vectorC)
+      constantU.get()
+      vec2latex(vectorU)
+      constantV.get()
+      vec2latex(vectorV)
+      constantW.get()
+      vec2latex(vectorW)
       vec2latex({x: x, y: y, z:z})
     )
 
     $('#curEquation').text(curEquation)
     MathJax.Hub.Queue ['Typeset', MathJax.Hub]
+    if x == targetVector.x and y == targetVector.y and z == targetVector.z
+      vectorViewSum.set_color COLORS.LIGHT_YELLOW
+      targetPoint.material.setValues(color: COLORS.LIGHT_YELLOW)
+      $('#curEquationContainer').removeClass 'incorrect'
+                                .addClass 'correct'
+    else
+      vectorViewSum.set_color COLORS.GRAY
+      targetPoint.material.setValues(color: COLORS.GRAY)
+      $('#curEquationContainer').removeClass 'correct'
+                                .addClass 'incorrect'
+
+  # console.log the answer hehehehehe
+  console.log u_coefficient, v_coefficient, w_coefficient
   do reactiveVectorSum.change
 
   MathJax.Hub.Queue ['Typeset', MathJax.Hub]

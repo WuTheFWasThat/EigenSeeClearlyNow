@@ -58,7 +58,7 @@ THREE.Arrow::setDirection = (dir) ->
       axis.set(dir.z, 0, -dir.x).normalize()
       radians = Math.acos(dir.y)
       @quaternion.setFromAxisAngle axis, radians
-    return
+    return @
 
 THREE.Arrow::setLength = (length) ->
   @length = length
@@ -66,23 +66,28 @@ THREE.Arrow::setLength = (length) ->
   @line.updateMatrix()
   @cone.position.y = length
   @cone.updateMatrix()
+  return @
 
 THREE.Arrow::setOffset = (origin) ->
-    @position.copy origin
-    return
+  @position.copy origin
+  return @
 
 THREE.Arrow::setCone = (headLength, headWidth) ->
   @headLength = headLength
   @headWidth = headWidth
   @cone.scale.set headWidth, headLength, headWidth
   @cone.updateMatrix()
-  return
+  return @
 
 THREE.Arrow::setColor = (color) ->
   @line.material.color.set color
   @cone.material.color.set color
-  return
+  return @
 
 THREE.Arrow::setLineWidth = (lineWidth) ->
   @line.material.linewidth = lineWidth
-  return
+  return @
+
+THREE.Arrow::setHeadWidth = (headWidth) ->
+  @setCone @headLength, headWidth
+  return @
