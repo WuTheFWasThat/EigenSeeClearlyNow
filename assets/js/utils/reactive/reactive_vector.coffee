@@ -7,7 +7,7 @@ class ReactiveVector extends Reactive
     return
 
   change: () ->
-    @emit 'change', @vector.x, @vector.y, @vector.z
+    @emit 'change', @vector
 
   get_coordinates: () ->
     return [@vector.x, @vector.y, @vector.z]
@@ -53,13 +53,13 @@ class ReactiveVector extends Reactive
     # get color from border-color.  needs full property for FF
     @color = @input.css('border-left-color')
 
-    @on 'change', (x, y, z) =>
-      $('.slider-input-X', @input).val(x)
-      $('.slider-input-Y', @input).val(y)
-      $('.slider-input-Z', @input).val(z)
-      $('.slider-input-val-X', @input).text(x)
-      $('.slider-input-val-Y', @input).text(y)
-      $('.slider-input-val-Z', @input).text(z)
+    @on 'change', (vector) =>
+      $('.slider-input-X', @input).val(vector.x)
+      $('.slider-input-Y', @input).val(vector.y)
+      $('.slider-input-Z', @input).val(vector.z)
+      $('.slider-input-val-X', @input).text(vector.x)
+      $('.slider-input-val-Y', @input).text(vector.y)
+      $('.slider-input-val-Z', @input).text(vector.z)
 
     @vector.x = parseInt $('.slider-input-X', @input).val()
     @vector.y = parseInt $('.slider-input-Y', @input).val()

@@ -61,14 +61,14 @@ class VectorView
 
   set_reactive_trajectory: (r_vector) ->
       @set_trajectory do r_vector.get_coordinates
-      r_vector.on 'change', (x, y, z) =>
-        @set_trajectory([x, y, z])
+      r_vector.on 'change', (vector) =>
+        @set_trajectory(vector)
       return @
 
   set_reactive_offset: (r_vector) ->
       @set_offset do r_vector.get_coordinates
-      r_vector.on 'change', (x, y, z) =>
-        @set_offset([x, y, z])
+      r_vector.on 'change', (vector) =>
+        @set_offset(vector)
       return @
 
   # draw!

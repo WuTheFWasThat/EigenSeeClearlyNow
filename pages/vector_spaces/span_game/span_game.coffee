@@ -80,7 +80,7 @@ INIT['vector_spaces-span_game'] = ->
 
 
   # The target point to reach
-  reactiveVectorSum.on 'change', (x, y, z) ->
+  reactiveVectorSum.on 'change', (vector) ->
     curEquation = '$$\\begin{align}
     & c_u \\cdot \\vec{u} + c_v \\cdot \\vec{v} + c_w \\cdot \\vec{w} \\\\
     = \\quad & %s \\cdot %s + %s \\cdot %s + %s \\cdot %s \\\\
@@ -92,12 +92,12 @@ INIT['vector_spaces-span_game'] = ->
       vec2latex(basisV.vector)
       constantW.get()
       vec2latex(basisW.vector)
-      vec2latex({x: x, y: y, z:z})
+      vec2latex(vector)
     )
 
     $('#curEquation').text(curEquation)
     MathJax.Hub.Queue ['Typeset', MathJax.Hub]
-    if x == targetVector.vector.x and y == targetVector.vector.y and z == targetVector.vector.z
+    if vector.equals targetVector.vector
       viewSum.set_color COLORS.LIGHT_YELLOW
       targetPoint.material.setValues(color: COLORS.LIGHT_YELLOW)
       $('#curEquationContainer').removeClass 'incorrect'
@@ -114,9 +114,9 @@ INIT['vector_spaces-span_game'] = ->
                   .set_head_width 12
 
   targetPoint = do createPoint
-  targetVector.on 'change', (x, y, z) ->
+  targetVector.on 'change', (vector) ->
       # this only happens once per game
-      targetPoint.position.set x, y, z
+      targetPoint.position.set vector.x, vector.y, vector.z
       $('#targetEquation').text('$\\vec{t} = %s$'.format(vec2latex(targetVector.vector)))
   do targetVector.change
 
