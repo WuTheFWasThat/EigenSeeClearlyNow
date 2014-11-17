@@ -27,7 +27,7 @@ block content
         .col-md-6
           span $c_u = $
           - options.color = CONSTANTS.COLORS.LIGHT_RED
-          +constant_slider_input('coefficient1', options)
+          +constant_slider_input('coefficientU', options)
           span='  ,'
         .col-md-6
           p.basisEquation#uEquation
@@ -36,7 +36,7 @@ block content
         .col-md-6
           span $c_v = $
           - options.color = CONSTANTS.COLORS.LIGHT_GREEN
-          +constant_slider_input('coefficient2', options)
+          +constant_slider_input('coefficientV', options)
           span='  ,'
         .col-md-6
           p.basisEquation#vEquation
@@ -45,7 +45,7 @@ block content
         .col-md-6
           span $c_w = $
           - options.color = CONSTANTS.COLORS.LIGHT_BLUE
-          +constant_slider_input('coefficient3', options)
+          +constant_slider_input('coefficientW', options)
           span='  ,'
         .col-md-6
           p.basisEquation#wEquation
@@ -57,3 +57,7 @@ block content
 
       #curEquationContainer.row
         p#curEquation
+
+      hr
+      .row.center
+        button.btn.btn-default#reset_game Reset

@@ -62,9 +62,9 @@ INIT['vector_spaces-span_game'] = ->
     return sphere
 
   # Create the initial three vectors and make them reactive to their scalar input sliders
-  [constantU, basisU, scaledU, viewU] = setupScalingVector('coefficient1')
-  [constantV, basisV, scaledV, viewV] = setupScalingVector('coefficient2')
-  [constantW, basisW, scaledW, viewW] = setupScalingVector('coefficient3')
+  [constantU, basisU, scaledU, viewU] = setupScalingVector('coefficientU')
+  [constantV, basisV, scaledV, viewV] = setupScalingVector('coefficientV')
+  [constantW, basisW, scaledW, viewW] = setupScalingVector('coefficientW')
 
   # Create the sum of the scaled vectors
   reactiveVectorSum = new ReactiveVector().sum scaledU, scaledV, scaledW
@@ -115,44 +115,50 @@ INIT['vector_spaces-span_game'] = ->
 
   targetPoint = do createPoint
   targetVector.on 'change', (x, y, z) ->
+      # this only happens once per game
       targetPoint.position.set x, y, z
+      $('#targetEquation').text('$\\vec{t} = %s$'.format(vec2latex(targetVector.vector)))
   do targetVector.change
 
   # Add everything to the view
   view.add viewU, viewV, viewW, viewSum, targetPoint
 
 
-  answerCoefficientU.set getRandomCoefficientValue 'coefficient1'
-  basisU.set_vector getRandomVector 'coefficient1'
+  init_game = () ->
+    $('#coefficientU .slider-input').val(0).change()
+    answerCoefficientU.set getRandomCoefficientValue 'coefficientU'
+    basisU.set_vector getRandomVector 'coefficientU'
 
-  answerCoefficientV.set getRandomCoefficientValue 'coefficient2'
-  basisV.set_vector getRandomVector 'coefficient2'
+    $('#coefficientV .slider-input').val(0).change()
+    answerCoefficientV.set getRandomCoefficientValue 'coefficientV'
+    basisV.set_vector getRandomVector 'coefficientV'
 
-  answerCoefficientW.set getRandomCoefficientValue 'coefficient3'
-  basisW.set_vector getRandomVector 'coefficient3'
+    $('#coefficientW .slider-input').val(0).change()
+    answerCoefficientW.set getRandomCoefficientValue 'coefficientW'
+    basisW.set_vector getRandomVector 'coefficientW'
 
-  $('#targetEquation').text('$\\vec{t} = %s$'.format(vec2latex(targetVector.vector)))
+    # vectorsEquation = '$$\\begin{alignat}{2}
+    #   \\vec{u} = %s \\\\
+    #   \\vec{v} = %s \\\\
+    #   \\vec{w} = %s \\\\
+    # \\end{alignat}
+    # $$'.format(
+    #   vec2latexAligned(vectorU),
+    #   vec2latexAligned(vectorV),
+    #   vec2latexAligned(vectorW)
+    # )
+    # $('#vectorsEquations').text vectorsEquation
 
-  # vectorsEquation = '$$\\begin{alignat}{2}
-  #   \\vec{u} = %s \\\\
-  #   \\vec{v} = %s \\\\
-  #   \\vec{w} = %s \\\\
-  # \\end{alignat}
-  # $$'.format(
-  #   vec2latexAligned(vectorU),
-  #   vec2latexAligned(vectorV),
-  #   vec2latexAligned(vectorW)
-  # )
-  # $('#vectorsEquations').text vectorsEquation
+    $('#uEquation').text('$\\vec{u} = %s$'.format(vec2latex(basisU.vector)))
+    $('#vEquation').text('$\\vec{v} = %s$'.format(vec2latex(basisV.vector)))
+    $('#wEquation').text('$\\vec{w} = %s$'.format(vec2latex(basisW.vector)))
+    MathJax.Hub.Queue ['Typeset', MathJax.Hub]
 
-  $('#uEquation').text('$\\vec{u} = %s$'.format(vec2latex(basisU.vector)))
-  $('#vEquation').text('$\\vec{v} = %s$'.format(vec2latex(basisV.vector)))
-  $('#wEquation').text('$\\vec{w} = %s$'.format(vec2latex(basisW.vector)))
-  MathJax.Hub.Queue ['Typeset', MathJax.Hub]
+    # console.log the answer hehehehehe
+    console.log 'answer:', answerCoefficientU.val, answerCoefficientV.val, answerCoefficientW.val
 
-  # console.log the answer hehehehehe
-  console.log answerCoefficientU.val, answerCoefficientV.val, answerCoefficientW.val
-  do reactiveVectorSum.change
+  do init_game
+  $('#reset_game').click init_game
 
   # bind inputs
   keyHandler = new KeyHandler()
