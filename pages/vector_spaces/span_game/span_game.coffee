@@ -11,13 +11,14 @@ INIT['vector_spaces-span_game'] = ->
   )
 
   # Setup a vector hooked up to a scalar input slider
-  setupScalingVector = (sliderName, vector) ->
-    coefficient = new ReactiveConstant().setFromSliderInput(sliderName)
-    scaledVector = coefficient.times new ReactiveVector().set_vector vector
-    vector = new VectorView(vectorOptions)
-    vector.set_reactive_trajectory scaledVector
-    vector.set_color coefficient.color
-    return [coefficient, vector, scaledVector]
+  setupScalingVector = (sliderId) ->
+    coefficient = new ReactiveConstant().setFromSliderInput(sliderId)
+    basis = new ReactiveVector()
+    scaledBasis = coefficient.times basis
+    scaledBasisView = new VectorView(vectorOptions)
+    scaledBasisView.set_reactive_trajectory scaledBasis
+    scaledBasisView.set_color coefficient.color
+    return [coefficient, basis, scaledBasis, scaledBasisView]
 
   # Get a random coefficient value within the slider input values
   getRandomCoefficientValue = (sliderInputName) ->
@@ -50,60 +51,83 @@ INIT['vector_spaces-span_game'] = ->
     z = getRandomCoordinateValue max_abs
     return new THREE.Vector3(x, y, z)
 
+  # Create a point sphere at the given coordinates
+  createPoint = () ->
+    radius = 5
+    widthSegments = 32
+    heightSegments = 32
+    sphereGeometry = new THREE.SphereGeometry( radius, widthSegments, heightSegments )
+    sphereMaterial = new THREE.MeshBasicMaterial()
+    sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
+    return sphere
+
   # Create the initial three vectors and make them reactive to their scalar input sliders
-  u_coefficient = getRandomCoefficientValue 'coefficient1'
-  vectorU = getRandomVector 'coefficient1'
-  [constantU, vectorViewU, reactiveVectorU] = setupScalingVector('coefficient1', vectorU)
-
-  v_coefficient = getRandomCoefficientValue 'coefficient2'
-  vectorV = getRandomVector 'coefficient2'
-  [constantV, vectorViewV, reactiveVectorV] = setupScalingVector('coefficient2', vectorV)
-
-  w_coefficient = getRandomCoefficientValue 'coefficient3'
-  vectorW = getRandomVector 'coefficient3'
-  [constantW, vectorViewW, reactiveVectorW] = setupScalingVector('coefficient3', vectorW)
+  [constantU, basisU, scaledU, viewU] = setupScalingVector('coefficient1')
+  [constantV, basisV, scaledV, viewV] = setupScalingVector('coefficient2')
+  [constantW, basisW, scaledW, viewW] = setupScalingVector('coefficient3')
 
   # Create the sum of the scaled vectors
-  reactiveVectorSum = new ReactiveVector().sum reactiveVectorU, reactiveVectorV, reactiveVectorW
-  vectorViewSum = new VectorView(vectorOptions)
+  reactiveVectorSum = new ReactiveVector().sum scaledU, scaledV, scaledW
+
+  # The target point to reach
+  targetVector = new THREE.Vector3()
+
+  reactiveVectorSum.on 'change', (x, y, z) ->
+    curEquation = '$$\\begin{align}
+    & c_u \\cdot \\vec{u} + c_v \\cdot \\vec{v} + c_w \\cdot \\vec{w} \\\\
+    = \\quad & %s \\cdot %s + %s \\cdot %s + %s \\cdot %s \\\\
+    = \\quad & %s
+    \\end{align}$$'.format(
+      constantU.get()
+      vec2latex(basisU.vector)
+      constantV.get()
+      vec2latex(basisV.vector)
+      constantW.get()
+      vec2latex(basisW.vector)
+      vec2latex({x: x, y: y, z:z})
+    )
+
+    $('#curEquation').text(curEquation)
+    MathJax.Hub.Queue ['Typeset', MathJax.Hub]
+    if x == targetVector.x and y == targetVector.y and z == targetVector.z
+      viewSum.set_color COLORS.LIGHT_YELLOW
+      targetPoint.material.setValues(color: COLORS.LIGHT_YELLOW)
+      $('#curEquationContainer').removeClass 'incorrect'
+                                .addClass 'correct'
+    else
+      viewSum.set_color COLORS.GRAY
+      targetPoint.material.setValues(color: COLORS.GRAY)
+      $('#curEquationContainer').removeClass 'correct'
+                                .addClass 'incorrect'
+
+  viewSum = new VectorView(vectorOptions)
                   .set_reactive_trajectory reactiveVectorSum
-                  .set_color COLORS.GRAY
                   .set_line_width 4
                   .set_head_width 12
 
-  # Add all vectors to the view
-  view.add vectorViewU, vectorViewV, vectorViewW, vectorViewSum
+  targetPoint = do createPoint
 
-  # Create a point sphere at the given coordinates
-  createPoint = (x, y, z, color) ->
-    sphereGeometry = new THREE.SphereGeometry( 5, 20, 20 )
-    sphereMaterial = new THREE.MeshBasicMaterial( {color: color} )
-    sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
-    sphere.position.set x, y, z
-    return sphere
+  # Add everything to the view
+  view.add viewU, viewV, viewW, viewSum, targetPoint
 
-  # Calculate the answer vector by summing the scaled vectors
+  u_coefficient = getRandomCoefficientValue 'coefficient1'
+  basisU.set_vector getRandomVector 'coefficient1'
+
+  v_coefficient = getRandomCoefficientValue 'coefficient2'
+  basisV.set_vector getRandomVector 'coefficient2'
+
+  w_coefficient = getRandomCoefficientValue 'coefficient3'
+  basisW.set_vector getRandomVector 'coefficient3'
+
   calculateTargetVector = () ->
-    scaledVectorU = vectorU.clone().multiplyScalar(u_coefficient)
-    scaledVectorV = vectorV.clone().multiplyScalar(v_coefficient)
-    scaledVectorW = vectorW.clone().multiplyScalar(w_coefficient)
-    targetVector = scaledVectorU.add(scaledVectorV).add(scaledVectorW)
+    scaledAnswerU = basisU.vector.clone().multiplyScalar(u_coefficient)
+    scaledAnswerV = basisV.vector.clone().multiplyScalar(v_coefficient)
+    scaledAnswerW = basisW.vector.clone().multiplyScalar(w_coefficient)
+    targetVector = new THREE.Vector3().add(scaledAnswerU).add(scaledAnswerV).add(scaledAnswerW)
     return targetVector
 
-  # The target point to reach (based on the coefficients above)
   targetVector = do calculateTargetVector
-  targetPoint = createPoint(targetVector.x, targetVector.y, targetVector.z, COLORS.GRAY)
-  view.add targetPoint
-
-  vec2latex = (vector) ->
-    return '(' + vector.x + ' , ' + vector.y + ' , ' + vector.z + ')'
-
-  vec2latexAligned = (vector) ->
-    return '& (\\,' + vector.x + ' && , \\,' + vector.y + ' && , \\,' + vector.z + ' & )'
-    # this one works well in texshop...
-    # return '&& ( && ' + vector.x + ' && , && ' + vector.y + ' && , && ' + vector.z + ' & )'
-    # return '& (\\qquad' + vector.x + ' && , \\qquad' + vector.y + ' && , \\qquad' + vector.z + ' & )'
-
+  targetPoint.position.set targetVector.x, targetVector.y, targetVector.z
 
   $('#targetEquation').text('$\\vec{t} = %s$'.format(vec2latex(targetVector)))
 
@@ -119,43 +143,14 @@ INIT['vector_spaces-span_game'] = ->
   # )
   # $('#vectorsEquations').text vectorsEquation
 
-  $('#uEquation').text('$\\vec{u} = %s$'.format(vec2latex(vectorU)))
-  $('#vEquation').text('$\\vec{v} = %s$'.format(vec2latex(vectorV)))
-  $('#wEquation').text('$\\vec{w} = %s$'.format(vec2latex(vectorW)))
-
-  reactiveVectorSum.on 'change', (x, y, z) ->
-    curEquation = '$$\\begin{align}
-    & c_u \\cdot \\vec{u} + c_v \\cdot \\vec{v} + c_w \\cdot \\vec{w} \\\\
-    = \\quad & %s \\cdot %s + %s \\cdot %s + %s \\cdot %s \\\\
-    = \\quad & %s
-    \\end{align}$$'.format(
-      constantU.get()
-      vec2latex(vectorU)
-      constantV.get()
-      vec2latex(vectorV)
-      constantW.get()
-      vec2latex(vectorW)
-      vec2latex({x: x, y: y, z:z})
-    )
-
-    $('#curEquation').text(curEquation)
-    MathJax.Hub.Queue ['Typeset', MathJax.Hub]
-    if x == targetVector.x and y == targetVector.y and z == targetVector.z
-      vectorViewSum.set_color COLORS.LIGHT_YELLOW
-      targetPoint.material.setValues(color: COLORS.LIGHT_YELLOW)
-      $('#curEquationContainer').removeClass 'incorrect'
-                                .addClass 'correct'
-    else
-      vectorViewSum.set_color COLORS.GRAY
-      targetPoint.material.setValues(color: COLORS.GRAY)
-      $('#curEquationContainer').removeClass 'correct'
-                                .addClass 'incorrect'
+  $('#uEquation').text('$\\vec{u} = %s$'.format(vec2latex(basisU.vector)))
+  $('#vEquation').text('$\\vec{v} = %s$'.format(vec2latex(basisV.vector)))
+  $('#wEquation').text('$\\vec{w} = %s$'.format(vec2latex(basisW.vector)))
+  MathJax.Hub.Queue ['Typeset', MathJax.Hub]
 
   # console.log the answer hehehehehe
   console.log u_coefficient, v_coefficient, w_coefficient
   do reactiveVectorSum.change
-
-  MathJax.Hub.Queue ['Typeset', MathJax.Hub]
 
   # bind inputs
   keyHandler = new KeyHandler()
