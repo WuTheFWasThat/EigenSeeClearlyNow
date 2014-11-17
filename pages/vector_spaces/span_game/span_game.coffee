@@ -69,9 +69,17 @@ INIT['vector_spaces-span_game'] = ->
   # Create the sum of the scaled vectors
   reactiveVectorSum = new ReactiveVector().sum scaledU, scaledV, scaledW
 
-  # The target point to reach
-  targetVector = new THREE.Vector3()
+  # answer
+  answerCoefficientU = new ReactiveConstant()
+  answerCoefficientV = new ReactiveConstant()
+  answerCoefficientW = new ReactiveConstant()
+  targetVector = new ReactiveVector().sum(
+                     answerCoefficientU.times(basisU),
+                     answerCoefficientV.times(basisV),
+                     answerCoefficientW.times(basisW))
 
+
+  # The target point to reach
   reactiveVectorSum.on 'change', (x, y, z) ->
     curEquation = '$$\\begin{align}
     & c_u \\cdot \\vec{u} + c_v \\cdot \\vec{v} + c_w \\cdot \\vec{w} \\\\
@@ -89,7 +97,7 @@ INIT['vector_spaces-span_game'] = ->
 
     $('#curEquation').text(curEquation)
     MathJax.Hub.Queue ['Typeset', MathJax.Hub]
-    if x == targetVector.x and y == targetVector.y and z == targetVector.z
+    if x == targetVector.vector.x and y == targetVector.vector.y and z == targetVector.vector.z
       viewSum.set_color COLORS.LIGHT_YELLOW
       targetPoint.material.setValues(color: COLORS.LIGHT_YELLOW)
       $('#curEquationContainer').removeClass 'incorrect'
@@ -106,30 +114,24 @@ INIT['vector_spaces-span_game'] = ->
                   .set_head_width 12
 
   targetPoint = do createPoint
+  targetVector.on 'change', (x, y, z) ->
+      targetPoint.position.set x, y, z
+  do targetVector.change
 
   # Add everything to the view
   view.add viewU, viewV, viewW, viewSum, targetPoint
 
-  u_coefficient = getRandomCoefficientValue 'coefficient1'
+
+  answerCoefficientU.set getRandomCoefficientValue 'coefficient1'
   basisU.set_vector getRandomVector 'coefficient1'
 
-  v_coefficient = getRandomCoefficientValue 'coefficient2'
+  answerCoefficientV.set getRandomCoefficientValue 'coefficient2'
   basisV.set_vector getRandomVector 'coefficient2'
 
-  w_coefficient = getRandomCoefficientValue 'coefficient3'
+  answerCoefficientW.set getRandomCoefficientValue 'coefficient3'
   basisW.set_vector getRandomVector 'coefficient3'
 
-  calculateTargetVector = () ->
-    scaledAnswerU = basisU.vector.clone().multiplyScalar(u_coefficient)
-    scaledAnswerV = basisV.vector.clone().multiplyScalar(v_coefficient)
-    scaledAnswerW = basisW.vector.clone().multiplyScalar(w_coefficient)
-    targetVector = new THREE.Vector3().add(scaledAnswerU).add(scaledAnswerV).add(scaledAnswerW)
-    return targetVector
-
-  targetVector = do calculateTargetVector
-  targetPoint.position.set targetVector.x, targetVector.y, targetVector.z
-
-  $('#targetEquation').text('$\\vec{t} = %s$'.format(vec2latex(targetVector)))
+  $('#targetEquation').text('$\\vec{t} = %s$'.format(vec2latex(targetVector.vector)))
 
   # vectorsEquation = '$$\\begin{alignat}{2}
   #   \\vec{u} = %s \\\\
@@ -149,7 +151,7 @@ INIT['vector_spaces-span_game'] = ->
   MathJax.Hub.Queue ['Typeset', MathJax.Hub]
 
   # console.log the answer hehehehehe
-  console.log u_coefficient, v_coefficient, w_coefficient
+  console.log answerCoefficientU.val, answerCoefficientV.val, answerCoefficientW.val
   do reactiveVectorSum.change
 
   # bind inputs
