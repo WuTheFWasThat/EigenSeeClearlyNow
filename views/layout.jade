@@ -12,10 +12,13 @@ html
     #header
         h1
           a#header_link(href='/') Eigen see clearly now
-    #wrap
+    #wrap.sidebar_active
+      #sidebarToggle
+        span.glyphicon.glyphicon-chevron-left
       #sidebar
-        h3 Table of Contents
-        #table_of_contents
+        .row#sidebarContent
+          h3 Table of Contents
+          #table_of_contents
       #content
         #noWebGL.well.hidden
           h4.text-danger

@@ -2,12 +2,22 @@
 // page layout
 ///////////////////////////////////////////////////////////////////////////////
 
+@mixin transition($transition)
+  -moz-transition:    $transition
+  -o-transition:      $transition
+  -webkit-transition: $transition
+  transition:         $transition
+
 $header-color: #993366
 $header-padding: 20px
+$header-height: 100px
 
 $sidebar-color: #F6F6F6
-$sidebar-width: 250px
 $sidebar-padding: 25px
+
+$sidebar-active-width: 250px
+$sidebar-inactive-width: 0px
+$sidebar-transition: 1s
 
 $content-color: #F0F0F0
 $content-padding: 50px
@@ -21,25 +31,46 @@ body, html
     background: $sidebar-color
 
     #header
+        height: $header-height
         padding: $header-padding
         background: $header-color
         #header_link
             text-decoration: none
 
     #wrap
-        padding-right: $sidebar-width
+        @include transition(padding-right $sidebar-transition)
+        #sidebarToggle
+          z-index: 2
+          position: fixed
+          @include transition(left $sidebar-transition)
+          //top: 50%
+          top: $header-height
+          margin-right: 50%
         #sidebar
-            //position: fixed
-            position: absolute
-            background: $sidebar-color
-            width: $sidebar-width
-            padding: $sidebar-padding
+          @include transition(width $sidebar-transition)
+
+          position: absolute
+          background: $sidebar-color
+          padding: $sidebar-padding
         #content
-            position: absolute
-            left: $sidebar-width
-            right: 0
-            padding: $content-padding
-            background: $content-color
+          position: absolute
+          right: 0
+          padding: $content-padding
+          background: $content-color
+
+          @include transition(left $sidebar-transition)
+        &.sidebar_active
+          padding-right: $sidebar-active-width
+          #sidebar
+            width: $sidebar-active-width
+          #sidebarToggle, #content
+            left: $sidebar-active-width
+        &.sidebar_inactive
+          padding-right: $sidebar-inactive-width
+          #sidebar
+            width: $sidebar-inactive-width
+          #sidebarToggle, #content
+            left: $sidebar-inactive-width
 
 ///////////////////////////////////////////////////////////////////////////////
 // inputs - sliders
