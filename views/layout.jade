@@ -9,16 +9,16 @@ html
     block morehead
 
   body(class=bodyClass)
-    #header
-        h1
-          a#header_link(href='/') Eigen see clearly now
     #wrap.sidebar_active
-      #sidebarToggle
-        span.glyphicon.glyphicon-chevron-left
       #sidebar
+        #header
+            h1
+              a#header_link(href='/') Eigen see clearly now
         .row#sidebarContent
-          h3 Table of Contents
           #table_of_contents
+      #sidebarToggle
+        #sidebarPull
+          span.glyphicon.glyphicon-chevron-left
       #content
         #noWebGL.well.hidden
           h4.text-danger
@@ -38,8 +38,8 @@ html
             = " "
             a#noWebGLDismiss(href='#') shut me up anyways!
         block content
-    //#footer
-      p Footer
+      //#footer
+        p Footer
 
     != js('app.js')
     block morefoot

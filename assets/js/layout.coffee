@@ -25,7 +25,7 @@ $(document).ready ->
       $('#noWebGL').removeClass 'hidden'
 
   $('#sidebarToggle').click ->
-    $('#wrap').toggleClass('sidebar_active sidebar_inactive')
+    $('body').toggleClass('sidebar_active sidebar_inactive')
     $('#sidebarToggle .glyphicon').toggleClass('glyphicon-chevron-left glyphicon-chevron-right')
 
   # runner for javascript via INIT functions

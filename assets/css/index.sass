@@ -15,6 +15,8 @@ $header-height: 100px
 $sidebar-color: #F6F6F6
 $sidebar-padding: 25px
 
+$sidebar-toggle-width: 15px
+
 $sidebar-active-width: 250px
 $sidebar-inactive-width: 0px
 $sidebar-transition: 1s
@@ -28,49 +30,57 @@ body, html
     margin: 0
     padding: 0
     color: #000
-    background: $sidebar-color
+    background: $content-color
 
-    #header
-        height: $header-height
-        padding: $header-padding
-        background: $header-color
-        #header_link
-            text-decoration: none
+#sidebar
+  @include transition(width $sidebar-transition)
+  .sidebar_active &
+    width: $sidebar-active-width
+  .sidebar_inactive &
+    width: $sidebar-inactive-width
 
-    #wrap
-        @include transition(padding-right $sidebar-transition)
-        #sidebarToggle
-          z-index: 2
-          position: fixed
-          @include transition(left $sidebar-transition)
-          //top: 50%
-          top: $header-height
-          margin-right: 50%
-        #sidebar
-          @include transition(width $sidebar-transition)
+  position: fixed
+  left: 0
+  background: $sidebar-color
+  height: 100%
 
-          position: absolute
-          background: $sidebar-color
-          padding: $sidebar-padding
-        #content
-          position: absolute
-          right: 0
-          padding: $content-padding
-          background: $content-color
+  #header
+      width: 100%
+      padding: $header-padding
+      background: $header-color
+      #header_link
+          text-decoration: none
+  #sidebarContent
+      top: $header-height
+      padding: $sidebar-padding
 
-          @include transition(left $sidebar-transition)
-        &.sidebar_active
-          padding-right: $sidebar-active-width
-          #sidebar
-            width: $sidebar-active-width
-          #sidebarToggle, #content
-            left: $sidebar-active-width
-        &.sidebar_inactive
-          padding-right: $sidebar-inactive-width
-          #sidebar
-            width: $sidebar-inactive-width
-          #sidebarToggle, #content
-            left: $sidebar-inactive-width
+#sidebarToggle
+  cursor: pointer
+  position: fixed
+  @include transition(left $sidebar-transition)
+  .sidebar_active &
+    left: $sidebar-active-width
+  .sidebar_inactive &
+    left: $sidebar-inactive-width
+  width: $sidebar-toggle-width
+  height: 100%
+  background-color: #aaaaaa
+  #sidebarPull
+    position: relative
+    top: 50%
+
+#content
+  @include transition(left $sidebar-transition)
+  .sidebar_active &
+    left: ($sidebar-active-width + $sidebar-toggle-width)
+  .sidebar_inactive &
+    left: ($sidebar-inactive-width + $sidebar-toggle-width)
+
+  position: absolute
+  right: 0
+  height: 100%
+  padding: $content-padding
+  background: $content-color
 
 ///////////////////////////////////////////////////////////////////////////////
 // inputs - sliders
