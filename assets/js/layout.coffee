@@ -19,7 +19,7 @@ $(document).ready ->
     THREE.Renderer = THREE.CanvasRenderer
     if not $.cookie('noWebGL')
       $('#noWebGLDismiss').click ->
-        $.cookie('noWebGL', 'acknowledged')
+        $.cookie('noWebGL', 'acknowledged', {path: '/'})
         $('#noWebGL').addClass 'hidden'
       $('#noWebGLReason').text(if window.WebGLRenderingContext then 'browser' else 'graphics card')
       $('#noWebGL').removeClass 'hidden'

@@ -31,15 +31,17 @@ Then just hit port 8080 on localhost
 
 ## SHORT TERM TO-DO: ##
 
-- make distances/etc aspects of view configurable
+- independence
+- polish span game!
+- make span game 2! (hint: Try rotating the camera so that one basis vector lines up with the origin. You should be able to visually prove that this game is impossible!)
 
-- look into load times
-
-- do span game!
+- matrices!
 
 - figure out good color schemes
 - make gridding better?
-- make TOC foldable
+- look into load times
+
+- make distances/etc aspects of view configurable?
 - make keyboard handler more flexible?
 
 ## ROUGH ROAD MAP: ##

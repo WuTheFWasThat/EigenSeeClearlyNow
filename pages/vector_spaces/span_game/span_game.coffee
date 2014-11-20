@@ -137,18 +137,6 @@ INIT['vector_spaces-span_game'] = ->
     answerCoefficientW.set getRandomCoefficientValue 'coefficientW'
     basisW.set_vector getRandomVector 'coefficientW'
 
-    # vectorsEquation = '$$\\begin{alignat}{2}
-    #   \\vec{u} = %s \\\\
-    #   \\vec{v} = %s \\\\
-    #   \\vec{w} = %s \\\\
-    # \\end{alignat}
-    # $$'.format(
-    #   vec2latexAligned(vectorU),
-    #   vec2latexAligned(vectorV),
-    #   vec2latexAligned(vectorW)
-    # )
-    # $('#vectorsEquations').text vectorsEquation
-
     $('#uEquation').text('$\\vec{u} = %s$'.format(vec2latex(basisU.vector)))
     $('#vEquation').text('$\\vec{v} = %s$'.format(vec2latex(basisV.vector)))
     $('#wEquation').text('$\\vec{w} = %s$'.format(vec2latex(basisW.vector)))

@@ -33,10 +33,3 @@ Number.randInt = (min, max) ->
 vec2latex = (vector) ->
   return '(' + vector.x + ' , ' + vector.y + ' , ' + vector.z + ')'
 
-#vec2latexAligned = (vector) ->
-#  return '& (\\,' + vector.x + ' && , \\,' + vector.y + ' && , \\,' + vector.z + ' & )'
-#  # this one works well in texshop...
-#  # return '&& ( && ' + vector.x + ' && , && ' + vector.y + ' && , && ' + vector.z + ' & )'
-#  # return '& (\\qquad' + vector.x + ' && , \\qquad' + vector.y + ' && , \\qquad' + vector.z + ' & )'
-
-
