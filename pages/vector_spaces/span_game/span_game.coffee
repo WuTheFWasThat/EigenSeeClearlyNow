@@ -160,6 +160,9 @@ INIT['vector_spaces-span_game'] = ->
   do init_game
   $('#reset_game').click init_game
 
+  $('#reveal_hint').click ->
+    $('#hint').removeClass 'hidden'
+
   # bind inputs
   keyHandler = new KeyHandler()
   keyHandler.register_view view
