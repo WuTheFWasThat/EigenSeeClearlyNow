@@ -38,7 +38,7 @@
         HEAD_LENGTH: 5
       )
       AXIS: (
-        COLORS: [COLORS.RED, COLORS.GREEN, COLORS.BLUE]
+        COLORS: [COLORS.GRAY, COLORS.GRAY, COLORS.GRAY]
         LENGTH: 200
       )
       GRID: (

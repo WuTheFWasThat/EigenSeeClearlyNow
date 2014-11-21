@@ -1,20 +1,54 @@
+
 extends ../../layout
 
 block morehead
+  include ../../includes/mathjax
   - var bodyClass = 'matrices-intro'
 
 block content
+  - var xvalA = 50
+  - var yvalA = 50
+  - var zvalA = -50
+
+  - var xvalB = 50
+  - var yvalB = -50
+  - var zvalB = 0
+
+  - var xvalC = 0
+  - var yvalC = 50
+  - var zvalC = 50
+
+  - var options = {}
+  - options.min = -100
+  - options.max = 100
+  - options.step = 10
+  - options.vector = {}
+
+  .row(style='margin-bottom:20px')
+    .text-center
+      h1 $\vec{a} + \vec{b} = \vec{b} + \vec{a}$
+
   .row
     .col-md-6
-      canvas#canvas(style='width:100%;')
 
-    - var options = {}
-    - options.min = -100
-    - options.max = 100
-    - options.step = 10
-    - options.x = 50
-    - options.y = 50
-    - options.z = 0
+      - options.vector.x = xvalA
+      - options.vector.y = yvalA
+      - options.vector.z = zvalA
+      - options.color = CONSTANTS.COLORS.LIGHT_YELLOW
+      +vector_slider_input('vectorA', options)
+
+      - options.vector.x = xvalB
+      - options.vector.y = yvalB
+      - options.vector.z = zvalB
+      - options.color = CONSTANTS.COLORS.LIGHT_BLUE
+      +vector_slider_input('vectorB', options)
+
+      - options.vector.x = xvalC
+      - options.vector.y = yvalC
+      - options.vector.z = zvalC
+      - options.color = CONSTANTS.COLORS.LIGHT_GREEN
+      +vector_slider_input('vectorC', options)
 
     .col-md-6
-      +vector_slider_input('vectorInput', options)
+      canvas#sumCanvas.center
+
