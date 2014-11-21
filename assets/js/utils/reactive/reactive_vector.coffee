@@ -38,32 +38,28 @@ class ReactiveVector extends Reactive
   setFromSliderInput: (sliderInputId) ->
     @input = $('#' + sliderInputId)
 
-    binddim = (dim) =>
-      $('.slider-input-' + dim, @input).on 'input change', _.throttle( =>
-        prop = dim.toLowerCase()
-        @vector[prop] = parseInt $('.slider-input-' + dim, @input).val()
-        do @change
-      , 10)
-
-    for dim in ['X', 'Y', 'Z']
-      binddim dim
-
-    # @disabled = $('.slider-input-X', @input).attr('disabled')
+    # @disabled = $('.slider-input-container-X .slider-input', @input).attr('disabled')
 
     # get color from border-color.  needs full property for FF
     @color = @input.css('border-left-color')
 
     @on 'change', (vector) =>
-      $('.slider-input-X', @input).val(vector.x)
-      $('.slider-input-Y', @input).val(vector.y)
-      $('.slider-input-Z', @input).val(vector.z)
-      $('.slider-input-val-X', @input).text(vector.x)
-      $('.slider-input-val-Y', @input).text(vector.y)
-      $('.slider-input-val-Z', @input).text(vector.z)
+      for dim in ['X', 'Y', 'Z']
+        value = vector[dim.toLowerCase()]
+        dimContainer = $('.slider-input-container-' + dim, @input)
+        $('.slider-input', dimContainer).val(value)
+        $('.slider-input-val', dimContainer).val(value)
 
-    @vector.x = parseInt $('.slider-input-X', @input).val()
-    @vector.y = parseInt $('.slider-input-Y', @input).val()
-    @vector.z = parseInt $('.slider-input-Z', @input).val()
+    binddim = (dim) =>
+      dimInput = $('.slider-input-container-' + dim + ' .slider-input', @input)
+      dimInput.on 'input change', _.throttle( =>
+        @vector[dim.toLowerCase()] = parseInt dimInput.val()
+        do @change
+      , 10)
+      @vector[dim.toLowerCase()] = parseInt dimInput.val()
+
+    for dim in ['X', 'Y', 'Z']
+      binddim dim
 
     return @
 

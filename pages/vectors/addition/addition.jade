@@ -16,15 +16,15 @@ block content
   - options.min = -100
   - options.max = 100
   - options.step = 10
-
+  - options.vector = {}
 
   .row(style='position:relative')
     .col-md-4
       canvas#canvasA.center
 
-      - options.x = xvalA
-      - options.y = yvalA
-      - options.z = zvalA
+      - options.vector.x = xvalA
+      - options.vector.y = yvalA
+      - options.vector.z = zvalA
       - options.color = CONSTANTS.COLORS.LIGHT_YELLOW
       +vector_slider_input('vectorA', options)
 
@@ -34,9 +34,9 @@ block content
     .col-md-4
       canvas#canvasB.center
 
-      - options.x = xvalB
-      - options.y = yvalB
-      - options.z = zvalB
+      - options.vector.x = xvalB
+      - options.vector.y = yvalB
+      - options.vector.z = zvalB
       - options.color = CONSTANTS.COLORS.LIGHT_BLUE
       +vector_slider_input('vectorB', options)
 
@@ -48,9 +48,9 @@ block content
 
       - options.min = 2 * options.min
       - options.max = 2 * options.max
-      - options.x = xvalA + xvalB
-      - options.y = yvalA + yvalB
-      - options.z = zvalA + zvalB
+      - options.vector.x = xvalA + xvalB
+      - options.vector.y = yvalA + yvalB
+      - options.vector.z = zvalA + zvalB
       - options.disabled = true
       - options.color = CONSTANTS.COLORS.LIGHT_GREEN
 

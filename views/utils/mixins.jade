@@ -20,9 +20,6 @@ mixin vector_slider_input(id, options)
   - var min = options.min || -100
   - var max = options.max || 100
   - var step = options.step || 10
-  - var x = options.x || 0
-  - var y = options.y || 0
-  - var z = options.z || 0
   - var disabled = options.disabled || false
   - var inline = options.inline || false
   - var color = options.color || ''
@@ -32,17 +29,10 @@ mixin vector_slider_input(id, options)
   - if (inline) { wellStyle += 'display: inline-block; '; }
 
   .well(id=id, style=wellStyle)
-    .slider-input-container.slider-input-container-X
-      = ' X = '
-      span.slider-input-val.slider-input-val-X=x
-      input.slider-input.slider-input-X(type='range', min=min, max=max, step=step, value=x, disabled=disabled)
+    each dim in ['X', 'Y', 'Z']
+      .slider-input-container(class='slider-input-container-' + dim)
+        = ' ' + dim + ' = '
+        - var val = options.vector[dim.toLowerCase()] || 0
+        span.slider-input-val=val
+        input.slider-input(type='range', min=min, max=max, step=step, value=val, disabled=disabled)
 
-    .slider-input-container.slider-input-container-Y
-      = ' Y = '
-      span.slider-input-val.slider-input-val-Y=y
-      input.slider-input.slider-input-Y(type='range', min=min, max=max, step=step, value=y, disabled=disabled)
-
-    .slider-input-container.slider-input-container-Z
-      = ' Z = '
-      span.slider-input-val.slider-input-val-Z=z
-      input.slider-input.slider-input-Z(type='range', min=min, max=max, step=step, value=z, disabled=disabled)
