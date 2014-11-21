@@ -36,8 +36,8 @@ class ReactiveVector extends Reactive
     @color = @input.css('border-left-color')
 
     @on 'change', (vector) =>
-      for dim in ['X', 'Y', 'Z']
-        value = vector[dim.toLowerCase()]
+      for dim in ['x', 'y', 'z']
+        value = vector[dim]
         dimContainer = $('.input-container-' + dim, @input)
         $('.input-val', dimContainer).text value
         $('.input', dimContainer).val value
@@ -45,12 +45,12 @@ class ReactiveVector extends Reactive
     binddim = (dim) =>
       dimInput = $('.input-container-' + dim + ' .input', @input)
       dimInput.on 'input change', _.throttle( =>
-        @vector[dim.toLowerCase()] = parseInt dimInput.val()
+        @vector[dim] = parseInt dimInput.val()
         do @change
       , 10)
-      @vector[dim.toLowerCase()] = parseInt dimInput.val()
+      @vector[dim] = parseInt dimInput.val()
 
-    for dim in ['X', 'Y', 'Z']
+    for dim in ['x', 'y', 'z']
       binddim dim
 
     return @

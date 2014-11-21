@@ -31,9 +31,9 @@ mixin vector_input(id, options)
   - if (inline) { wellStyle += 'display: inline-block; '; }
 
   .well(id=id, style=wellStyle)
-    each dim in ['X', 'Y', 'Z']
+    each dim in ['x', 'y', 'z']
       .input-container(class='input-container-' + dim)
-        = ' ' + dim + ' = '
+        = ' ' + dim.toUpperCase() + ' = '
         - var val = options.vector[dim.toLowerCase()] || 0
         span.input-val=val
         input.input(type=type, min=min, max=max, step=step, value=val, disabled=disabled)
@@ -52,9 +52,9 @@ mixin matrix_input(id, options)
   - if (inline) { wellStyle += 'display: inline-block; '; }
 
   .well(id=id, style=wellStyle)
-    each row in ['X', 'Y', 'Z']
+    each row in ['x', 'y', 'z']
       .row
-        each col in ['X', 'Y', 'Z']
+        each col in ['x', 'y', 'z']
           - var dim = row + col
           .col-md-4.input-container(class='input-container-' + dim)
             - var val = options.matrix[dim.toLowerCase()] || 0
