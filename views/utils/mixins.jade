@@ -36,3 +36,25 @@ mixin vector_slider_input(id, options)
         span.slider-input-val=val
         input.slider-input(type='range', min=min, max=max, step=step, value=val, disabled=disabled)
 
+mixin matrix_slider_input(id, options)
+  - var min = options.min || -100
+  - var max = options.max || 100
+  - var step = options.step || 10
+  - var disabled = options.disabled || false
+  - var inline = options.inline || false
+  - var color = options.color || ''
+
+  - var wellStyle = options.wellStyle || ''
+  - if (color) { wellStyle += 'border: 5px solid ' + color + ';' }
+  - if (inline) { wellStyle += 'display: inline-block; '; }
+
+  .well(id=id, style=wellStyle)
+    each row in ['X', 'Y', 'Z']
+      .row
+        each col in ['X', 'Y', 'Z']
+          - var dim = row + col
+          .col-md-4.slider-input-container(class='slider-input-container-' + dim)
+            - var val = options.matrix[dim.toLowerCase()] || 0
+            span.slider-input-val=val
+            input.slider-input(type='range', min=min, max=max, step=step, value=val, disabled=disabled)
+

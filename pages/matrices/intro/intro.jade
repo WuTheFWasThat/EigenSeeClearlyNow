@@ -6,49 +6,24 @@ block morehead
   - var bodyClass = 'matrices-intro'
 
 block content
-  - var xvalA = 50
-  - var yvalA = 50
-  - var zvalA = -50
-
-  - var xvalB = 50
-  - var yvalB = -50
-  - var zvalB = 0
-
-  - var xvalC = 0
-  - var yvalC = 50
-  - var zvalC = 50
-
-  - var options = {}
-  - options.min = -100
-  - options.max = 100
-  - options.step = 10
-  - options.vector = {}
-
-  .row(style='margin-bottom:20px')
-    .text-center
-      h1 $\vec{a} + \vec{b} = \vec{b} + \vec{a}$
-
   .row
     .col-md-6
+      canvas#canvas.center
 
-      - options.vector.x = xvalA
-      - options.vector.y = yvalA
-      - options.vector.z = zvalA
-      - options.color = CONSTANTS.COLORS.LIGHT_YELLOW
-      +vector_slider_input('vectorA', options)
-
-      - options.vector.x = xvalB
-      - options.vector.y = yvalB
-      - options.vector.z = zvalB
-      - options.color = CONSTANTS.COLORS.LIGHT_BLUE
-      +vector_slider_input('vectorB', options)
-
-      - options.vector.x = xvalC
-      - options.vector.y = yvalC
-      - options.vector.z = zvalC
-      - options.color = CONSTANTS.COLORS.LIGHT_GREEN
-      +vector_slider_input('vectorC', options)
+    - var options = {}
+    - options.min = -100
+    - options.max = 100
+    - options.step = 10
+    - options.matrix = {}
+    - options.matrix.xx = 10
+    - options.matrix.xy = 0
+    - options.matrix.xz = 0
+    - options.matrix.yx = 10
+    - options.matrix.yy = 10
+    - options.matrix.yz = 0
+    - options.matrix.zx = 0
+    - options.matrix.zy = 0
+    - options.matrix.zz = 10
 
     .col-md-6
-      canvas#sumCanvas.center
-
+      +matrix_slider_input('matrixInput', options)
