@@ -1,0 +1,20 @@
+extends ../../layout
+
+block morehead
+  - var bodyClass = 'matrices-intro'
+
+block content
+  .row
+    .col-md-6
+      canvas#canvas(style='width:100%;')
+
+    - var options = {}
+    - options.min = -100
+    - options.max = 100
+    - options.step = 10
+    - options.x = 50
+    - options.y = 50
+    - options.z = 0
+
+    .col-md-6
+      +vector_slider_input('vectorInput', options)
