@@ -43,12 +43,8 @@ class Axes
 
   # Negative axis is a dashed line
   buildNegativeAxis: (axisCoords, axisColor) ->
-    axisLine = new THREE.LineDashedMaterial({lineWidth: 1, color: axisColor, dashSize: 10, gapSize: 10})
-    axisGeometry = new THREE.Geometry()
-    axisGeometry.vertices.push(new THREE.Vector3(0, 0, 0))
-    axisGeometry.vertices.push(new THREE.Vector3(-axisCoords[0], -axisCoords[1], -axisCoords[2]))
-    axisGeometry.computeLineDistances()
-    axis = new THREE.Line(axisGeometry, axisLine, THREE.LinePieces)
+    negAxisCoords = [-axisCoords[0], -axisCoords[1], -axisCoords[2]]
+    axis = buildDashedLine [0, 0, 0], negAxisCoords, axisColor
     return axis
 
   # Basic axis label
