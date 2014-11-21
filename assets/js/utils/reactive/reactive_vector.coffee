@@ -9,14 +9,6 @@ class ReactiveVector extends Reactive
   change: () ->
     @emit 'change', @vector
 
-  get_coordinates: () ->
-    return [@vector.x, @vector.y, @vector.z]
-
-  set_coordinates: (x, y, z) ->
-    @vector.set(x, y, z)
-    do @change
-    return @
-
   set_vector: (vector) ->
     @vector = vector
     do @change

@@ -60,13 +60,13 @@ class VectorView
       return @
 
   set_reactive_trajectory: (r_vector) ->
-      @set_trajectory do r_vector.get_coordinates
+      @set_trajectory r_vector.vector
       r_vector.on 'change', (vector) =>
         @set_trajectory(vector)
       return @
 
   set_reactive_offset: (r_vector) ->
-      @set_offset do r_vector.get_coordinates
+      @set_offset r_vector.vector
       r_vector.on 'change', (vector) =>
         @set_offset(vector)
       return @
