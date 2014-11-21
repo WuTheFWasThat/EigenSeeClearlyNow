@@ -1,4 +1,4 @@
-mixin constant_slider_input(id, options)
+mixin constant_input(id, options)
   - var min = options.min || -100
   - var max = options.max || 100
   - var step = options.step || 10
@@ -6,23 +6,25 @@ mixin constant_slider_input(id, options)
   - var disabled = options.disabled || false
   - var inline = options.inline || false
   - var color = options.color || ''
+  - var type = options.type || 'range'
 
   - var wellStyle = options.wellStyle || ''
   - if (color) { wellStyle += 'border: 5px solid ' + color + ';'; }
   - if (inline) { wellStyle += 'display: inline-block; '; }
 
-  .well.constant-slider-input(id=id, style=wellStyle)
-    .slider-input-container
-      .slider-input-val=value
-      input.slider-input(type='range', min=min, max=max, step=step, value=value, disabled=disabled)
+  .well.constant-input(id=id, style=wellStyle)
+    .input-container
+      .input-val=value
+      input.input(type=type, min=min, max=max, step=step, value=value, disabled=disabled)
 
-mixin vector_slider_input(id, options)
+mixin vector_input(id, options)
   - var min = options.min || -100
   - var max = options.max || 100
   - var step = options.step || 10
   - var disabled = options.disabled || false
   - var inline = options.inline || false
   - var color = options.color || ''
+  - var type = options.type || 'range'
 
   - var wellStyle = options.wellStyle || ''
   - if (color) { wellStyle += 'border: 5px solid ' + color + ';' }
@@ -30,19 +32,20 @@ mixin vector_slider_input(id, options)
 
   .well(id=id, style=wellStyle)
     each dim in ['X', 'Y', 'Z']
-      .slider-input-container(class='slider-input-container-' + dim)
+      .input-container(class='input-container-' + dim)
         = ' ' + dim + ' = '
         - var val = options.vector[dim.toLowerCase()] || 0
-        span.slider-input-val=val
-        input.slider-input(type='range', min=min, max=max, step=step, value=val, disabled=disabled)
+        span.input-val=val
+        input.input(type=type, min=min, max=max, step=step, value=val, disabled=disabled)
 
-mixin matrix_slider_input(id, options)
+mixin matrix_input(id, options)
   - var min = options.min || -100
   - var max = options.max || 100
   - var step = options.step || 10
   - var disabled = options.disabled || false
   - var inline = options.inline || false
   - var color = options.color || ''
+  - var type = options.type || 'range'
 
   - var wellStyle = options.wellStyle || ''
   - if (color) { wellStyle += 'border: 5px solid ' + color + ';' }
@@ -53,8 +56,8 @@ mixin matrix_slider_input(id, options)
       .row
         each col in ['X', 'Y', 'Z']
           - var dim = row + col
-          .col-md-4.slider-input-container(class='slider-input-container-' + dim)
+          .col-md-4.input-container(class='input-container-' + dim)
             - var val = options.matrix[dim.toLowerCase()] || 0
-            span.slider-input-val=val
-            input.slider-input(type='range', min=min, max=max, step=step, value=val, disabled=disabled)
+            span.input-val=val
+            input.input(type=type, min=min, max=max, step=step, value=val, disabled=disabled)
 

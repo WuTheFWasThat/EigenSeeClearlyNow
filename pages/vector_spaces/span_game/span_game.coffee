@@ -12,7 +12,7 @@ INIT['vector_spaces-span_game'] = ->
 
   # Setup a vector hooked up to a scalar input slider
   setupScalingVector = (sliderId) ->
-    coefficient = new ReactiveConstant().setFromSliderInput(sliderId)
+    coefficient = new ReactiveConstant().setFromInput(sliderId)
     basis = new ReactiveVector()
     scaledBasis = coefficient.times basis
     scaledBasisView = new VectorView(vectorOptions)
@@ -22,7 +22,7 @@ INIT['vector_spaces-span_game'] = ->
 
   # Get a random coefficient value within the slider input values
   getRandomCoefficientValue = (sliderInputName) ->
-    input = $('#' + sliderInputName + ' .slider-input')
+    input = $('#' + sliderInputName + ' .input')
     min = parseInt input.attr 'min'
     max = parseInt input.attr 'max'
     return Number.randInt min, max
@@ -37,7 +37,7 @@ INIT['vector_spaces-span_game'] = ->
   # Get a THREE vector with a random set of coordinates
   # scaled down by the given scale factor
   getRandomVector = (sliderInputName) ->
-    input = $('#' + sliderInputName + ' .slider-input')
+    input = $('#' + sliderInputName + ' .input')
     min_coefficient = parseInt input.attr 'min'
     max_coefficient = parseInt input.attr 'max'
     max_coefficient_abs = Math.max Math.abs(min_coefficient), Math.abs(max_coefficient), 1
@@ -125,15 +125,15 @@ INIT['vector_spaces-span_game'] = ->
 
 
   init_game = () ->
-    $('#coefficientU .slider-input').val(0).change()
+    $('#coefficientU .input').val(0).change()
     answerCoefficientU.set getRandomCoefficientValue 'coefficientU'
     basisU.set_vector getRandomVector 'coefficientU'
 
-    $('#coefficientV .slider-input').val(0).change()
+    $('#coefficientV .input').val(0).change()
     answerCoefficientV.set getRandomCoefficientValue 'coefficientV'
     basisV.set_vector getRandomVector 'coefficientV'
 
-    $('#coefficientW .slider-input').val(0).change()
+    $('#coefficientW .input').val(0).change()
     answerCoefficientW.set getRandomCoefficientValue 'coefficientW'
     basisW.set_vector getRandomVector 'coefficientW'
 

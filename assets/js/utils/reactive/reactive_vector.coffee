@@ -27,10 +27,10 @@ class ReactiveVector extends Reactive
 
     do set_sum
 
-  setFromSliderInput: (sliderInputId) ->
-    @input = $('#' + sliderInputId)
+  setFromInput: (vectorInputID) ->
+    @input = $('#' + vectorInputID)
 
-    # @disabled = $('.slider-input-container-X .slider-input', @input).attr('disabled')
+    # @disabled = $('.input-container-X .input', @input).attr('disabled')
 
     # get color from border-color.  needs full property for FF
     @color = @input.css('border-left-color')
@@ -38,12 +38,12 @@ class ReactiveVector extends Reactive
     @on 'change', (vector) =>
       for dim in ['X', 'Y', 'Z']
         value = vector[dim.toLowerCase()]
-        dimContainer = $('.slider-input-container-' + dim, @input)
-        $('.slider-input', dimContainer).val(value)
-        $('.slider-input-val', dimContainer).val(value)
+        dimContainer = $('.input-container-' + dim, @input)
+        $('.input-val', dimContainer).text value
+        $('.input', dimContainer).val value
 
     binddim = (dim) =>
-      dimInput = $('.slider-input-container-' + dim + ' .slider-input', @input)
+      dimInput = $('.input-container-' + dim + ' .input', @input)
       dimInput.on 'input change', _.throttle( =>
         @vector[dim.toLowerCase()] = parseInt dimInput.val()
         do @change

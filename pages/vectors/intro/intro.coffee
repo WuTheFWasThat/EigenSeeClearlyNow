@@ -14,7 +14,7 @@ INIT['vectors-intro'] = ->
 
   # Vector with arrow
 
-  vectorInput = new ReactiveVector().setFromSliderInput('vectorInput')
+  vectorInput = new ReactiveVector().setFromInput('vectorInput')
   vector = new VectorView(vectorOptions).set_reactive_trajectory vectorInput
   view.add vector
 

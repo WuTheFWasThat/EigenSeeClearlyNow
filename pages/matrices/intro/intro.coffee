@@ -13,11 +13,11 @@ INIT['matrices-intro'] = ->
     vector.set_color sliderInput.color
     vector.set_line_width line_width
 
-  vectorInputA = new ReactiveVector().setFromSliderInput('vectorA')
-  vectorInputB = new ReactiveVector().setFromSliderInput('vectorB')
-  vectorInputC = new ReactiveVector().setFromSliderInput('vectorC')
+  vectorInputA = new ReactiveVector().setFromInput('vectorA')
+  vectorInputB = new ReactiveVector().setFromInput('vectorB')
+  vectorInputC = new ReactiveVector().setFromInput('vectorC')
 
-  canvas = $("#sumCanvas")
+  canvas = $("#canvas")
   view = new View(canvas)
 
   vectorAFromOrigin = setupInputVector(vectorInputA, vectorOptions, 2)

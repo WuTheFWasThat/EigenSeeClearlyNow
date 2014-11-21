@@ -28,11 +28,11 @@ class ReactiveConstant extends Reactive
     for summand in summands
       summand.on 'change', set_sum
 
-  setFromSliderInput: (sliderInputId) ->
-    @input = $('#' + sliderInputId)
+  setFromInput: (constantInputId) ->
+    @input = $('#' + constantInputId)
 
-    $('.slider-input', @input).on 'input change', _.throttle( =>
-      @val = parseInt $('.slider-input', @input).val()
+    $('.input', @input).on 'input change', _.throttle( =>
+      @val = parseInt $('.input', @input).val()
       do @change
     , 10)
 
@@ -40,11 +40,10 @@ class ReactiveConstant extends Reactive
     @color = @input.css('border-left-color')
 
     @on 'change', (val) =>
-      $('.slider-input', @input).val(val)
-      $('.slider-input-val', @input).text(val)
+      $('.input-val', @input).text val
+      $('.input', @input).val val
 
-    @val = parseInt $('.slider-input', @input).val()
-
+    @val = parseInt $('.input', @input).val()
     return @
 
   # Multiplies this reactive constant by another reactive constant/vector, resulting in a reactive constant/vector
