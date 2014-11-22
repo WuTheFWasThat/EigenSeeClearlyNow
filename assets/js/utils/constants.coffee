@@ -31,6 +31,10 @@
     exports.COLORS = COLORS
 
     DEFAULT = (
+      PARALLELOGRAM: (
+        COLOR: COLORS.LIGHT_BLUE
+        OPACITY: 0.5
+      )
       VECTOR: (
         COLOR: COLORS.MAGENTA
         THICKNESS: 1

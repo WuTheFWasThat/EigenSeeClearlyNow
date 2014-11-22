@@ -28,11 +28,17 @@ INIT['matrices-intro'] = ->
     lines = new THREE.Line(geometry, material, THREE.LinePieces)
     return lines
 
+
   # Vectors
   origin = new THREE.Vector3(0, 0, 0)
   u = new THREE.Vector3(60, 20, 20)
   v = new THREE.Vector3(20, 60, 20)
   w = new THREE.Vector3(20, 20, 60)
+
+  # Draw plane
+  offset = new THREE.Vector3(10, 10, 10)
+  plane = new THREE.Parallelogram(offset, u, v)
+  view.add plane
 
   # Draw parallelepiped
   vectors = [u, v, w]
