@@ -23,6 +23,9 @@
       BLUISH_GRAY   : '222244'
       MAGENTA       : 'CC0099'
       DARK_BLUE     : '000030'
+      PURPLISH_BLUE : '6600FF'
+      PURPLISH_RED  : 'CC0066'
+      PURPLE        : '9900CC'
     )
 
     COLORS = {}
