@@ -27,6 +27,15 @@ class ReactiveVector extends Reactive
 
     do set_sum
 
+  fromReactiveConstants: (c1, c2, c3) ->
+    update = () =>
+      @vector.set c1.val, c2.val, c3.val
+      do @change
+    c1.on 'change', update
+    c2.on 'change', update
+    c3.on 'change', update
+    return @
+
   setFromInput: (vectorInputID) ->
     @input = $('#' + vectorInputID)
 

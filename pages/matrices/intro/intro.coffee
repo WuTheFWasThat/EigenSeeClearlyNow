@@ -6,6 +6,7 @@ INIT['matrices-intro'] = ->
   )
 
   matrixInput = new ReactiveMatrix().setFromInput('matrixInput')
+  [rowX, rowY, rowZ] = do matrixInput.getReactiveRows
 
   canvas = $("#canvas")
   view = new View(canvas)
@@ -28,12 +29,11 @@ INIT['matrices-intro'] = ->
     lines = new THREE.Line(geometry, material, THREE.LinePieces)
     return lines
 
-
   # Vectors
   origin = new THREE.Vector3(0, 0, 0)
-  u = new THREE.Vector3(60, 20, 20)
-  v = new THREE.Vector3(20, 60, 20)
-  w = new THREE.Vector3(20, 20, 60)
+  u = rowX.vector
+  v = rowY.vector
+  w = rowZ.vector
 
   # Draw plane
   offset = new THREE.Vector3(10, 10, 10)

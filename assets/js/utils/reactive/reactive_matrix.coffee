@@ -14,6 +14,28 @@ class ReactiveMatrix extends Reactive
     do @change
     return @
 
+  getReactiveRows: () ->
+    rowX = new ReactiveVector()
+    rowY = new ReactiveVector()
+    rowZ = new ReactiveVector()
+    updateRows = () =>
+      rowX.set_vector new THREE.Vector3(@matrix.n11, @matrix.n12, @matrix.n13)
+      rowY.set_vector new THREE.Vector3(@matrix.n21, @matrix.n22, @matrix.n23)
+      rowZ.set_vector new THREE.Vector3(@matrix.n31, @matrix.n32, @matrix.n33)
+
+    @on 'change', updateRows
+    do updateRows
+    return [rowX, rowY, rowZ]
+
+  fromReactiveRows: (rowX, rowY, rowZ) ->
+    update = () =>
+      @matrix.set rowX.x, rowX.y, rowX.z, rowY.x, rowY.y, rowY.z, rowZ.x, rowZ.y, rowZ.z
+      do @change
+    rowX.on 'change', update
+    rowY.on 'change', update
+    rowZ.on 'change', update
+    return @
+
   setFromInput: (matrixInputId) ->
     @input = $('#' + matrixInputId)
 
@@ -45,6 +67,16 @@ class ReactiveMatrix extends Reactive
         dim = row + col
         prop = 'n' + (1 + parseInt i) + (1 + parseInt j)
         binddim dim, prop
-
     return @
 
+  # Multiplies this reactive matrix by a reactive vector, resulting in a reactive vector
+  times: (multiplicand) ->
+    if multiplicand instanceof ReactiveVector
+      product = new ReactiveVector()
+      set_values = () =>
+        product_vector = multiplicand.vector.clone().applyMatrix3(@matrix)
+        product.set_vector product_vector
+      @.on 'change', set_values
+      multiplicand.on 'change', set_values
+      do set_values
+      return product
