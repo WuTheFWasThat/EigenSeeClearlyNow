@@ -10,6 +10,8 @@ require 'coffee-script/register'
 
 constants = require './assets/js/utils/constants.coffee'
 
+(require './scripts/compile_sass_constants.coffee')(constants)
+
 makeExec = (cmd) ->
   return (cb) ->
     cp.exec cmd, (err, stdout, stderr) ->

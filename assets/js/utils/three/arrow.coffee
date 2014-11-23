@@ -66,6 +66,9 @@ THREE.Arrow::setLength = (length) ->
   @line.updateMatrix()
   @cone.position.y = length
   @cone.updateMatrix()
+
+  @cone.visible = (length > 0)
+  @line.visible = (length > 0)
   return @
 
 THREE.Arrow::setOffset = (origin) ->

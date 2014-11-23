@@ -103,8 +103,8 @@ INIT['vector_spaces-span_game'] = ->
       $('#curEquationContainer').removeClass 'incorrect'
                                 .addClass 'correct'
     else
-      viewSum.set_color COLORS.GRAY
-      targetPoint.material.setValues(color: COLORS.GRAY)
+      viewSum.set_color COLORS.WHITE
+      targetPoint.material.setValues(color: COLORS.WHITE)
       $('#curEquationContainer').removeClass 'correct'
                                 .addClass 'incorrect'
 
