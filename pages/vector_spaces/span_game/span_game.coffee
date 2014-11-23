@@ -82,8 +82,8 @@ INIT['vector_spaces-span_game'] = ->
   # The target point to reach
   reactiveVectorSum.on 'change', (vector) ->
     curEquation = '$$\\begin{align}
-    & c_u \\cdot \\vec{u} + c_v \\cdot \\vec{v} + c_w \\cdot \\vec{w} \\\\
-    = \\quad & %s \\cdot %s + %s \\cdot %s + %s \\cdot %s \\\\
+    & c_u \\cdot \\vec{u} + c_v \\cdot \\vec{v} + c_w \\cdot \\vec{w} \\\\\\\\\
+    = \\quad & %s \\cdot %s + %s \\cdot %s + %s \\cdot %s \\\\\\\\
     = \\quad & %s
     \\end{align}$$'.format(
       constantU.get()

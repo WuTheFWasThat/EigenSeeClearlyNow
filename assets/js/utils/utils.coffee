@@ -31,5 +31,5 @@ Number.randInt = (min, max) ->
 ################################################################################
 
 vec2latex = (vector) ->
-  return '(' + vector.x + ' , ' + vector.y + ' , ' + vector.z + ')'
+  return '\\left(\\begin{array}{c}' + vector.x + '\\\\' + vector.y + '\\\\' + vector.z + '\\end{array}\\right)'
 
