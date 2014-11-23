@@ -92,12 +92,13 @@ canvas
 ///////////////////////////////////////////////////////////////////////////////
 
 .constant-input
+  $val-width: 20px
   .input-val
-    width: 20px
+    width: $val-width
     display: inline-block
   .input
     position: relative
     display: inline-block
-    width: auto
+    @include calc(width, unquote('100% - ')$val-width)
     left: 10px
 

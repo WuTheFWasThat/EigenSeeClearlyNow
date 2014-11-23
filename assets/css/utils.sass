@@ -1,3 +1,8 @@
+@mixin calc($property, $expression)
+    #{$property}: -moz-calc(#{$expression})
+    #{$property}: -webkit-calc(#{$expression})
+    #{$property}: calc(#{$expression})
+
 @mixin transition($transition)
   -moz-transition:    $transition
   -o-transition:      $transition
