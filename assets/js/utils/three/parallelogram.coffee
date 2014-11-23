@@ -3,29 +3,23 @@
 THREE.Parallelogram = (offset, u, v, options) ->
   options = options or {}
 
-  @offset = offset
-  @u = u
-  @v = v
-
   color = if options.color? then options.color else DEFAULT.PARALLELOGRAM.COLOR
   opacity = if options.opacity? then options.opacity else DEFAULT.PARALLELOGRAM.OPACITY
-
-  v1 = new THREE.Vector3()
-  v2 = new THREE.Vector3()
-  v3 = new THREE.Vector3()
-  v4 = new THREE.Vector3()
-  vertices = [v1, v2, v3, v4]
 
   @geometry = new THREE.PlaneGeometry()
   @geometry.verticesNeedUpdate = true
   @geometry.elementsNeedUpdate = true
-  @geometry.vertices = vertices
+  @geometry.vertices = (new THREE.Vector3() for i in [0...4])
+
+  @offset = offset
+  @u = u
+  @v = v
   do @updateVertices
 
   @material = new THREE.MeshBasicMaterial()
-  @setColor color
   @material.transparent = true
   @setOpacity opacity
+  @setColor color
   @material.side = THREE.DoubleSide
 
   THREE.Mesh.call @, @geometry, @material
@@ -41,6 +35,11 @@ THREE.Parallelogram::.updateVertices = () ->
 
 THREE.Parallelogram::.setOffset = (offset) ->
   @offset = offset
+  do @updateVertices
+
+THREE.Parallelogram::.setVectors = (u, v) ->
+  @u = u
+  @v = v
   do @updateVertices
 
 THREE.Parallelogram::.setColor = (color) ->

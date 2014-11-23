@@ -10,9 +10,9 @@ class Axes
     else if options.colors
       colors = options.colors
 
-    @axisX = @buildAxis 'X', [@axesLength, 0, 0], colors[0]
-    @axisY = @buildAxis 'Y', [0, @axesLength, 0], colors[1]
-    @axisZ = @buildAxis 'Z', [0, 0, @axesLength], colors[2]
+    @axisX = @buildAxis 'X', @axesLength, colors[0]
+    @axisY = @buildAxis 'Y', @axesLength, colors[1]
+    @axisZ = @buildAxis 'Z', @axesLength, colors[2]
 
     @axes = new THREE.Object3D()
     @axes.add @axisX
@@ -24,17 +24,19 @@ class Axes
     view.scene.add @axes
 
   # Full axis with label
-  buildAxis: (axisLabel, axisCoords, axisColor) ->
-    posAxis = @buildPositiveAxis axisLabel, axisCoords, axisColor
-    negAxis = @buildNegativeAxis axisCoords, axisColor
+  buildAxis: (axisLabel, axisLength, axisColor) ->
+    posAxis = @buildPositiveAxis axisLabel, axisLength, axisColor
+    negAxis = @buildNegativeAxis axisLabel, axisLength, axisColor
     fullAxis = new THREE.Object3D()
     fullAxis.add posAxis
     fullAxis.add negAxis
     return fullAxis
 
   # Positive axis is a solid vector with text label
-  buildPositiveAxis: (axisLabel, axisCoords, axisColor) ->
-    axisVector = new VectorView(color: axisColor).set_trajectory axisCoords
+  buildPositiveAxis: (axisLabel, axisLength, axisColor) ->
+    vector = new THREE.Vector3()
+    vector[axisLabel.toLowerCase()] = axisLength
+    axisVector = new VectorView(color: axisColor).set_trajectory vector
     label = @buildAxisLabel axisLabel, axisVector
     axis = new THREE.Object3D()
     axis.add axisVector.arrow
@@ -42,9 +44,11 @@ class Axes
     return axis
 
   # Negative axis is a dashed line
-  buildNegativeAxis: (axisCoords, axisColor) ->
-    negAxisCoords = [-axisCoords[0], -axisCoords[1], -axisCoords[2]]
-    axis = buildDashedLine [0, 0, 0], negAxisCoords, axisColor
+  buildNegativeAxis: (axisLabel, axisLength, axisColor) ->
+    origin = new THREE.Vector3()
+    vector = new THREE.Vector3()
+    vector[axisLabel.toLowerCase()] = -axisLength
+    axis = buildDashedLine origin, vector, axisColor
     return axis
 
   # Basic axis label

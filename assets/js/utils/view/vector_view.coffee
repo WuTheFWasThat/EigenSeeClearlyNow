@@ -1,10 +1,3 @@
-vectorize = (coords) ->
-  if coords.length == 3
-    coords = {x: coords[0], y: coords[1], z: coords[2]}
-  if not ('x' of coords and 'y' of coords and 'z' of coords)
-    throw new Error ('Cannot vectorize ' + JSON.stringify coords)
-  return new THREE.Vector3(coords.x, coords.y, coords.z)
-
 ###
 Class representing a drawn vector
 Options:
@@ -16,12 +9,10 @@ class VectorView
       options = options or {}
 
       # represents the direction
-      options.trajectory = options.trajectory or {x: 0, y: 0, z: 0}
-      @trajectory = vectorize(options.trajectory)
+      @trajectory = options.trajectory or new THREE.Vector3()
 
       # represents the start point of the vector
-      options.offset = options.offset or {x: 0, y: 0, z: 0}
-      @offset = vectorize(options.offset)
+      @offset = options.offset or new THREE.Vector3()
 
       # three.js geometry
       @color = if options.color? then options.color else DEFAULT.VECTOR.COLOR
@@ -34,13 +25,13 @@ class VectorView
       return @
 
   set_trajectory: (trajectory) ->
-      @trajectory = vectorize(trajectory)
+      @trajectory = trajectory
       @arrow.setDirection @trajectory.clone().normalize()
       @arrow.setLength @trajectory.length()
       return @
 
   set_offset: (offset) ->
-      @offset = vectorize(offset)
+      @offset = offset
       @arrow.setOffset @offset
       return @
 

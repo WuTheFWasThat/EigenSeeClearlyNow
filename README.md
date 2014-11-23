@@ -4,7 +4,7 @@
 
 This is a project to help anyone learning linear algebra visualize its concepts.
 
-It is still a very early-stage work in progress.
+It is still an early-stage work in progress.
 
 Click [here](https://jeffwu-eigen.terminal.com/) for a demo.
 
@@ -29,31 +29,26 @@ Start:
 
 Then just hit port 8080 on localhost
 
-## SHORT TERM TO-DO: ##
+## TO-DO: ##
 
-- independence
+- independence (as a game?)
 - polish span game!
 - make span game 2! (hint: Try rotating the camera so that one basis vector lines up with the origin. You should be able to visually prove that this game is impossible!)
 
 - matrices!
 
-- figure out good color schemes
 - make gridding better?
 - look into load times
 
 - make distances/etc aspects of view configurable?
 - make keyboard handler more flexible?
 
-## ROUGH ROAD MAP: ##
+- make prod version work: `NODE_ENV=production ./node_modules/.bin/coffee server.coffee`
+
+### TOPICS: ###
 
 - Matrices
-  1. explain that a matrix is a linear transformation
-  2. start with a diagonal square matrix
-  3. add upper right diagonal
-  4. add other entries
-  5. note that the transformation doesn't have to be into a space of the same dimension
-  6. multiplication is composition of the transformations
-
+  multiplication
 - subspace
 - Nullspace
 - Colspace

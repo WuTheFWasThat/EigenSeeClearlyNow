@@ -17,11 +17,11 @@ buildLines = (vectors, lineType, color) ->
 
 
 # Make a dashed line
-buildDashedLine = (offset, coords, color) ->
+buildDashedLine = (u, v, color) ->
   material = new THREE.LineDashedMaterial({lineWidth: 1, color: color, dashSize: 10, gapSize: 10})
   geometry = new THREE.Geometry()
-  geometry.vertices.push(new THREE.Vector3(offset[0], offset[1], offset[2]))
-  geometry.vertices.push(new THREE.Vector3(coords[0], coords[1], coords[2]))
+  geometry.vertices.push(u)
+  geometry.vertices.push(v)
   geometry.computeLineDistances()
   dashedLine = new THREE.Line(geometry, material, THREE.LinePieces)
   return dashedLine
