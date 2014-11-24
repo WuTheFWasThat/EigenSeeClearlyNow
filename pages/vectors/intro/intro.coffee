@@ -6,16 +6,9 @@ INIT['vectors-intro'] = ->
   # Setup scene, camera, renderer
   view = new View(canvas)
 
-  vectorOptions = (
-    lineWidth: 3
-    headWidth: 12
-    headLength: 10
-  )
-
   # Vector with arrow
-
   vectorInput = new ReactiveVector().setFromInput('vectorInput')
-  vector = new VectorView(vectorOptions).setReactiveTrajectory vectorInput
+  vector = new VectorView().setReactiveTrajectory vectorInput
   view.add vector
 
   # bind inputs

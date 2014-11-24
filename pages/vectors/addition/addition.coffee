@@ -4,26 +4,15 @@ INIT['vectors-addition'] = ->
   canvasA = $("#canvasA")
   viewA = new View(canvasA)
 
-  vectorOptions = (
-    lineWidth: 4
-    headWidth: 12
-    headLength: 10
-  )
-
-  setupInputVector = (sliderInput, vectorOptions, lineWidth) ->
-    vector = new VectorView(vectorOptions).setReactiveTrajectory sliderInput
-    vector.setColor sliderInput.color
-    vector.setLineWidth lineWidth
-
   vectorInputA = new ReactiveVector().setFromInput('vectorA')
-  vectorA = setupInputVector(vectorInputA, vectorOptions, 4)
+  vectorA = new VectorView(color: vectorInputA.color, trajectory: vectorInputA)
   viewA.add vectorA
 
   canvasB = $("#canvasB")
   viewB = new View(canvasB)
 
   vectorInputB = new ReactiveVector().setFromInput('vectorB')
-  vectorB = setupInputVector(vectorInputB, vectorOptions, 4)
+  vectorB = new VectorView(color: vectorInputB.color, trajectory: vectorInputB)
   viewB.add vectorB
 
   ################
@@ -33,15 +22,14 @@ INIT['vectors-addition'] = ->
   canvasC = $("#canvasC")
   viewC = new View(canvasC)
 
-  vectorSumA = setupInputVector(vectorInputA, vectorOptions, 2)
+  vectorSumA = new VectorView(color: vectorInputA.color, trajectory: vectorInputA, lineWidth: 2)
 
-  vectorSumB = setupInputVector(vectorInputB, vectorOptions, 2)
-               .setReactiveOffset vectorInputA
+  vectorSumB = new VectorView(color: vectorInputB.color, trajectory: vectorInputB, offset: vectorInputA, lineWidth: 2)
 
   vectorInputSum = new ReactiveVector().setFromInput('vectorSum')
   vectorInputSum.sum vectorInputA, vectorInputB
 
-  vectorSum = setupInputVector(vectorInputSum, vectorOptions, 4)
+  vectorSum = new VectorView(color: vectorInputSum.color, trajectory: vectorInputSum, lineWidth: 4)
 
   viewC.add vectorSumA, vectorSumB, vectorSum
 

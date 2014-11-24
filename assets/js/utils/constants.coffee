@@ -40,9 +40,9 @@
       )
       VECTOR: (
         COLOR: COLORS.MAGENTA
-        THICKNESS: 1
-        HEAD_WIDTH: 5
-        HEAD_LENGTH: 5
+        LINE_WIDTH: 3
+        HEAD_WIDTH: 10
+        HEAD_LENGTH: 10
       )
       AXIS: (
         COLORS: [COLORS.GRAY, COLORS.GRAY, COLORS.GRAY]

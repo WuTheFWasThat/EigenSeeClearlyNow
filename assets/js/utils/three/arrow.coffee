@@ -21,9 +21,11 @@ THREE.Arrow = (dir, length, origin, color, headLength, headWidth, arrowThickness
     lineGeometry = new THREE.Geometry()
     lineGeometry.vertices.push new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 1, 0)
 
+    origin = origin or new THREE.Vector3()
     @position.copy origin
 
-    @line = new THREE.Line(lineGeometry, new THREE.LineBasicMaterial(color: color, linewidth: arrowThickness))
+    arrowThickness = arrowThickness or 1
+    @line = new THREE.Line lineGeometry, new THREE.LineBasicMaterial(linewidth: arrowThickness)
     @line.matrixAutoUpdate = false
     @add @line
 
@@ -31,10 +33,12 @@ THREE.Arrow = (dir, length, origin, color, headLength, headWidth, arrowThickness
     coneGeometry = new THREE.CylinderGeometry(0, 0.5, 1, 16, 1)
     coneGeometry.applyMatrix new THREE.Matrix4().makeTranslation(0, -0.5, 0)
 
-    @cone = new THREE.Mesh(coneGeometry, new THREE.MeshBasicMaterial(color: color))
+    @cone = new THREE.Mesh coneGeometry, new THREE.MeshBasicMaterial()
     @cone.matrixAutoUpdate = false
     @add @cone
     @setDirection dir
+
+    @setColor color
 
     @length = length or 1
     @headLength = headLength or 0.2 * length
@@ -47,6 +51,7 @@ THREE.Arrow = (dir, length, origin, color, headLength, headWidth, arrowThickness
 THREE.Arrow:: = Object.create(THREE.Object3D::)
 
 THREE.Arrow::setDirection = (dir) ->
+    dir = dir or new THREE.Vector3()
     axis = new THREE.Vector3()
 
     # dir is assumed to be normalized
@@ -87,10 +92,15 @@ THREE.Arrow::setColor = (color) ->
   @cone.material.color.set color
   return @
 
+# NOTE: this doesnt update it right away
 THREE.Arrow::setLineWidth = (lineWidth) ->
   @line.material.linewidth = lineWidth
   return @
 
 THREE.Arrow::setHeadWidth = (headWidth) ->
   @setCone @headLength, headWidth
+  return @
+
+THREE.Arrow::setHeadLength = (headLength) ->
+  @setCone headLength, @headWidth
   return @

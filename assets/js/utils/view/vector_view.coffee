@@ -8,20 +8,33 @@ class VectorView
   constructor: (options) ->
       options = options or {}
 
+      @arrow = new THREE.Arrow()
+
+      options.headLength = options.headLength or DEFAULT.VECTOR.HEAD_LENGTH
+      @setHeadLength options.headLength
+      options.headWidth  = options.headWidth or DEFAULT.VECTOR.HEAD_WIDTH
+      @setHeadWidth options.headWidth
+      options.lineWidth = options.lineWidth or DEFAULT.VECTOR.LINE_WIDTH
+      @setLineWidth options.lineWidth
+
       # represents the direction
-      @trajectory = options.trajectory or new THREE.Vector3()
+      options.trajectory = options.trajectory or new THREE.Vector3()
+      if options.trajectory instanceof ReactiveVector
+        @setReactiveTrajectory options.trajectory
+      else
+        @setTrajectory options.trajectory
 
       # represents the start point of the vector
-      @offset = options.offset or new THREE.Vector3()
+      options.offset = options.offset or new THREE.Vector3()
+      if options.offset instanceof ReactiveVector
+        @setReactiveOffset options.offset
+      else
+        @setOffset options.offset
 
       # three.js geometry
-      @color = if options.color? then options.color else DEFAULT.VECTOR.COLOR
+      options.color = if options.color? then options.color else DEFAULT.VECTOR.COLOR
+      @setColor options.color
 
-      headLength = options.headLength or DEFAULT.VECTOR.HEAD_LENGTH
-      @headWidth  = options.headWidth or DEFAULT.VECTOR.HEAD_WIDTH
-      @lineWidth = options.lineWidth or DEFAULT.VECTOR.THICKNESS
-
-      @arrow = new THREE.Arrow(@trajectory.clone().normalize(), @trajectory.length(), @offset, @color, headLength, @headWidth, @lineWidth)
       return @
 
   setTrajectory: (trajectory) ->
@@ -50,10 +63,15 @@ class VectorView
       @arrow.setHeadWidth @headWidth
       return @
 
+  setHeadLength: (headLength) ->
+      @headLength = headLength
+      @arrow.setHeadLength @headLength
+      return @
+
   setReactiveTrajectory: (reactiveVector) ->
       @setTrajectory reactiveVector.vector
       reactiveVector.on 'change', (vector) =>
-        @setTrajectory(vector)
+        @setTrajectory vector
       return @
 
   setReactiveOffset: (reactiveVector) ->
