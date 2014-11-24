@@ -1,14 +1,13 @@
 # Matrices: Intro
 INIT['matrices-intro'] = ->
 
-  matrixInput = new ReactiveMatrix().setFromInput('matrixInput')
-
   canvas = $('#canvas')
   view = new View(canvas)
 
   # Draw faces and edges of matrix parallelepiped
-  matrixView = new MatrixView({matrix: matrixInput.matrix})
-  matrixView.drawMatrix view
+  matrixInput = new ReactiveMatrix().setFromInput('matrixInput')
+  matrixView = new MatrixView(matrix: matrixInput)
+  view.add matrixView
 
   # Bind inputs
   keyHandler = new KeyHandler()

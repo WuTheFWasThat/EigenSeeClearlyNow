@@ -1,22 +1,20 @@
 # Intro: One Vector
 INIT['vectors-intro'] = ->
 
-  canvas = $("#canvas")
-
-  # Setup scene, camera, renderer
+  canvas = $('#canvas')
   view = new View(canvas)
 
-  # Vector with arrow
+  # Draw vector as an arrow
   vectorInput = new ReactiveVector().setFromInput('vectorInput')
-  vector = new VectorView().setReactiveTrajectory vectorInput
+  vector = new VectorView(trajectory: vectorInput)
   view.add vector
 
-  # bind inputs
+  # Bind inputs
   keyHandler = new KeyHandler()
   keyHandler.registerView view
 
   mouseHandler = new MouseHandler()
   mouseHandler.registerView view
 
-  # animate!
+  # Animate!
   do view.animate

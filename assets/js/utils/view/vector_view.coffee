@@ -77,9 +77,8 @@ class VectorView
   setReactiveOffset: (reactiveVector) ->
       @setOffset reactiveVector.vector
       reactiveVector.on 'change', (vector) =>
-        @setOffset(vector)
+        @setOffset vector
       return @
 
-  # draw!
   drawOn: (scene) ->
       scene.add @arrow

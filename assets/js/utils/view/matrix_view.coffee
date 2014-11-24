@@ -11,8 +11,19 @@ class MatrixView
   constructor: (options) ->
       options = options or {}
 
-      @matrix = options.matrix or new THREE.Matrix3()
-      @offset = options.offset or new THREE.Vector3()
+      options.matrix = options.matrix or new THREE.Matrix3()
+      if options.matrix instanceof ReactiveMatrix
+        @setReactiveMatrix options.matrix
+      else
+        @setMatrix options.matrix
+
+      # represents the start point of the vector
+      options.offset = options.offset or new THREE.Vector3()
+      if options.offset instanceof ReactiveVector
+        @setReactiveOffset options.offset
+      else
+        @setOffset options.offset
+
       @faceColor = options.faceColor or DEFAULT.PARALLELOGRAM.COLOR
       @edgeColor = options.edgeColor or COLORS.PURPLE
       @vectorColor = options.vectorColor or DEFAULT.VECTOR.COLOR
@@ -20,21 +31,20 @@ class MatrixView
 
       return @
 
+  setMatrix: (matrix) ->
+    @matrix = matrix
+    # TODO: make this work
+    do @extractVectors
+
+  setOffset: (offset) ->
+    @offset = offset
+    # TODO: set offset to the parallelogram
+    return @
+
   # Extract vector components of matrix
   extractVectors: () ->
     [@u, @v, @w] = getVectorsFromMatrix @matrix
     return [@u, @v, @w]
-
-  # Draw matrix as a parallelepiped
-  # with faces and edges
-  drawMatrix: (view) ->
-    faces = @getFaces()
-    for face in faces
-      view.add face
-    edges = @getEdges()
-    for edge in edges
-      view.add edge
-    return @
 
   # Get faces (parallelograms)
   getFaces: () ->
@@ -65,4 +75,26 @@ class MatrixView
           edges.push buildLines [sumOfTwo, sumOfThree], {color: @edgeColor, lineWidth: 1}
 
     return edges
+
+  setReactiveMatrix: (reactiveMatrix) ->
+      @setMatrix reactiveMatrix.matrix
+      reactiveMatrix.on 'change', (matrix) =>
+        @setMatrix matrix
+      return @
+
+  setReactiveOffset: (reactiveVector) ->
+      @setOffset reactiveVector.vector
+      reactiveVector.on 'change', (vector) =>
+        @setOffset vector
+      return @
+
+  # Draw matrix as a parallelepiped with faces and edges
+  drawOn: (scene) ->
+    faces = @getFaces()
+    for face in faces
+      scene.add face
+    edges = @getEdges()
+    for edge in edges
+      scene.add edge
+    return @
 

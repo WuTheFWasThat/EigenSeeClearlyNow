@@ -110,6 +110,8 @@ class View
     for object in objects
       if object instanceof VectorView
         object.drawOn @scene
+      else if object instanceof MatrixView
+        object.drawOn @scene
       else
         @scene.add object
 
