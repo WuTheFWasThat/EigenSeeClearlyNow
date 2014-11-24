@@ -12,7 +12,7 @@ mixin constant_input(id, options)
   - if (color) { wellStyle += 'border: 5px solid ' + color + ';'; }
   - if (inline) { wellStyle += 'display: inline-block; '; }
 
-  .well.constant-input(id=id, style=wellStyle)
+  .well.constant-input.unselectable(id=id, style=wellStyle)
     .input-container
       .input-val=value
       input.input(type=type, min=min, max=max, step=step, value=value, disabled=disabled)
@@ -30,7 +30,7 @@ mixin vector_input(id, options)
   - if (color) { wellStyle += 'border: 5px solid ' + color + ';' }
   - if (inline) { wellStyle += 'display: inline-block; '; }
 
-  .well(id=id, style=wellStyle)
+  .well.vector-input.unselectable(id=id, style=wellStyle)
     each dim in ['x', 'y', 'z']
       .input-container(class='input-container-' + dim)
         = ' ' + dim.toUpperCase() + ' = '
@@ -51,7 +51,7 @@ mixin matrix_input(id, options)
   - if (color) { wellStyle += 'border: 5px solid ' + color + ';' }
   - if (inline) { wellStyle += 'display: inline-block; '; }
 
-  .well(id=id, style=wellStyle)
+  .well.matrix-input.unselectable(id=id, style=wellStyle)
     each row in ['x', 'y', 'z']
       .row
         each col in ['x', 'y', 'z']
