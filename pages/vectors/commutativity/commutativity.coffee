@@ -8,10 +8,10 @@ INIT['vectors-commutativity'] = ->
   )
 
   # TODO put this method somewhere appropriate, shouldn't repeat it in demo coffee files
-  setupInputVector = (sliderInput, vectorOptions, line_width) ->
-    vector = new VectorView(vectorOptions).set_reactive_trajectory sliderInput
-    vector.set_color sliderInput.color
-    vector.set_line_width line_width
+  setupInputVector = (sliderInput, vectorOptions, lineWidth) ->
+    vector = new VectorView(vectorOptions).setReactiveTrajectory sliderInput
+    vector.setColor sliderInput.color
+    vector.setLineWidth lineWidth
 
   vectorInputA = new ReactiveVector().setFromInput('vectorA')
   vectorInputB = new ReactiveVector().setFromInput('vectorB')
@@ -26,12 +26,12 @@ INIT['vectors-commutativity'] = ->
   vectorAFromOrigin = setupInputVector(vectorInputA, vectorOptions, 2)
 
   vectorBFromA = setupInputVector(vectorInputB, vectorOptions, 2)
-               .set_reactive_offset vectorInputA
+               .setReactiveOffset vectorInputA
 
   vectorBFromOrigin = setupInputVector(vectorInputB, vectorOptions, 2)
 
   vectorAFromB = setupInputVector(vectorInputA, vectorOptions, 2)
-               .set_reactive_offset vectorInputB
+               .setReactiveOffset vectorInputB
 
   vectorInputSum = new ReactiveVector().setFromInput('vectorSum')
   vectorInputSum.sum vectorInputA, vectorInputB
@@ -42,10 +42,10 @@ INIT['vectors-commutativity'] = ->
 
   # bind inputs
   keyHandler = new KeyHandler()
-  keyHandler.register_view view
+  keyHandler.registerView view
 
   mouseHandler = new MouseHandler()
-  mouseHandler.register_view view
+  mouseHandler.registerView view
 
   # animate!
   do view.animate

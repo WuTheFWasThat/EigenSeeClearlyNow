@@ -15,15 +15,15 @@ INIT['vectors-intro'] = ->
   # Vector with arrow
 
   vectorInput = new ReactiveVector().setFromInput('vectorInput')
-  vector = new VectorView(vectorOptions).set_reactive_trajectory vectorInput
+  vector = new VectorView(vectorOptions).setReactiveTrajectory vectorInput
   view.add vector
 
   # bind inputs
   keyHandler = new KeyHandler()
-  keyHandler.register_view view
+  keyHandler.registerView view
 
   mouseHandler = new MouseHandler()
-  mouseHandler.register_view view
+  mouseHandler.registerView view
 
   # animate!
   do view.animate

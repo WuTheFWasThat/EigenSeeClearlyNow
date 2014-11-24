@@ -9,7 +9,7 @@ class ReactiveMatrix extends Reactive
   change: () ->
     @emit 'change', @matrix
 
-  set_matrix: (matrix) ->
+  setMatrix: (matrix) ->
     @matrix = matrix
     do @change
     return @
@@ -19,9 +19,9 @@ class ReactiveMatrix extends Reactive
     rowY = new ReactiveVector()
     rowZ = new ReactiveVector()
     updateRows = () =>
-      rowX.set_vector new THREE.Vector3(@matrix.n11, @matrix.n12, @matrix.n13)
-      rowY.set_vector new THREE.Vector3(@matrix.n21, @matrix.n22, @matrix.n23)
-      rowZ.set_vector new THREE.Vector3(@matrix.n31, @matrix.n32, @matrix.n33)
+      rowX.setVector new THREE.Vector3(@matrix.n11, @matrix.n12, @matrix.n13)
+      rowY.setVector new THREE.Vector3(@matrix.n21, @matrix.n22, @matrix.n23)
+      rowZ.setVector new THREE.Vector3(@matrix.n31, @matrix.n32, @matrix.n33)
 
     @on 'change', updateRows
     do updateRows
@@ -73,10 +73,10 @@ class ReactiveMatrix extends Reactive
   times: (multiplicand) ->
     if multiplicand instanceof ReactiveVector
       product = new ReactiveVector()
-      set_values = () =>
-        product_vector = multiplicand.vector.clone().applyMatrix3(@matrix)
-        product.set_vector product_vector
-      @.on 'change', set_values
-      multiplicand.on 'change', set_values
-      do set_values
+      setValues = () =>
+        productVector = multiplicand.vector.clone().applyMatrix3(@matrix)
+        product.setVector productVector
+      @.on 'change', setValues
+      multiplicand.on 'change', setValues
+      do setValues
       return product

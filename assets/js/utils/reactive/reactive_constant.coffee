@@ -18,7 +18,7 @@ class ReactiveConstant extends Reactive
 
   # sets this reactive constant to be the sum of summand reactive constants
   sum: (summands...) ->
-    set_sum = () =>
+    setSum = () =>
       sum = 0
       for summand in summands
         sum += summand.val
@@ -26,7 +26,7 @@ class ReactiveConstant extends Reactive
       do @change
 
     for summand in summands
-      summand.on 'change', set_sum
+      summand.on 'change', setSum
 
   setFromInput: (constantInputId) ->
     @input = $('#' + constantInputId)
@@ -50,10 +50,10 @@ class ReactiveConstant extends Reactive
   times: (multiplicand) ->
     if multiplicand instanceof ReactiveVector
       product = new ReactiveVector()
-      set_values = () =>
-        product_vector = multiplicand.vector.clone().multiplyScalar(@val)
-        product.set_vector product_vector
-      @.on 'change', set_values
-      multiplicand.on 'change', set_values
-      do set_values
+      setValues = () =>
+        productVector = multiplicand.vector.clone().multiplyScalar(@val)
+        product.setVector productVector
+      @.on 'change', setValues
+      multiplicand.on 'change', setValues
+      do setValues
       return product

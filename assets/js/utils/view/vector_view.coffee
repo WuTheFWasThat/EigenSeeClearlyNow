@@ -24,44 +24,44 @@ class VectorView
       @arrow = new THREE.Arrow(@trajectory.clone().normalize(), @trajectory.length(), @offset, @color, headLength, @headWidth, @lineWidth)
       return @
 
-  set_trajectory: (trajectory) ->
+  setTrajectory: (trajectory) ->
       @trajectory = trajectory
       @arrow.setDirection @trajectory.clone().normalize()
       @arrow.setLength @trajectory.length()
       return @
 
-  set_offset: (offset) ->
+  setOffset: (offset) ->
       @offset = offset
       @arrow.setOffset @offset
       return @
 
-  set_color: (color) ->
+  setColor: (color) ->
       @color = color
       @arrow.setColor @color
       return @
 
-  set_line_width: (lineWidth) ->
+  setLineWidth: (lineWidth) ->
       @lineWidth = lineWidth
       @arrow.setLineWidth @lineWidth
       return @
 
-  set_head_width: (headWidth) ->
+  setHeadWidth: (headWidth) ->
       @headWidth = headWidth
       @arrow.setHeadWidth @headWidth
       return @
 
-  set_reactive_trajectory: (r_vector) ->
-      @set_trajectory r_vector.vector
-      r_vector.on 'change', (vector) =>
-        @set_trajectory(vector)
+  setReactiveTrajectory: (reactiveVector) ->
+      @setTrajectory reactiveVector.vector
+      reactiveVector.on 'change', (vector) =>
+        @setTrajectory(vector)
       return @
 
-  set_reactive_offset: (r_vector) ->
-      @set_offset r_vector.vector
-      r_vector.on 'change', (vector) =>
-        @set_offset(vector)
+  setReactiveOffset: (reactiveVector) ->
+      @setOffset reactiveVector.vector
+      reactiveVector.on 'change', (vector) =>
+        @setOffset(vector)
       return @
 
   # draw!
-  draw_on: (scene) ->
+  drawOn: (scene) ->
       scene.add @arrow

@@ -23,10 +23,10 @@ INIT['matrices-intro'] = ->
 
   # bind inputs
   keyHandler = new KeyHandler()
-  keyHandler.register_view view
+  keyHandler.registerView view
 
   mouseHandler = new MouseHandler()
-  mouseHandler.register_view view
+  mouseHandler.registerView view
 
   # animate!
   do view.animate

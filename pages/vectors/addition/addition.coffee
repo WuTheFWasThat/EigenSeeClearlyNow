@@ -10,10 +10,10 @@ INIT['vectors-addition'] = ->
     headLength: 10
   )
 
-  setupInputVector = (sliderInput, vectorOptions, line_width) ->
-    vector = new VectorView(vectorOptions).set_reactive_trajectory sliderInput
-    vector.set_color sliderInput.color
-    vector.set_line_width line_width
+  setupInputVector = (sliderInput, vectorOptions, lineWidth) ->
+    vector = new VectorView(vectorOptions).setReactiveTrajectory sliderInput
+    vector.setColor sliderInput.color
+    vector.setLineWidth lineWidth
 
   vectorInputA = new ReactiveVector().setFromInput('vectorA')
   vectorA = setupInputVector(vectorInputA, vectorOptions, 4)
@@ -36,7 +36,7 @@ INIT['vectors-addition'] = ->
   vectorSumA = setupInputVector(vectorInputA, vectorOptions, 2)
 
   vectorSumB = setupInputVector(vectorInputB, vectorOptions, 2)
-               .set_reactive_offset vectorInputA
+               .setReactiveOffset vectorInputA
 
   vectorInputSum = new ReactiveVector().setFromInput('vectorSum')
   vectorInputSum.sum vectorInputA, vectorInputB
@@ -47,10 +47,10 @@ INIT['vectors-addition'] = ->
 
   # bind inputs
   keyHandler = new KeyHandler()
-  keyHandler.register_views viewA, viewB, viewC
+  keyHandler.registerViews viewA, viewB, viewC
 
   mouseHandler = new MouseHandler()
-  mouseHandler.register_views viewA, viewB, viewC
+  mouseHandler.registerViews viewA, viewB, viewC
 
   # animate!
   do viewA.animate

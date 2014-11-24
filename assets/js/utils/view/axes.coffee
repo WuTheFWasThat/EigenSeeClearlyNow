@@ -36,7 +36,7 @@ class Axes
   buildPositiveAxis: (axisLabel, axisLength, axisColor) ->
     vector = new THREE.Vector3()
     vector[axisLabel.toLowerCase()] = axisLength
-    axisVector = new VectorView(color: axisColor).set_trajectory vector
+    axisVector = new VectorView(color: axisColor).setTrajectory vector
     label = @buildAxisLabel axisLabel, axisVector
     axis = new THREE.Object3D()
     axis.add axisVector.arrow

@@ -109,7 +109,7 @@ class View
   add: (objects...) ->
     for object in objects
       if object instanceof VectorView
-        object.draw_on @scene
+        object.drawOn @scene
       else
         @scene.add object
 

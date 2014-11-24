@@ -25,18 +25,18 @@ class KeyHandler
             view.rotate 0, -speed
           return cancelEvent e
 
-  register_view: (view, speed = 2) ->
+  registerView: (view, speed = 2) ->
     id = 0
     while id of @views
       id += 1
     @views[id] = [view, speed]
     return id
 
-  register_views: (views...) ->
-    return (@register_view view for view in views)
+  registerViews: (views...) ->
+    return (@registerView view for view in views)
 
-  unregister_view: (id) ->
+  unregisterView: (id) ->
     delete @views[id]
 
-  unregister_views: (ids...) ->
-    return (@unregister_view id for id in ids)
+  unregisterViews: (ids...) ->
+    return (@unregisterView id for id in ids)

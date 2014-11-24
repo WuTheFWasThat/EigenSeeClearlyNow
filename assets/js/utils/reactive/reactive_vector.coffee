@@ -9,23 +9,23 @@ class ReactiveVector extends Reactive
   change: () ->
     @emit 'change', @vector
 
-  set_vector: (vector) ->
+  setVector: (vector) ->
     @vector = vector
     do @change
     return @
 
   # sets this reactive vector to be the sum of summand reactive vectors
   sum: (summands...) ->
-    set_sum = () =>
+    setSum = () =>
       sum = new THREE.Vector3()
       for summand in summands
         sum.add(summand.vector)
-      @set_vector sum
+      @setVector sum
 
     for summand in summands
-      summand.on 'change', set_sum
+      summand.on 'change', setSum
 
-    do set_sum
+    do setSum
 
   fromReactiveConstants: (c1, c2, c3) ->
     update = () =>

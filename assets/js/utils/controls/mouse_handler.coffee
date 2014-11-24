@@ -4,13 +4,13 @@
 class MouseHandler extends Reactive
   constructor: ->
     super
-    @mousewheel_event_emitters = {}
-    @mousedrag_event_emitters = {}
+    @mousewheelEventEmitters = {}
+    @mousedragEventEmitters = {}
 
   mousedrag: (dx, dy) ->
     @emit 'mousedrag', dx, dy
 
-  register_mousedrag_on: (div) ->
+  registerMousedragOn: (div) ->
 
     # register mouse dragging
     mousedown = false
@@ -67,20 +67,20 @@ class MouseHandler extends Reactive
       return cancelEvent e
 
     id = 0
-    while id of @mousedrag_event_emitters
+    while id of @mousedragEventEmitters
       id += 1
-    @mousedrag_event_emitters[id] = div
+    @mousedragEventEmitters[id] = div
     return id
 
-  unregister_mousedrag_on: (id) ->
-    div = @mousedrag_event_emitters[id]
+  unregisterMousedragOn: (id) ->
+    div = @mousedragEventEmitters[id]
     do div.unbind
-    delete @mousedrag_event_emitters[id]
+    delete @mousedragEventEmitters[id]
 
   mousewheel: (d) ->
     @emit 'mousewheel', d
 
-  register_mousewheel_on: (div) ->
+  registerMousewheelOn: (div) ->
     wheelspeed = wheelspeed or 10
 
     div.bind 'MozMousePixelScroll', cancelEvent
@@ -121,25 +121,25 @@ class MouseHandler extends Reactive
       return cancelEvent e
 
     id = 0
-    while id of @mousewheel_event_emitters
+    while id of @mousewheelEventEmitters
       id += 1
-    @mousewheel_event_emitters[id] = div
+    @mousewheelEventEmitters[id] = div
     return id
 
-  unregister_mousewheel_on: (id) ->
-    div = @mousewheel_event_emitters[id]
+  unregisterMousewheelOn: (id) ->
+    div = @mousewheelEventEmitters[id]
     do div.unbind
-    delete @mousewheel_event_emitters[id]
+    delete @mousewheelEventEmitters[id]
 
-  register_view: (view) ->
-    id1 = @register_mousedrag_on view.canvas
+  registerView: (view) ->
+    id1 = @registerMousedragOn view.canvas
     @on 'mousedrag', view.rotate.bind(view)
 
-    id2 = @register_mousewheel_on view.canvas
+    id2 = @registerMousewheelOn view.canvas
     @on 'mousewheel', view.zoom.bind(view)
 
     return [id1, id2]
 
-  register_views: (views...) ->
-    return (@register_view view for view in views)
+  registerViews: (views...) ->
+    return (@registerView view for view in views)
 
