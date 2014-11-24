@@ -1,14 +1,14 @@
 # Addition: Adding two vectors
 INIT['vectors-addition'] = ->
 
-  canvasA = $("#canvasA")
+  canvasA = $('#canvasA')
   viewA = new View(canvasA)
 
   vectorInputA = new ReactiveVector().setFromInput('vectorA')
   vectorA = new VectorView(color: vectorInputA.color, trajectory: vectorInputA)
   viewA.add vectorA
 
-  canvasB = $("#canvasB")
+  canvasB = $('#canvasB')
   viewB = new View(canvasB)
 
   vectorInputB = new ReactiveVector().setFromInput('vectorB')
@@ -19,7 +19,7 @@ INIT['vectors-addition'] = ->
   # SUM
   ################
 
-  canvasC = $("#canvasC")
+  canvasC = $('#canvasC')
   viewC = new View(canvasC)
 
   vectorSumA = new VectorView(color: vectorInputA.color, trajectory: vectorInputA, lineWidth: 2)

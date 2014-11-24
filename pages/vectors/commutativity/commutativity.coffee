@@ -8,7 +8,7 @@ INIT['vectors-commutativity'] = ->
   # SUM
   ################
 
-  canvas = $("#sumCanvas")
+  canvas = $('#sumCanvas')
   view = new View(canvas)
 
   vectorAFromOrigin = new VectorView(color: vectorInputA.color, trajectory: vectorInputA, lineWidth: 2)

@@ -8,7 +8,7 @@ INIT['matrices-intro'] = ->
   matrixInput = new ReactiveMatrix().setFromInput('matrixInput')
   [rowX, rowY, rowZ] = do matrixInput.getReactiveRows
 
-  canvas = $("#canvas")
+  canvas = $('#canvas')
   view = new View(canvas)
 
   # Vectors
