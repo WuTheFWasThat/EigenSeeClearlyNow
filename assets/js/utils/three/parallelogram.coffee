@@ -17,10 +17,10 @@ THREE.Parallelogram = (offset, u, v, options) ->
   do @updateVertices
 
   @material = new THREE.MeshBasicMaterial()
+  @material.side = THREE.DoubleSide
   @material.transparent = true
   @setOpacity opacity
   @setColor color
-  @material.side = THREE.DoubleSide
 
   THREE.Mesh.call @, @geometry, @material
 

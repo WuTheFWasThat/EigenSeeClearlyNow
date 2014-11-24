@@ -19,9 +19,10 @@ class ReactiveMatrix extends Reactive
     rowY = new ReactiveVector()
     rowZ = new ReactiveVector()
     updateRows = () =>
-      rowX.setVector new THREE.Vector3(@matrix.n11, @matrix.n12, @matrix.n13)
-      rowY.setVector new THREE.Vector3(@matrix.n21, @matrix.n22, @matrix.n23)
-      rowZ.setVector new THREE.Vector3(@matrix.n31, @matrix.n32, @matrix.n33)
+      [u, v, w] = getVectorsFromMatrix @matrix
+      rowX.setVector u
+      rowY.setVector v
+      rowZ.setVector w
 
     @on 'change', updateRows
     do updateRows
