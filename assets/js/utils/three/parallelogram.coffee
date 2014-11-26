@@ -11,9 +11,9 @@ THREE.Parallelogram = (offset, u, v, options) ->
   @geometry.elementsNeedUpdate = true
   @geometry.vertices = (new THREE.Vector3() for i in [0...4])
 
-  @offset = offset
-  @u = u
-  @v = v
+  @offset = offset or new THREE.Vector3()
+  @u = u or new THREE.Vector3()
+  @v = v or new THREE.Vector3()
   do @updateVertices
 
   @material = new THREE.MeshBasicMaterial()

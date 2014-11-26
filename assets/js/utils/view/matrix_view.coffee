@@ -11,6 +11,10 @@ class MatrixView
   constructor: (options) ->
       options = options or {}
 
+      @faceColor = options.faceColor or DEFAULT.PARALLELOGRAM.COLOR
+      @edgeColor = options.edgeColor or COLORS.PURPLE
+      @vectorColor = options.vectorColor or DEFAULT.VECTOR.COLOR
+
       options.matrix = options.matrix or new THREE.Matrix3()
       if options.matrix instanceof ReactiveMatrix
         @setReactiveMatrix options.matrix
@@ -24,17 +28,17 @@ class MatrixView
       else
         @setOffset options.offset
 
-      @faceColor = options.faceColor or DEFAULT.PARALLELOGRAM.COLOR
-      @edgeColor = options.edgeColor or COLORS.PURPLE
-      @vectorColor = options.vectorColor or DEFAULT.VECTOR.COLOR
-      do @extractVectors
-
+      do @setParallelepiped
       return @
+
+  setParallelepiped: () ->
+    # TODO: make this work
+    [u, v, w] = do @extractVectors
+    console.log u, v, w
+    @parallelepiped = new THREE.Parallelepiped @offset, u, v, w, color: @faceColor
 
   setMatrix: (matrix) ->
     @matrix = matrix
-    # TODO: make this work
-    do @extractVectors
 
   setOffset: (offset) ->
     @offset = offset
@@ -45,18 +49,6 @@ class MatrixView
   extractVectors: () ->
     [@u, @v, @w] = getVectorsFromMatrix @matrix
     return [@u, @v, @w]
-
-  # Get faces (parallelograms)
-  getFaces: () ->
-    faces = []
-    vertices = [@u, @v, @w, @v, @w, @u, @w, @u, @v]
-    for v1, i in vertices by 3
-      v2 = vertices[i+1]
-      v3 = vertices[i+2]
-      faces.push new THREE.Parallelogram(@offset, v1, v2, {color: @faceColor})
-      offsetShifted = @offset.clone().add v3
-      faces.push new THREE.Parallelogram(offsetShifted, v1, v2, {color: @faceColor})
-    return faces
 
   # Get edges (lines)
   getEdges: () ->
@@ -90,9 +82,7 @@ class MatrixView
 
   # Draw matrix as a parallelepiped with faces and edges
   drawOn: (scene) ->
-    faces = @getFaces()
-    for face in faces
-      scene.add face
+    scene.add @parallelepiped
     edges = @getEdges()
     for edge in edges
       scene.add edge
