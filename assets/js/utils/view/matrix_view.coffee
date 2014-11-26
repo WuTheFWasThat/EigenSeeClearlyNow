@@ -11,7 +11,10 @@ class MatrixView
   constructor: (options) ->
       options = options or {}
 
-      @faceColor = options.faceColor or DEFAULT.PARALLELOGRAM.COLOR
+      @parallelepiped = new THREE.Parallelepiped()
+
+      faceColor = if options.faceColor? then options.faceColor else DEFAULT.PARALLELOGRAM.COLOR
+      @setFaceColor faceColor
       @edgeColor = options.edgeColor or COLORS.PURPLE
       @vectorColor = options.vectorColor or DEFAULT.VECTOR.COLOR
 
@@ -28,21 +31,16 @@ class MatrixView
       else
         @setOffset options.offset
 
-      do @setParallelepiped
       return @
-
-  setParallelepiped: () ->
-    # TODO: make this work
-    [u, v, w] = do @extractVectors
-    console.log u, v, w
-    @parallelepiped = new THREE.Parallelepiped @offset, u, v, w, color: @faceColor
 
   setMatrix: (matrix) ->
     @matrix = matrix
+    [u, v, w] = do @extractVectors
+    @parallelepiped.setVectors u, v, w
 
   setOffset: (offset) ->
     @offset = offset
-    # TODO: set offset to the parallelogram
+    @parallelepiped.setOffset @offset
     return @
 
   # Extract vector components of matrix
@@ -69,16 +67,21 @@ class MatrixView
     return edges
 
   setReactiveMatrix: (reactiveMatrix) ->
-      @setMatrix reactiveMatrix.matrix
-      reactiveMatrix.on 'change', (matrix) =>
-        @setMatrix matrix
-      return @
+    @setMatrix reactiveMatrix.matrix
+    reactiveMatrix.on 'change', (matrix) =>
+      @setMatrix matrix
+    return @
 
   setReactiveOffset: (reactiveVector) ->
-      @setOffset reactiveVector.vector
-      reactiveVector.on 'change', (vector) =>
-        @setOffset vector
-      return @
+    @setOffset reactiveVector.vector
+    reactiveVector.on 'change', (vector) =>
+      @setOffset vector
+    return @
+
+  setFaceColor: (color) ->
+    @faceColor = color
+    @parallelepiped.setFaceColor color
+    return @
 
   # Draw matrix as a parallelepiped with faces and edges
   drawOn: (scene) ->

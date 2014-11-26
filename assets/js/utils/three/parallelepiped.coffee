@@ -5,19 +5,20 @@ THREE.Parallelepiped = (offset, u, v, w, options) ->
 
   options = options or {}
 
-  @faceColor = if options.color? then options.color else 0x000000
-  @opacity = if options.opacity? then options.opacity else 0.5
-
-  @offset = offset
-  @u = u
-  @v = v
-  @w = w
   @faces = (new THREE.Parallelogram() for i in [0...6])
 
+  @offset = offset or new THREE.Vector3()
+  @u = u or new THREE.Vector3()
+  @v = v or new THREE.Vector3()
+  @w = w or new THREE.Vector3()
   do @updateFaces
+
+  faceColor = if options.faceColor? then options.faceColor else 0x000000
+  @setFaceColor faceColor
+  opacity = if options.opacity? then options.opacity else 0.5
+  @setOpacity opacity
+
   for face in @faces
-    # do this elsewhere
-    face.setOpacity @opacity
     @add face
   return
 
@@ -33,14 +34,12 @@ THREE.Parallelepiped::.updateFaces = () ->
     face = @faces[2*i]
     face.setOffset @offset
     face.setVectors v1, v2
-    face.setColor @faceColor
 
     offsetShifted = @offset.clone().add v3
 
     face = @faces[2*i+1]
     face.setOffset offsetShifted
     face.setVectors v1, v2
-    face.setColor @faceColor
 
 THREE.Parallelepiped::.setOffset = (offset) ->
   @offset = offset
@@ -52,9 +51,13 @@ THREE.Parallelepiped::.setVectors = (u, v, w) ->
   @w = w
   do @updateFaces
 
-THREE.Parallelepiped::.setColor = (color) ->
-  # todo: loop through faces?
+THREE.Parallelepiped::.setFaceColor = (color) ->
+  @faceColor = color
+  for face in @faces
+    face.setColor @faceColor
 
 THREE.Parallelepiped::.setOpacity = (opacity) ->
-  # todo: loop through faces?
+  @opacity = opacity
+  for face in @faces
+    face.setOpacity @opacity
 
