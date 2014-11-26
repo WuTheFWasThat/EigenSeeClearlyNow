@@ -13,10 +13,13 @@ class MatrixView
 
       @parallelepiped = new THREE.Parallelepiped()
 
-      faceColor = if options.faceColor? then options.faceColor else DEFAULT.PARALLELOGRAM.COLOR
+      faceColor = if options.faceColor? then options.faceColor else DEFAULT.MATRIX.FACECOLOR
       @setFaceColor faceColor
       @edgeColor = options.edgeColor or COLORS.PURPLE
       @vectorColor = options.vectorColor or DEFAULT.VECTOR.COLOR
+
+      opacity = if options.opacity? then options.opacity else DEFAULT.MATRIX.OPACITY
+      @setOpacity opacity
 
       options.matrix = options.matrix or new THREE.Matrix3()
       if options.matrix instanceof ReactiveMatrix
@@ -41,6 +44,11 @@ class MatrixView
   setOffset: (offset) ->
     @offset = offset
     @parallelepiped.setOffset @offset
+    return @
+
+  setOpacity: (opacity) ->
+    @opacity = opacity
+    @parallelepiped.setOpacity @opacity
     return @
 
   # Extract vector components of matrix

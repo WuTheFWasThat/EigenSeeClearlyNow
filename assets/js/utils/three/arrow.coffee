@@ -14,18 +14,20 @@ headLength - Number
 headWidth - Number
 ###
 
-THREE.Arrow = (dir, length, origin, color, headLength, headWidth, arrowThickness) ->
+THREE.Arrow = (options) ->
     # dir is assumed to be normalized
     THREE.Object3D.call this
+
+    options = options or {}
 
     lineGeometry = new THREE.Geometry()
     lineGeometry.vertices.push new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 1, 0)
 
-    origin = origin or new THREE.Vector3()
-    @position.copy origin
+    offset = options.offset or new THREE.Vector3()
+    @setOffset offset
 
-    arrowThickness = arrowThickness or 1
-    @line = new THREE.Line lineGeometry, new THREE.LineBasicMaterial(linewidth: arrowThickness)
+    lineWidth = if options.lineWidth? then options.lineWidth else 1
+    @line = new THREE.Line lineGeometry, new THREE.LineBasicMaterial(linewidth: lineWidth)
     @line.matrixAutoUpdate = false
     @add @line
 
@@ -36,22 +38,24 @@ THREE.Arrow = (dir, length, origin, color, headLength, headWidth, arrowThickness
     @cone = new THREE.Mesh coneGeometry, new THREE.MeshBasicMaterial()
     @cone.matrixAutoUpdate = false
     @add @cone
-    @setDirection dir
 
+    direction = if options.direction? then options.direction else new THREE.Vector3()
+    @setDirection direction
+
+    color = if options.color? then options.color else
     @setColor color
 
-    @length = length or 1
-    @headLength = headLength or 0.2 * length
-    @headWidth = headWidth or 0.2 * headLength
+    length = if options.length? then options.length else 1
+    @setLength length
 
-    @setLength @length
-    @setCone @headLength, @headWidth
+    headLength = if options.headLength? then options.headLength else 0
+    headWidth = if options.headWidth? then options.headWidth else 0
+    @setCone headLength, headWidth
     return
 
 THREE.Arrow:: = Object.create(THREE.Object3D::)
 
 THREE.Arrow::setDirection = (dir) ->
-    dir = dir or new THREE.Vector3()
     axis = new THREE.Vector3()
 
     # dir is assumed to be normalized
@@ -76,8 +80,8 @@ THREE.Arrow::setLength = (length) ->
   @line.visible = (length > 0)
   return @
 
-THREE.Arrow::setOffset = (origin) ->
-  @position.copy origin
+THREE.Arrow::setOffset = (offset) ->
+  @position.copy offset
   return @
 
 THREE.Arrow::setCone = (headLength, headWidth) ->

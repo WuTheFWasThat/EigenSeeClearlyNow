@@ -34,8 +34,8 @@
     exports.COLORS = COLORS
 
     DEFAULT = (
-      PARALLELOGRAM: (
-        COLOR: COLORS.LIGHT_BLUE
+      MATRIX: (
+        FACECOLOR: COLORS.LIGHT_BLUE
         OPACITY: 0.5
       )
       VECTOR: (
