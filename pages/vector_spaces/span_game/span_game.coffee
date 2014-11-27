@@ -51,6 +51,7 @@ INIT['vector_spaces-span_game'] = ->
     sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
     return sphere
 
+  basisMatrix = new ReactiveMatrix()
   # Create the initial three vectors and make them reactive to their scalar input sliders
   [constantU, basisU, scaledU, viewU] = setupScalingVector('coefficientU')
   [constantV, basisV, scaledV, viewV] = setupScalingVector('coefficientV')
@@ -134,6 +135,7 @@ INIT['vector_spaces-span_game'] = ->
 
   $('#reveal_hint').click ->
     $('#hint').removeClass 'hidden'
+    $('#reveal_hint').addClass 'disabled'
 
   # bind inputs
   keyHandler = new KeyHandler()

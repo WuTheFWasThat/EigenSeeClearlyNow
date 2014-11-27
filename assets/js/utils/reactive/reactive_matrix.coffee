@@ -19,7 +19,7 @@ class ReactiveMatrix extends Reactive
     rowY = new ReactiveVector()
     rowZ = new ReactiveVector()
     updateRows = () =>
-      [u, v, w] = getVectorsFromMatrix @matrix
+      [u, v, w] = do @matrix.getRows
       rowX.setVector u
       rowY.setVector v
       rowZ.setVector w

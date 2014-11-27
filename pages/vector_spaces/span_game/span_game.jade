@@ -6,8 +6,8 @@ block morehead
 
 block content
   - var options = {}
-  - options.min = -5
-  - options.max = 5
+  - options.min = -10
+  - options.max = 10
   - options.step = 1
   - options.inline = true
   - options.wellStyle = 'margin-left: 5px;'
@@ -61,4 +61,5 @@ block content
           button.btn.btn-default#reset_game Reset
           button.btn.btn-default#reveal_hint Reveal Hint
       .row#hint.hidden
-        p Try rotating the camera so that one basis vector lines up with the origin.  Then solve the problem in 2D!
+        .well
+          p Try rotating the camera so that one basis vector lines up with the origin.  Then solve the problem in 2D!

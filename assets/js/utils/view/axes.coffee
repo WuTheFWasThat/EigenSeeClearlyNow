@@ -48,7 +48,7 @@ class Axes
     vector = new THREE.Vector3()
     vector[axisLabel.toLowerCase()] = -axisLength
     origin = new THREE.Vector3()
-    axis = buildDashedLine origin, vector, axisColor
+    axis = buildLines [origin, vector], {color: axisColor, lineType: 'DASHED'}
     return axis
     #axisVector = new VectorView(color: axisColor, trajectory: vector, headWidth: 0, headLength: 0, lineWidth: 1)
     #return axisVector.arrow

@@ -38,8 +38,8 @@ class MatrixView
 
   setMatrix: (matrix) ->
     @matrix = matrix
-    [u, v, w] = do @extractVectors
-    @parallelepiped.setVectors u, v, w
+    [@u, @v, @w] = do matrix.getRows
+    @parallelepiped.setVectors @u, @v, @w
 
   setOffset: (offset) ->
     @offset = offset
@@ -50,11 +50,6 @@ class MatrixView
     @opacity = opacity
     @parallelepiped.setOpacity @opacity
     return @
-
-  # Extract vector components of matrix
-  extractVectors: () ->
-    [@u, @v, @w] = getVectorsFromMatrix @matrix
-    return [@u, @v, @w]
 
   # Get edges (lines)
   getEdges: () ->
