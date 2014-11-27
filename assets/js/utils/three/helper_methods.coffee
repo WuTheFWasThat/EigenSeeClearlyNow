@@ -20,6 +20,10 @@ THREE.Matrix3.prototype.setFromRows = (rowX, rowY, rowZ) ->
   @set rowX.x, rowY.x, rowZ.x, rowX.y, rowY.y, rowZ.y, rowX.z, rowY.z, rowZ.z
   return @
 
+THREE.Matrix3.prototype.setFromColumns = (colX, colY, colZ) ->
+  @set colX.x, colX.y, colX.z, colY.x, colY.y, colY.z, colZ.x, colZ.y, colZ.z
+  return @
+
 # Build lines given an array of THREE.Vector3 with the following options:
 # line type (DASHED or SOLID), color, and thickness
 buildLines = (vectors, options) ->
@@ -36,4 +40,16 @@ buildLines = (vectors, options) ->
     material = new THREE.LineDashedMaterial({linewidth: lineWidth, color: color, dashSize: 10, gapSize: 10})
   lines = new THREE.Line(geometry, material, THREE.LinePieces)
   return lines
+
+# Create a point sphere at the given coordinates
+createPoint = (options) ->
+  options = options or {}
+  radius = options.radius or 5
+  widthSegments = options.widthSegments or 32
+  heightSegments = options.heightSegments or 32
+
+  sphereGeometry = new THREE.SphereGeometry( radius, widthSegments, heightSegments )
+  sphereMaterial = new THREE.MeshBasicMaterial()
+  sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
+  return sphere
 

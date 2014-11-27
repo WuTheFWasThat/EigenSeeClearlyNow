@@ -32,8 +32,8 @@ Then just hit port 8080 on localhost
 ## TO-DO: ##
 
 - independence (as a game?)
-- polish span game!
 - make span game 2! (hint: Try rotating the camera so that one basis vector lines up with the origin. You should be able to visually prove that this game is impossible!)
+  - refactor span game!
 
 - matrices!
 
@@ -80,7 +80,7 @@ advanced:
 
 Feel free to send me pull requests!
 
-For 3D visualizations, we use [three.js](https://github.com/mrdoob/three.js).  Many thanks to them!
+For the visualizations, we use [three.js](https://github.com/mrdoob/three.js).  Many thanks to them!
 
 ### CONTRIBUTORS: ###
 - Jeff Wu

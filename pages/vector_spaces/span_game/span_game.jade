@@ -5,9 +5,12 @@ block morehead
   - var bodyClass = 'vector_spaces-span_game'
 
 block content
+  - var maxCoefficientAbs = 10
+  #info.hidden(data-max-coefficient-abs=maxCoefficientAbs)
+
   - var options = {}
-  - options.min = -10
-  - options.max = 10
+  - options.min = -maxCoefficientAbs
+  - options.max = maxCoefficientAbs
   - options.step = 1
   - options.inline = true
   - options.wellStyle = 'margin-left: 5px;'
@@ -63,3 +66,6 @@ block content
       .row#hint.hidden
         .well
           p Try rotating the camera so that one basis vector lines up with the origin.  Then solve the problem in 2D!
+
+      br
+      br
