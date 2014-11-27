@@ -36,7 +36,7 @@ class Axes
   buildPositiveAxis: (axisLabel, axisLength, axisColor) ->
     vector = new THREE.Vector3()
     vector[axisLabel.toLowerCase()] = axisLength
-    axisVector = new VectorView(color: axisColor).setTrajectory vector
+    axisVector = new VectorView(color: axisColor, trajectory: vector)
     label = @buildAxisLabel axisLabel, axisVector
     axis = new THREE.Object3D()
     axis.add axisVector.arrow
@@ -45,11 +45,13 @@ class Axes
 
   # Negative axis is a dashed line
   buildNegativeAxis: (axisLabel, axisLength, axisColor) ->
-    origin = new THREE.Vector3()
     vector = new THREE.Vector3()
     vector[axisLabel.toLowerCase()] = -axisLength
+    origin = new THREE.Vector3()
     axis = buildDashedLine origin, vector, axisColor
     return axis
+    #axisVector = new VectorView(color: axisColor, trajectory: vector, headWidth: 0, headLength: 0, lineWidth: 1)
+    #return axisVector.arrow
 
   # Basic axis label
   buildAxisLabel: (labelText, axis) ->

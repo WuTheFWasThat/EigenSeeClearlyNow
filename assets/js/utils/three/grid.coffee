@@ -1,7 +1,8 @@
-THREE.Grid = (size, step) ->
+THREE.Grid = (size, step, lineWidth) ->
 
+  lineWidth = lineWidth or 2
   geometry = new THREE.Geometry()
-  material = new THREE.LineBasicMaterial(vertexColors: THREE.VertexColors )
+  material = new THREE.LineBasicMaterial(vertexColors: THREE.VertexColors, linewidth: lineWidth )
 
   @colorCenterLine = new THREE.Color(DEFAULT.GRID.COLOR_CENTER_LINE)
   @colorGrid = new THREE.Color(DEFAULT.GRID.COLOR_GRID)

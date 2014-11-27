@@ -76,7 +76,7 @@ THREE.Arrow::setLength = (length) ->
   @cone.position.y = length
   @cone.updateMatrix()
 
-  @cone.visible = (length > 0)
+  @cone.visible = (length > 0) and (@headWidth > 0) and (@headLength > 0)
   @line.visible = (length > 0)
   return @
 

@@ -97,7 +97,7 @@ class View
     @theta = @theta % 360
     # limit
     @phi = Math.min @phi, 90
-    @phi = Math.max @phi, 0
+    @phi = Math.max @phi, -90
 
     do @positionCamera
 

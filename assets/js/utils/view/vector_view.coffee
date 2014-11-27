@@ -10,11 +10,11 @@ class VectorView
 
       @arrow = new THREE.Arrow()
 
-      options.headLength = options.headLength or DEFAULT.VECTOR.HEAD_LENGTH
+      options.headLength = if options.headLength? then options.headLength else DEFAULT.VECTOR.HEAD_LENGTH
       @setHeadLength options.headLength
-      options.headWidth  = options.headWidth or DEFAULT.VECTOR.HEAD_WIDTH
+      options.headWidth  = if options.headWidth? then options.headWidth else DEFAULT.VECTOR.HEAD_WIDTH
       @setHeadWidth options.headWidth
-      options.lineWidth = options.lineWidth or DEFAULT.VECTOR.LINE_WIDTH
+      options.lineWidth = if options.lineWidth? then options.lineWidth else DEFAULT.VECTOR.LINE_WIDTH
       @setLineWidth options.lineWidth
 
       # represents the direction
