@@ -4,14 +4,6 @@ INIT['vector_spaces-span_game'] = ->
   canvas = $('#canvas')
   view = new View(canvas)
 
-  # Setup a vector hooked up to a scalar input slider
-  setupScalingVector = (sliderId) ->
-    coefficient = new ReactiveConstant().setFromInput(sliderId)
-    basis = new ReactiveVector()
-    scaledBasis = coefficient.times basis
-    scaledBasisView = new VectorView(trajectory: scaledBasis, color: coefficient.color, lineWidth: 2)
-    return [coefficient, basis, scaledBasis, scaledBasisView]
-
   # Get a random coefficient value within the slider input values
   getRandomCoefficientValue = (sliderInputName) ->
     input = $('#' + sliderInputName + ' .input')
@@ -41,6 +33,12 @@ INIT['vector_spaces-span_game'] = ->
       vector.set x, y, z
     return vector
 
+  getRandomBasisMatrix = (cU, cV, cW) ->
+    vU = getRandomBasisVector cU
+    vV = getRandomBasisVector cV
+    vW = getRandomBasisVector cW
+    return new THREE.Matrix3 vU.x, vU.y, vU.z, vV.x, vV.y, vV.z, vW.x, vW.y, vW.z
+
   # Create a point sphere at the given coordinates
   createPoint = () ->
     radius = 5
@@ -51,24 +49,27 @@ INIT['vector_spaces-span_game'] = ->
     sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
     return sphere
 
+  # Setup a vector hooked up to a scalar input slider
+  setupScalingVector = (sliderId, basis) ->
+    coefficient = new ReactiveConstant().setFromInput(sliderId)
+    scaledBasis = coefficient.times basis
+    scaledBasisView = new VectorView(trajectory: scaledBasis, color: coefficient.color, lineWidth: 2)
+    return [coefficient, scaledBasis, scaledBasisView]
+
   basisMatrix = new ReactiveMatrix()
+  [basisU, basisV, basisW] = do basisMatrix.getReactiveRows
+
   # Create the initial three vectors and make them reactive to their scalar input sliders
-  [constantU, basisU, scaledU, viewU] = setupScalingVector('coefficientU')
-  [constantV, basisV, scaledV, viewV] = setupScalingVector('coefficientV')
-  [constantW, basisW, scaledW, viewW] = setupScalingVector('coefficientW')
+  [constantU, scaledU, viewU] = setupScalingVector 'coefficientU', basisU
+  [constantV, scaledV, viewV] = setupScalingVector 'coefficientV', basisV
+  [constantW, scaledW, viewW] = setupScalingVector 'coefficientW', basisW
 
   # Create the sum of the scaled vectors
   reactiveVectorSum = new ReactiveVector().sum scaledU, scaledV, scaledW
 
   # answer
-  answerCoefficientU = new ReactiveConstant()
-  answerCoefficientV = new ReactiveConstant()
-  answerCoefficientW = new ReactiveConstant()
-  targetVector = new ReactiveVector().sum(
-                     answerCoefficientU.times(basisU),
-                     answerCoefficientV.times(basisV),
-                     answerCoefficientW.times(basisW))
-
+  answer = new ReactiveVector()
+  targetVector = basisMatrix.times answer
 
   # The target point to reach
   reactiveVectorSum.on 'change', (vector) ->
@@ -110,25 +111,23 @@ INIT['vector_spaces-span_game'] = ->
   view.add viewU, viewV, viewW, viewSum, targetPoint
 
   initGame = () ->
+    answerVector = new THREE.Vector3( getRandomCoefficientValue('coefficientU'),
+                                      getRandomCoefficientValue('coefficientV'),
+                                      getRandomCoefficientValue('coefficientW'))
+    # console.log the answer hehehehehe
+    console.log 'answer:', answerVector.x, answerVector.y, answerVector.z
+    answer.setVector answerVector
+
+    basisMatrix.setMatrix getRandomBasisMatrix 'coefficientU', 'coefficientV', 'coefficientW'
+
     $('#coefficientU .input').val(1).change()
-    answerCoefficientU.set getRandomCoefficientValue 'coefficientU'
-    basisU.setVector getRandomBasisVector 'coefficientU'
-
     $('#coefficientV .input').val(1).change()
-    answerCoefficientV.set getRandomCoefficientValue 'coefficientV'
-    basisV.setVector getRandomBasisVector 'coefficientV'
-
     $('#coefficientW .input').val(1).change()
-    answerCoefficientW.set getRandomCoefficientValue 'coefficientW'
-    basisW.setVector getRandomBasisVector 'coefficientW'
 
     $('#uEquation').text('$\\vec{u} = %s$'.format(vec2latex(basisU.vector)))
     $('#vEquation').text('$\\vec{v} = %s$'.format(vec2latex(basisV.vector)))
     $('#wEquation').text('$\\vec{w} = %s$'.format(vec2latex(basisW.vector)))
     MathJax.Hub.Queue ['Typeset', MathJax.Hub]
-
-    # console.log the answer hehehehehe
-    console.log 'answer:', answerCoefficientU.val, answerCoefficientV.val, answerCoefficientW.val
 
   do initGame
   $('#reset_game').click initGame

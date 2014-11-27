@@ -38,7 +38,7 @@ class MatrixView
 
   setMatrix: (matrix) ->
     @matrix = matrix
-    [@u, @v, @w] = do matrix.getRows
+    [@u, @v, @w] = do matrix.getColumns
     @parallelepiped.setVectors @u, @v, @w
 
   setOffset: (offset) ->

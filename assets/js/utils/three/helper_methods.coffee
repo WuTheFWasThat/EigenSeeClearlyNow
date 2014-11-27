@@ -2,15 +2,23 @@
 # THREE.js helpers
 ################################################################################
 
-# Extract vectors from THREE.Matrix3 (row-major form)
-# where each vector is a row of the matrix
-THREE.Matrix3.prototype.getRows = () ->
+THREE.Matrix3.prototype.getColumns= () ->
   vectors = []
-  vectors.push new THREE.Vector3 @n11, @n12, @n13
-  vectors.push new THREE.Vector3 @n21, @n22, @n23
-  vectors.push new THREE.Vector3 @n31, @n32, @n33
+  vectors.push new THREE.Vector3 @elements[0], @elements[1], @elements[2]
+  vectors.push new THREE.Vector3 @elements[3], @elements[4], @elements[5]
+  vectors.push new THREE.Vector3 @elements[6], @elements[7], @elements[8]
   return vectors
 
+THREE.Matrix3.prototype.getRows = () ->
+  vectors = []
+  vectors.push new THREE.Vector3 @elements[0], @elements[3], @elements[6]
+  vectors.push new THREE.Vector3 @elements[1], @elements[4], @elements[7]
+  vectors.push new THREE.Vector3 @elements[2], @elements[5], @elements[8]
+  return vectors
+
+THREE.Matrix3.prototype.setFromRows = (rowX, rowY, rowZ) ->
+  @set rowX.x, rowY.x, rowZ.x, rowX.y, rowY.y, rowZ.y, rowX.z, rowY.z, rowZ.z
+  return @
 
 # Build lines given an array of THREE.Vector3 with the following options:
 # line type (DASHED or SOLID), color, and thickness
