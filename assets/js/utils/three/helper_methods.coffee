@@ -2,6 +2,19 @@
 # THREE.js helpers
 ################################################################################
 
+################################################################################
+# vectors and matrices
+################################################################################
+
+THREE.Vector3.prototype.randomize = (fn) ->
+  @set (fn 'x'), (fn 'y'), (fn 'z')
+
+# randomizer takes 'row', 'col'
+THREE.Matrix3.prototype.randomize = (fn) ->
+  @set (fn 'x', 'x'), (fn 'x', 'y'), (fn 'x', 'z'),
+       (fn 'y', 'x'), (fn 'y', 'y'), (fn 'y', 'z'),
+       (fn 'z', 'x'), (fn 'z', 'y'), (fn 'z', 'z')
+
 THREE.Matrix3.prototype.getColumns= () ->
   vectors = []
   vectors.push new THREE.Vector3 @elements[0], @elements[1], @elements[2]
@@ -23,6 +36,10 @@ THREE.Matrix3.prototype.setFromRows = (rowX, rowY, rowZ) ->
 THREE.Matrix3.prototype.setFromColumns = (colX, colY, colZ) ->
   @set colX.x, colX.y, colX.z, colY.x, colY.y, colY.z, colZ.x, colZ.y, colZ.z
   return @
+
+################################################################################
+# other
+################################################################################
 
 # Build lines given an array of THREE.Vector3 with the following options:
 # line type (DASHED or SOLID), color, and thickness

@@ -4,7 +4,7 @@ INIT['vector_spaces-span_game'] = ->
   view = new View(canvas)
 
   basisMatrix = new ReactiveMatrix()
-  [basisU, basisV, basisW] = do basisMatrix.getReactiveRows
+  [basisU, basisV, basisW] = do basisMatrix.getReactiveColumns
 
   # Setup a vector hooked up to a scalar input slider
   setupScalingVector = (sliderId, basis) ->
@@ -36,8 +36,8 @@ INIT['vector_spaces-span_game'] = ->
       constantW.get(), vec2latex(basisW.vector),
       vec2latex(reactiveVectorSum.vector)
     )
-    $('#curEquation').text(curEquation)
-    MathJax.Hub.Queue ['Typeset', MathJax.Hub, 'curEquation']
+
+    renderLatex $('#curEquation'), curEquation
   , 100)
 
   # The target point to reach
@@ -59,8 +59,7 @@ INIT['vector_spaces-span_game'] = ->
   targetVector.on 'change', (vector) ->
       # this only happens once per game
       targetPoint.position.copy vector
-      $('#targetEquation').text('$\\vec{t} = %s$'.format(vec2latex(targetVector.vector)))
-      MathJax.Hub.Queue ['Typeset', MathJax.Hub, 'targetEquation']
+      renderLatex $('#targetEquation'), ('$\\vec{t} = %s$'.format vec2latex targetVector.vector)
   do targetVector.change
 
   # Add everything to the view
@@ -73,18 +72,12 @@ INIT['vector_spaces-span_game'] = ->
   maxBasisLength = Math.floor(DEFAULT.AXIS.LENGTH / maxCoefficientAbs)
   minBasisLength = maxBasisLength / 2
 
-  # Get a random coefficient value within the slider input values
-  getRandomCoefficientValue = () ->
-    return Number.randInt -maxCoefficientAbs, maxCoefficientAbs
-
   # Get a THREE vector with a random set of coordinates, with length restriction
   getRandomBasisVector = () ->
     vector = new THREE.Vector3()
     while vector.length() < minBasisLength or vector.length() > maxBasisLength
-      x = Number.randInt -maxBasisLength, maxBasisLength
-      y = Number.randInt -maxBasisLength, maxBasisLength
-      z = Number.randInt -maxBasisLength, maxBasisLength
-      vector.set x, y, z
+      vector.randomize () ->
+        return Number.randInt -maxBasisLength, maxBasisLength
     return vector
 
   # get a basis.  keep the determinant big enough that it's not too hard
@@ -95,7 +88,8 @@ INIT['vector_spaces-span_game'] = ->
     return mat
 
   initGame = () ->
-    answerVector = new THREE.Vector3 (do getRandomCoefficientValue), (do getRandomCoefficientValue), (do getRandomCoefficientValue)
+    answerVector = new THREE.Vector3().randomize () ->
+      return Number.randInt -maxCoefficientAbs, maxCoefficientAbs
     answer.setVector answerVector
     # console.log the answer hehehehehe
     console.log 'answer:', answerVector.x, answerVector.y, answerVector.z
@@ -106,12 +100,9 @@ INIT['vector_spaces-span_game'] = ->
     $('#coefficientV .input').val(1).change()
     $('#coefficientW .input').val(1).change()
 
-    $('#uEquation').text('$\\vec{u} = %s$'.format vec2latex basisU.vector)
-    MathJax.Hub.Queue ['Typeset', MathJax.Hub, 'uEquation']
-    $('#vEquation').text('$\\vec{v} = %s$'.format vec2latex basisV.vector)
-    MathJax.Hub.Queue ['Typeset', MathJax.Hub, 'vEquation']
-    $('#wEquation').text('$\\vec{w} = %s$'.format vec2latex basisW.vector)
-    MathJax.Hub.Queue ['Typeset', MathJax.Hub, 'wEquation']
+    renderLatex $('#uEquation'), ('$\\vec{u} = %s$'.format vec2latex basisU.vector)
+    renderLatex $('#vEquation'), ('$\\vec{v} = %s$'.format vec2latex basisV.vector)
+    renderLatex $('#wEquation'), ('$\\vec{w} = %s$'.format vec2latex basisW.vector)
 
   do initGame
   $('#reset_game').click initGame

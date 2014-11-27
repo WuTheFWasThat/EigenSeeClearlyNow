@@ -33,3 +33,6 @@ Number.randInt = (min, max) ->
 vec2latex = (vector) ->
   return '\\left(\\begin{array}{c}' + vector.x + '\\\\' + vector.y + '\\\\' + vector.z + '\\end{array}\\right)'
 
+renderLatex = (div, latex) ->
+  div.text latex
+  MathJax.Hub.Queue ['Typeset', MathJax.Hub, div[0]]
