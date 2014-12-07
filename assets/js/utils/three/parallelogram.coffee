@@ -35,6 +35,7 @@ THREE.Parallelogram::.updateVertices = () ->
   v2.copy @u
   v3.copy @v
   v4.addVectors @u, @v
+  @geometry.verticesNeedUpdate = true
 
 THREE.Parallelogram::.setOffset = (offset) ->
   @offset = offset
