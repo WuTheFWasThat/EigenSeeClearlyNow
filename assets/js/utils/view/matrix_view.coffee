@@ -51,24 +51,6 @@ class MatrixView
     @parallelepiped.setOpacity @opacity
     return @
 
-  # Get edges (lines)
-  getEdges: () ->
-    edges = []
-    u = @u.clone().add @offset
-    v = @v.clone().add @offset
-    w = @w.clone().add @offset
-    vectors = [u, v, w]
-    sumOfThree = u.clone().add(v).add(w)
-    for v1 in vectors
-      edges.push buildLines [@offset, v1], {color: @vectorColor, lineWidth: 3}
-      for v2 in vectors
-        if !v1.equals(v2)
-          sumOfTwo = v1.clone().add(v2)
-          edges.push buildLines [v1, sumOfTwo], {color: @edgeColor, lineWidth: 1}
-          edges.push buildLines [sumOfTwo, sumOfThree], {color: @edgeColor, lineWidth: 1}
-
-    return edges
-
   setReactiveMatrix: (reactiveMatrix) ->
     @setMatrix reactiveMatrix.matrix
     reactiveMatrix.on 'change', (matrix) =>
@@ -89,8 +71,5 @@ class MatrixView
   # Draw matrix as a parallelepiped with faces and edges
   drawOn: (scene) ->
     scene.add @parallelepiped
-    edges = @getEdges()
-    for edge in edges
-      scene.add edge
     return @
 

@@ -51,10 +51,13 @@ buildLines = (vectors, options) ->
   geometry = new THREE.Geometry()
   for vector in vectors
     geometry.vertices.push(vector)
-  material = new THREE.LineBasicMaterial({linewidth: lineWidth, color: color})
+
   if (lineType == 'DASHED')
     geometry.computeLineDistances()
     material = new THREE.LineDashedMaterial({linewidth: lineWidth, color: color, dashSize: 10, gapSize: 10})
+  else
+    material = new THREE.LineBasicMaterial({linewidth: lineWidth, color: color})
+
   lines = new THREE.Line(geometry, material, THREE.LinePieces)
   return lines
 
