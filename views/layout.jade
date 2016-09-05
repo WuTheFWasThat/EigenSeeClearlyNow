@@ -10,37 +10,23 @@ html
     block morehead
 
   body(class=bodyClass)
-    #wrap.sidebar_active
-      #sidebar
-        #header
-            h1
-              a#header_link(href='/') Eigen see clearly now
-        .row#sidebarContent
-          #table_of_contents
-      #sidebarToggle
-        #sidebarPull
-          span.glyphicon.glyphicon-chevron-left
-      #content
-        #noWebGL.well.hidden
-          h4.text-danger
-            | It looks like your
-            = " "
-            span#noWebGLReason
-            = " "
-            | doesn't support
-            = " "
-            a(href='http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation') WebGL!
-            = "  "
-            | Graphics are much faster if you use a browser with WebGL support.
-            = "  "
-            a(href='http://get.webgl.org/') Get it now to shut me up forever!
-            = "  "
-            | Or
-            = " "
-            a#noWebGLDismiss(href='#') shut me up anyways!
-        block content
-      //#footer
-        p Footer
+    #content
+      #noWebGL.well.hidden
+        h4.text-danger
+          | It looks like your
+          = " "
+          span#noWebGLReason
+          = " "
+          | doesn't support
+          = " "
+          a(href='http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation') WebGL!
+          = "  "
+          | Graphics are much faster if you use a browser with WebGL support.
+          = "  "
+          a(href='http://get.webgl.org/') Get it now to shut me up forever!
+      block content
+    //#footer
+      p Footer
 
     script(src='//code.jquery.com/jquery-2.1.1.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js')

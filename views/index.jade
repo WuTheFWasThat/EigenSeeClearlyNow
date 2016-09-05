@@ -1,19 +1,68 @@
-
 extends layout
 
 block morehead
-  - var bodyClass = 'index'
+  include includes/mathjax
+  - var bodyClass = 'vector_spaces-span_game'
 
 block content
-  h2 About
-  p
-    | EigenSeeClearlyNow is a project to help anyone learning linear algebra visualize its concepts.
-    | It is not intended to be used as a stand-alone learning tool.
+  - var maxCoefficientAbs = 10
+  #info.hidden(data-max-coefficient-abs=maxCoefficientAbs)
 
-  // h2 Controls
-    h4 Use arrow keys or mouse drag to rotate!  Use mousewheel to zoom.
+  - var options = {}
+  - options.min = -maxCoefficientAbs
+  - options.max = maxCoefficientAbs
+  - options.step = 1
+  - options.inline = true
+  - options.wellStyle = 'margin-left: 5px;'
 
-  h2 Source Code
-  p This project is completely open source.  Feel free to contribute!
-  a(href='https://github.com/WuTheFWasThat/EigenSeeClearlyNow') Click here to view on Github
+  h2.text-center Reach the target!
 
+  h1.text-center $c_u \cdot \vec{u} + c_v \cdot \vec{v} + c_w \cdot \vec{w} = \vec{t}$
+
+  hr
+
+  .row(style='position:relative')
+    .col-md-6
+      canvas#canvas.center
+
+    .col-md-6
+      .row
+        .col-md-6
+          span $c_u = $
+          - options.color = CONSTANTS.COLORS.LIGHT_RED
+          +constant_input('coefficientU', options)
+        .col-md-6
+          p.basisEquation#uEquation
+
+      .row
+        .col-md-6
+          span $c_v = $
+          - options.color = CONSTANTS.COLORS.LIGHT_GREEN
+          +constant_input('coefficientV', options)
+        .col-md-6
+          p.basisEquation#vEquation
+
+      .row
+        .col-md-6
+          span $c_w = $
+          - options.color = CONSTANTS.COLORS.LIGHT_BLUE
+          +constant_input('coefficientW', options)
+        .col-md-6
+          p.basisEquation#wEquation
+
+      .row
+        h4#targetEquation.text-center
+
+      br
+
+      #curEquationContainer.row
+        p#curEquation
+
+      hr
+      .row.center
+        .btn-group
+          button.btn.btn-default#reset_game Reset
+          button.btn.btn-default#reveal_hint Reveal Hint
+      .row#hint.hidden
+        .well
+          p Try rotating the camera so that one basis vector lines up with the origin.  Then solve the problem in 2D!

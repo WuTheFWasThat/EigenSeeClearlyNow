@@ -15,4 +15,4 @@ NOTE: order matters here
 
 #= require layout
 #= require index
-#= require_tree pages
+#= require pages/vector_spaces/span_game.coffee
