@@ -1,0 +1,124 @@
+.unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto; }
+
+.text-center {
+  text-align: center; }
+
+body, html {
+  margin: 0;
+  padding: 0;
+  color: #000;
+  background: #F0F0F0; }
+
+#sidebar {
+  -moz-transition: width 1s;
+  -o-transition: width 1s;
+  -webkit-transition: width 1s;
+  transition: width 1s;
+  position: fixed;
+  left: 0;
+  background: #F6F6F6;
+  height: 100%; }
+  .sidebar_active #sidebar {
+    width: 250px; }
+  .sidebar_inactive #sidebar {
+    width: 0px; }
+  #sidebar #header {
+    width: 100%;
+    padding: 20px;
+    background: #993366; }
+    #sidebar #header #header_link {
+      text-decoration: none; }
+  #sidebar #sidebarContent {
+    top: 100px;
+    padding: 25px; }
+
+#sidebarToggle {
+  cursor: pointer;
+  position: fixed;
+  -moz-transition: left 1s;
+  -o-transition: left 1s;
+  -webkit-transition: left 1s;
+  transition: left 1s;
+  width: 15px;
+  height: 100%;
+  background-color: #aaaaaa; }
+  .sidebar_active #sidebarToggle {
+    left: 250px; }
+  .sidebar_inactive #sidebarToggle {
+    left: 0px; }
+  #sidebarToggle #sidebarPull {
+    position: relative;
+    top: 50%; }
+
+#content {
+  -moz-transition: left 1s;
+  -o-transition: left 1s;
+  -webkit-transition: left 1s;
+  transition: left 1s;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  padding: 50px;
+  background: #F0F0F0; }
+  .sidebar_active #content {
+    left: 265px; }
+  .sidebar_inactive #content {
+    left: 15px; }
+
+canvas {
+  width: 100%; }
+  canvas.center {
+    padding-left: 0;
+    padding-right: 0;
+    display: block; }
+
+.constant-input .input-val {
+  width: 20px;
+  display: inline-block; }
+
+.constant-input .input {
+  position: relative;
+  display: inline-block;
+  width: -moz-calc(100% -  20px);
+  width: -webkit-calc(100% -  20px);
+  width: calc(100% -  20px);
+  left: 10px; }
+
+body.vector_spaces-span_game .incorrect {
+  background-color: #FFFFFF; }
+
+body.vector_spaces-span_game .correct {
+  background-color: #FFFF66; }
+
+body.vector_spaces-span_game .constant-input {
+  width: -moz-calc(100% - 50px);
+  width: -webkit-calc(100% - 50px);
+  width: calc(100% - 50px); }
+
+body.vector_spaces-span_game #hint {
+  margin-top: 20px; }
+
+body.vectors-addition canvas {
+  margin-bottom: 20px; }
+
+body.vectors-addition #plus, body.vectors-addition #equals {
+  top: 50%;
+  text-align: center;
+  font-size: 40px;
+  margin-top: -125px; }
+
+body.vectors-addition #plus {
+  left: 29.16667%; }
+
+body.vectors-addition #equals {
+  left: 62.5%; }

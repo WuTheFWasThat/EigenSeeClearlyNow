@@ -1,0 +1,25 @@
+<html><head><title>Eigen see clearly now</title><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/><link rel="stylesheet" href="app.css" /><script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body class="vector_spaces-span_game"><div id="content"><div id="noWebGL" class="well hidden"><h4 class="text-danger">It looks like your <span id="noWebGLReason"></span> doesn't support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">WebGL!</a>  Graphics are much faster if you use a browser with WebGL support.  <a href="http://get.webgl.org/">Get it now to shut me up forever!</a></h4></div><div id="info" data-max-coefficient-abs='10' class="hidden"></div><h2 class="text-center">Reach the target!</h2><h1 class="text-center">$c_u \cdot \vec{u} + c_v \cdot \vec{v} + c_w \cdot \vec{w} = \vec{t}$</h1><hr/><div style="position:relative" class="row"><div class="col-md-6"><canvas id="canvas" class="center"></canvas></div><div class="col-md-6"><div class="row"><div class="col-md-6"><span>$c_u = $</span><div id="coefficientU" style="margin-left: 5px;border: 5px solid #FF6699;display: inline-block; " class="well constant-input unselectable"><div class="input-container"><div class="input-val">0</div><input type="range" min="-10" max="10" step="1" value="0" class="input"/></div></div></div><div class="col-md-6"><p id="uEquation" class="basisEquation"></p></div></div><div class="row"><div class="col-md-6"><span>$c_v = $</span><div id="coefficientV" style="margin-left: 5px;border: 5px solid #99FF66;display: inline-block; " class="well constant-input unselectable"><div class="input-container"><div class="input-val">0</div><input type="range" min="-10" max="10" step="1" value="0" class="input"/></div></div></div><div class="col-md-6"><p id="vEquation" class="basisEquation"></p></div></div><div class="row"><div class="col-md-6"><span>$c_w = $</span><div id="coefficientW" style="margin-left: 5px;border: 5px solid #6699FF;display: inline-block; " class="well constant-input unselectable"><div class="input-container"><div class="input-val">0</div><input type="range" min="-10" max="10" step="1" value="0" class="input"/></div></div></div><div class="col-md-6"><p id="wEquation" class="basisEquation"></p></div></div><div class="row"><h4 id="targetEquation" class="text-center"></h4></div><br/><div id="curEquationContainer" class="row"><p id="curEquation"></p></div><hr/><div class="row center"><div class="btn-group"><button id="reset_game" class="btn btn-default">Reset</button><button id="reveal_hint" class="btn btn-default">Reveal Hint</button></div></div><div id="hint" class="row hidden"><div class="well"><p>Try rotating the camera so that one basis vector lines up with the origin.  Then solve the problem in 2D!</p></div></div></div></div></div><!--#footerp Footer
+--><script src="//code.jquery.com/jquery-2.1.1.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script><script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script><script src="three.min.js"></script>
+<script src="helvetiker_regular.typeface.js"></script>
+<script src="reactive.js"></script>
+<script src="reactive_constant.js"></script>
+<script src="reactive_vector.js"></script>
+<script src="constants.js"></script>
+<script src="key_handler.js"></script>
+<script src="mouse_handler.js"></script>
+<script src="reactive_matrix.js"></script>
+<script src="table_of_contents.js"></script>
+<script src="arrow.js"></script>
+<script src="grid.js"></script>
+<script src="helper_methods.js"></script>
+<script src="parallelepiped.js"></script>
+<script src="parallelogram.js"></script>
+<script src="utils.js"></script>
+<script src="axes.js"></script>
+<script src="matrix_view.js"></script>
+<script src="vector_view.js"></script>
+<script src="view.js"></script>
+<script src="layout.js"></script>
+<script src="index.js"></script>
+<script src="span_game.js"></script>
+</body></html>
