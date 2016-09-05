@@ -6,16 +6,9 @@ This is a project to help anyone learning linear algebra visualize its concepts.
 
 It is still an early-stage work in progress.
 
-Click [here](https://jeffwu-eigen.terminal.com/) for a demo.
+Click [here](https://span.bitballoon.com/) for a partial demo.
 
 ## SETUP ##
-
-### Option 1 - On Terminal.com ###
-
-Make an account on Terminal.com if you don't have one.
-Log in, and start [this snapshot](https://www.terminal.com/snapshot/c0409926af9adfefb358320c21dcd53f883a778e75dde28f360a917c7ffad442).
-
-### Option 2 - Set up yourself ###
 
 Install:
 
