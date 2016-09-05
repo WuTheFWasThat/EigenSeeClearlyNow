@@ -52,14 +52,6 @@ app.set 'view engine', 'jade'
 app.get '/', (req, res) ->
   res.render 'index'
 
-app.get '/:chapter/:section', (req, res) ->
-  chapter = req.param 'chapter'
-  section = req.param 'section'
-  #try
-  res.render 'pages/' + chapter + '/' + section
-  #catch e
-  #  res.render '404'
-
 app.use (req, res, next) ->
   res.status 404
   res.render 'errors/404',
