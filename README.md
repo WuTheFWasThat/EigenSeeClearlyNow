@@ -6,7 +6,7 @@ This is a project to help anyone learning linear algebra visualize its concepts.
 
 It is still an early-stage work in progress.
 
-Click [here](https://span.bitballoon.com/) for a partial demo.
+Click [here](https://www.wuthejeff.com/spangame) for a partial demo.
 
 ## SETUP ##
 
